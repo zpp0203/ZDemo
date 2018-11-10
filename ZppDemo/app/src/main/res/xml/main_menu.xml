@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/main_menu_1"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="菜单1"
+        app:showAsAction="ifRoom"/><!--在空间足够时，菜单项会显示在菜单栏中，否则收纳入溢出菜单中-->
+
+    <item android:id="@+id/main_menu_2"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="菜单2"
+        app:showAsAction="always"/><!--菜单项永远不会被收纳到溢出菜单中，因此在菜单项过多的情况下可能超出菜单栏的显示范围。-->
+
+    <item android:id="@+id/main_menu_3"
+        android:icon="@mipmap/ic_launcher_round"
+        android:title="菜单3"
+        app:showAsAction="withText|always"/><!--无论菜单项是否定义了icon属性，都只会显示它的标题，而不会显示图标。使用这种方式的菜单项默认会被收纳入溢出菜单中-->
+
+    <item android:id="@+id/main_menu_4"
+        android:title="菜单4"
+        app:showAsAction="never"/><!--菜单项永远只会出现在溢出菜单中-->
+</menu>

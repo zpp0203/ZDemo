@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <com.zpp.widget.CustomStartView
+        android:id="@+id/custom_start_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:orientation="vertical"
+        app:rating="3.5"
+        app:start_number="7"
+        app:start_size="20dp"
+        app:start_margin="20dp"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="@color/white">
+        <EditText
+            android:id="@+id/ed_input1"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:maxLength="3"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/ed_input2"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:gravity="center"
+            android:maxLength="3"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/ed_input3"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:maxLength="3"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/ed_input4"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey"
+            android:maxLength="3"
+            android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/black"/>
+
+    </LinearLayout>
+
+
+    <com.zpp.demo.widget.SuperCircleView
+        android:id="@+id/super_ring"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        app:ring_width="10dp"
+        app:ring_normal_color="@color/colorAccent"
+        app:textIsShow="true"
+        app:text="这是个Test"/>
+</LinearLayout>

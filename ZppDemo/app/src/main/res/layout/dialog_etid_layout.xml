@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/dialog_edit_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/dialog_edit_right"
+        android:layout_alignBottom="@+id/dialog_edit_right"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="请输入"
+        android:padding="5dp"/>
+    <ImageButton
+        android:id="@+id/dialog_edit_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/arrow_right"
+        android:layout_alignParentRight="true"/>
+
+    <EditText
+        android:id="@+id/dialog_edit_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_edit_right"/>
+
+    <Button
+        android:id="@+id/dialog_edit_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialog_edit_edit"
+        android:text="确认"/>
+
+</RelativeLayout>

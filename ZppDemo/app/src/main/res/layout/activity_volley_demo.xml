@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送get请求(StringRequest)" />
+
+    <Button
+        android:id="@+id/btn_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送post请求(StringRequest)" />
+
+    <Button
+        android:id="@+id/btn_get2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送get请求(JsonRequest)" />
+
+    <Button
+        android:id="@+id/btn_post2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送post请求(JsonRequest)" />
+
+    <Button
+        android:id="@+id/btn_uploadfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="上传文件(PostUploadRequest)" />
+
+    <Button
+        android:id="@+id/btn_get3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送get请求(GsonRequest)" />
+
+    <Button
+        android:id="@+id/btn_post3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="发送post请求(GsonRequest)" />
+
+    <Button
+        android:id="@+id/btn_xml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求XML数据(XMLRequest)" />
+
+    <Button
+        android:id="@+id/btn_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="利用ImageLoader加载图片" />
+</LinearLayout>
