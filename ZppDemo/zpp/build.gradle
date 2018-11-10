@@ -1,0 +1,55 @@
+apply plugin: 'com.android.library'
+
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    task makeJar(type: Copy) {
+        //删除原有的jar
+        delete 'build/libs/zpp.jar'
+        //原始文件地址
+        from('build/intermediates/bundles/default')
+        //新建jar的文件目录
+        into('build/libs/')
+        include('classes.jar')
+        //重命名
+        rename('classes.jar', 'zpp.jar')
+
+    }
+    makeJar.dependsOn(build)
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+//        exclude group: 'com.android.support', module: 'support-annotations'
+//    })
+    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
+//    testCompile 'junit:junit:4.12'
+    //在jar包中加入自己的资源文件
+    //    provided files('src/main/assets')
+}
+
+

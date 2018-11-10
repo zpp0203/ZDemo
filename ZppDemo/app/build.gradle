@@ -1,0 +1,109 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.2"
+
+    defaultConfig {
+        applicationId "com.zpp.demo"
+        minSdkVersion 18
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        flavorDimensions "versionCode" //多渠道打包时，Plugin 3.0.0之后维度统一，就是该版本号
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath = true
+            }
+        }
+    }
+    buildTypes {
+        /**
+         * 多版本配置
+         * 有module 需要在其下面配置一样的
+         * **/
+
+//        develop {
+//            // 复制 构建类型=“debug”的配置
+//            initWith debug
+//            buildConfigField("String", "BASE_URL", "\"http://stage.cn\"")
+//            buildConfigField("int", "DA", "1")
+//            manifestPlaceholders = [
+//                    app_name: "ZppDemodevelop",
+//                    app_icon: "@mipmap/ic_launcher"
+//            ]
+//            //关键代码，release， debug为library中已有buildType
+//            matchingFallbacks = ['release', 'debug']
+//        }
+        release {
+            minifyEnabled true      //混淆
+            zipAlignEnabled true  // Zipalign优化
+            shrinkResources true // 移除无用的resource文件,必须和minifyEnabled 一起使用
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+//    productFlavors {
+//        "other" {
+//            applicationId="com.ycc.blue"
+//            resValue "string", "app_name", "APP-你的"
+//            manifestPlaceholders = [ //清单文件中的
+//                    FILE_PROVIDER       : "com.ycc.blue.fileProvider" ]
+//          } //别的渠道及本地调试
+//        "baidu" {} //百度
+//        "weixin" {} //微信
+//        "toutiao" {} //今日头条
+//        "sougou" {} //搜狗
+//    }
+//    /**
+//     * 多渠道
+//     *
+//     * 在清单文件中配置
+//     * <meta-data
+//     *     android:name="UMENG_CHANNEL"
+//     *     android:value="${UMENG_CHANNEL_VALUE}"
+//     * **/
+//
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL: name
+//          ]
+//    }
+
+//    lintOptions {
+//        abortOnError false
+//    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            //生成apk名字的格式：sale-1.02.apk 渠道名${variant.productFlavors[0].name}
+            //可自定义自己想要生成的格式
+            outputFileName = "ZppDemo-${defaultConfig.versionName}.apk"//_${releaseTime()}
+        }
+    }
+
+
+}
+
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation project(':zpp')
+    implementation 'com.android.support:recyclerview-v7:28.0.0-rc02'
+    //微信开放sdk
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation files('libs/open_sdk_r6008_lite.jar')
+    implementation files('libs/volley.jar')
+    implementation files('libs/gson-2.2.4.jar')
+    implementation files('libs/butterknife-7.0.1.jar')
+    implementation files('libs/alipaySdk-20180601.jar')
+
+
+    implementation 'de.greenrobot:eventbus:3.0.0-beta1'
+}
