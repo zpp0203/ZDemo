@@ -228,6 +228,7 @@ public class WifiTools {
     }
 
     public String getWifiIpAddress(WifiInfo wifiInfo){
+
         return intToIp(wifiInfo.getIpAddress());
     }
 
