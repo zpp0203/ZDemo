@@ -3,7 +3,6 @@ package com.zpp.demo.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,7 +13,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -24,12 +22,7 @@ import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 
 import com.zpp.demo.R;
-import com.zpp.tools.DensityUtils;
 
-import static android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT;
-/**
- * 每次invalidate可以只画变化的一部分，不需要全部重画
- * */
 public class CustomInputView extends View {
     private final String TAG="CustomInputView";
 
@@ -38,20 +31,15 @@ public class CustomInputView extends View {
     private int itemNumber;//多少个格子
     private int itemLength;//每个格子里的文字长度
     private Drawable itemBackGround;//格子背景
-
-    private float dividerWidth;
-
-    private String mText;
-    //文字内容
-    private boolean isPassword;
-    //字体大小
-    private float textSize;
-    //文字颜色
-    private int textColor;
+    private float dividerWidth;//分隔线宽度
+    private String mText;//文字内容
+    private boolean isPassword;//是否是密码形式
+    private float textSize;//字体大小
+    private int textColor;//文字颜色
 
     private Paint mPaint;
 
-    private int inputType;
+    private int inputType;//输入的类型
     private int currentIndex;
     private int inputLength;
     private String[] values;
@@ -95,11 +83,6 @@ public class CustomInputView extends View {
 
 
     @Override
-    public boolean isFocused() {
-        return true;
-    }
-
-    @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
     }
@@ -119,18 +102,17 @@ public class CustomInputView extends View {
     private void drewText(Canvas canvas) {
         if(currentIndex== 0)
             return;
-
         mPaint.setColor(textColor);
         mPaint.setStrokeWidth(0);
         mPaint.setTypeface(Typeface.DEFAULT);
         mPaint.setTextSize(textSize * 2);
         mText=isPassword?getText().replaceAll(".","*"):getText();
         float y=getMeasuredHeight()/2+textSize;
+        //计算有多少个item的内容
+        int items=currentIndex%itemLength==0?currentIndex/itemLength:currentIndex/itemLength+1;
 
-        int item=currentIndex%itemLength==0?currentIndex/itemLength:currentIndex/itemLength+1;
-
-        for(int i=0;i<item;i++){
-            String text=i==item-1?mText.substring(i*itemLength,currentIndex):mText.substring(i*itemLength,(i+1)*itemLength);
+        for(int i=0;i<items;i++){
+            String text=i==items-1?mText.substring(i*itemLength,currentIndex):mText.substring(i*itemLength,(i+1)*itemLength);
             float x=(itemWidth+dividerWidth)*i+(itemWidth-mPaint.measureText(text))/2;
             canvas.drawText(text,x,y,mPaint);
         }
@@ -206,11 +188,16 @@ public class CustomInputView extends View {
         return super.onTouchEvent(event);
     }
 
+    /*
+    * 设置View为可输入
+    * */
     @Override
     public boolean onCheckIsTextEditor() {
         return true;
     }
-
+    /*
+    * 输入法输入内容的桥梁
+    * */
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         outAttrs.inputType = inputType;
@@ -329,7 +316,7 @@ public class CustomInputView extends View {
     public void setCompleteListener(InputCompleteListener listener) {
         this.completeListener = listener;
     }
-
+    //输入监听
     public interface InputCompleteListener {
         void onComplete(String values);
     }
