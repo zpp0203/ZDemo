@@ -40,12 +40,13 @@
     <declare-styleable name="CustomInputView">
         <attr name="dividerWidth" format="dimension"/>
         <attr name="itemWidth" format="dimension"/>
-        <attr name="itemBackgroundColor" format="color"/>
+        <attr name="itemBackground" format="reference|color"/>
         <attr name="itemNumber" format="integer"/>
         <attr name="itemLength" format="integer"/>
+        <attr name="isPassword" format="boolean" />
+        <attr name="inputType" format="integer"/>
 
         <attr name="textColor"/>
-        <attr name="textIsShow" />
         <attr name="textSize"/>
 
     </declare-styleable>

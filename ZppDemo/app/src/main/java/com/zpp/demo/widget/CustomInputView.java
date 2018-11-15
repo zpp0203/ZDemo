@@ -2,42 +2,60 @@ package com.zpp.demo.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.Typeface;
-import android.text.Editable;
-import android.text.InputFilter;
-import android.text.TextWatcher;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.EditText;
+import android.view.inputmethod.BaseInputConnection;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
 
 import com.zpp.demo.R;
+import com.zpp.tools.DensityUtils;
 
-public class CustomInputView extends EditText {
+import static android.view.inputmethod.InputMethodManager.SHOW_IMPLICIT;
+/**
+ * 每次invalidate可以只画变化的一部分，不需要全部重画
+ * */
+public class CustomInputView extends View {
     private final String TAG="CustomInputView";
+
 
     private float itemWidth;//每个格子的宽度
     private int itemNumber;//多少个格子
     private int itemLength;//每个格子里的文字长度
-    private int itemBackGroundColor;//格子颜色
+    private Drawable itemBackGround;//格子背景
 
     private float dividerWidth;
 
-    private boolean isHasFocus;
-    
     private String mText;
     //文字内容
-    private boolean textIsShow;
+    private boolean isPassword;
     //字体大小
     private float textSize;
     //文字颜色
     private int textColor;
 
     private Paint mPaint;
+
+    private int inputType;
+    private int currentIndex;
+    private int inputLength;
+    private String[] values;
+    private InputCompleteListener completeListener;
 
     public CustomInputView(Context context) {
         this(context,null);
@@ -49,25 +67,23 @@ public class CustomInputView extends EditText {
 
     public CustomInputView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        final float scale = context.getResources().getDisplayMetrics().density;
+
         TypedArray a=context.obtainStyledAttributes(attrs,R.styleable.CustomInputView);
-        itemWidth=a.getDimension(R.styleable.CustomInputView_itemWidth,50);
-        itemBackGroundColor=a.getColor(R.styleable.CustomInputView_itemBackgroundColor,Color.GRAY);
+        itemWidth=a.getDimension(R.styleable.CustomInputView_itemWidth,40*scale);
+
+        itemBackGround=a.getDrawable(R.styleable.CustomInputView_itemBackground);
         itemNumber=a.getInt(R.styleable.CustomInputView_itemNumber,4);
         itemLength=a.getInt(R.styleable.CustomInputView_itemLength,2);
-        dividerWidth=a.getDimension(R.styleable.CustomInputView_dividerWidth,5);
-        textIsShow=a.getBoolean(R.styleable.CustomInputView_textIsShow,true);
-        textSize=a.getDimension(R.styleable.CustomInputView_textSize,18);
+        dividerWidth=a.getDimension(R.styleable.CustomInputView_dividerWidth,5*scale);
+        isPassword=a.getBoolean(R.styleable.CustomInputView_isPassword,true);
+        textSize=a.getDimension(R.styleable.CustomInputView_textSize,14*scale);
         textColor=a.getColor(R.styleable.CustomInputView_textColor,Color.BLACK);
+        inputType = a.getInt(R.styleable.CustomInputView_inputType, InputType.TYPE_CLASS_TEXT);//TYPR_NULL
+        currentIndex = 0;
+        inputLength = itemLength*itemNumber;
+        values=new String[inputLength];
 
-        this.setTextColor(Color.TRANSPARENT);//默认的文字颜色
-        this.setCursorVisible(false);//光标是否可见
-
-        //设置EditText文字变化的监听
-        this.addTextChangedListener(new TextWatcherImpl());
-        //设置焦点变化的监听
-        //this.setOnFocusChangeListener(new FocusChangeListenerImpl());
-        this.requestFocus();
-        this.setFilters(new InputFilter[]{new InputFilter.LengthFilter(itemLength*itemNumber)});
 
         //抗锯齿画笔
         mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -78,6 +94,10 @@ public class CustomInputView extends EditText {
     }
 
 
+    @Override
+    public boolean isFocused() {
+        return true;
+    }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -87,7 +107,8 @@ public class CustomInputView extends EditText {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        
+        mText=getText();
+
         //画格子
         drawItem(canvas);
         
@@ -96,123 +117,224 @@ public class CustomInputView extends EditText {
     }
 
     private void drewText(Canvas canvas) {
-        if(mText==null || mText.isEmpty())
+        if(currentIndex== 0)
             return;
 
         mPaint.setColor(textColor);
         mPaint.setStrokeWidth(0);
         mPaint.setTypeface(Typeface.DEFAULT);
         mPaint.setTextSize(textSize * 2);
-
-        int ll=mText.length()%itemLength==0?mText.length()/itemLength:mText.length()/itemLength+1;
+        mText=isPassword?getText().replaceAll(".","*"):getText();
         float y=getMeasuredHeight()/2+textSize;
-       switch (ll){
-           case 4:
-               String text4=mText.substring(3*itemLength);
-               float textWidth4=mPaint.measureText(text4);
-               float x4=(itemWidth+dividerWidth)*3+(itemWidth-textWidth4)/2;
-               canvas.drawText(text4,x4,y,mPaint);
-               drawOtherText(canvas,3,y);
-               break;
-           case 3:
-               String text3=mText.substring(2*itemLength);
-               float textWidth3=mPaint.measureText(text3);
-               float x3=(itemWidth+dividerWidth)*2+(itemWidth-textWidth3)/2;
-               canvas.drawText(text3,x3,y,mPaint);
-               drawOtherText(canvas,2,y);
-               break;
-           case 2:
-               String text2=mText.substring(1*itemLength);
-               float textWidth2=mPaint.measureText(text2);
-               float x2=(itemWidth+dividerWidth)*1+(itemWidth-textWidth2)/2;
-               canvas.drawText(text2,x2,y,mPaint);
-               drawOtherText(canvas,1,y);
-               break;
-           case 1:
-               String text=mText.substring(0*itemLength);
-               float textWidth=mPaint.measureText(text);
-               float x=(itemWidth+dividerWidth)*0+(itemWidth-textWidth)/2;
-               canvas.drawText(text,x,y,mPaint);
-               break;
-       }
 
-    }
-    private void drawOtherText(Canvas canvas,int t,float y){
-        for(int i4=t;i4>0;i4--){
-            String text=mText.substring((i4-1)*itemLength,i4*itemLength);
-            float textWidth=mPaint.measureText(text);
-            float x=(itemWidth+dividerWidth)*(i4-1)+(itemWidth-textWidth)/2;
+        int item=currentIndex%itemLength==0?currentIndex/itemLength:currentIndex/itemLength+1;
+
+        for(int i=0;i<item;i++){
+            String text=i==item-1?mText.substring(i*itemLength,currentIndex):mText.substring(i*itemLength,(i+1)*itemLength);
+            float x=(itemWidth+dividerWidth)*i+(itemWidth-mPaint.measureText(text))/2;
             canvas.drawText(text,x,y,mPaint);
         }
     }
     private void drawItem(Canvas canvas) {
-        mPaint.setColor(itemBackGroundColor);
-        for(int i=1;i<=itemNumber;i++) {
-            canvas.drawRect((i - 1) * dividerWidth+itemWidth * (i-1), 0, itemWidth * i + (i - 1) * dividerWidth, getMeasuredHeight(), mPaint);
+        //background包括color和Drawable,这里分开取值
+        Bitmap bitmap=null;
+        if (itemBackGround instanceof ColorDrawable) {
+            ColorDrawable colordDrawable = (ColorDrawable) itemBackGround;
+            int color = colordDrawable.getColor();
+            mPaint.setColor(color);
+        } else {
+            bitmap = ((BitmapDrawable) itemBackGround).getBitmap();
+        }
+        for (int i = 1; i <= itemNumber; i++) {
+            if(bitmap!=null) {
+                Rect bitRect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+                Rect canRect = new Rect((int) ((i - 1) * dividerWidth + itemWidth * (i - 1)), 0, (int) (itemWidth * i + (i - 1) * dividerWidth), getMeasuredHeight());
+                canvas.drawBitmap(bitmap, bitRect, canRect, mPaint);
+            }else {
+                canvas.drawRect((i - 1) * dividerWidth + itemWidth * (i - 1), 0, itemWidth * i + (i - 1) * dividerWidth, getMeasuredHeight(), mPaint);
+            }
         }
     }
-
-    public void setFilter(InputFilter[] filters) {
-        //限制长度
-        InputFilter[] filters1 = new InputFilter[filters.length + 1];
-        System.arraycopy(filters, 0, filters1, 0, filters.length);
-        filters1[filters1.length - 1] = new InputFilter.LengthFilter(itemLength*itemNumber);
-        this.setFilters(filters1);
-    }
-
-//    //当单击范围在指定范围时
+/*
+ * 光标的闪烁
+ * */
 //    @Override
-//    public boolean onTouchEvent(MotionEvent event) {
-//        switch (event.getAction()) {
-//            case MotionEvent.ACTION_UP:
-//                //点击的位置，需要做出的操作
-//                boolean isClean = (event.getX() > (getWidth())) &&
-//                        (event.getX() < (getWidth() - getPaddingRight()));
-//                if (isClean){
-//
+//    protected void onAttachedToWindow() {
+//        super.onAttachedToWindow();
+//        isLive = true;
+//        new Thread(() -> {
+//            while (isLive) {
+//                if (hasFocus()) {
+//                    isShowCursor = !isShowCursor;
+//                    postInvalidate();
+//                } else {
+//                    isShowCursor = false;
 //                }
-//                break;
-//            default:
-//                break;
-//        }
-//        return super.onTouchEvent(event);
+//                try {
+//                    Thread.sleep(800);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//    }
+//
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        super.onDetachedFromWindow();
+//        isLive = false;
 //    }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                setFocusableInTouchMode(true); //important
+                setFocusable(true);
+                requestFocus();
+                return true;
+            case MotionEvent.ACTION_UP:
+                try {
+                    InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(this, InputMethodManager.RESULT_SHOWN);
+                    imm.restartInput(this);
+                } catch (Exception ignore) {
+                }
+                break;
+        }
 
+        return super.onTouchEvent(event);
+    }
 
-    /**
-     * 光标监控
-     * */
-    private class FocusChangeListenerImpl implements OnFocusChangeListener{
-        @Override
-        public void onFocusChange(View v, boolean hasFocus){
-            isHasFocus = hasFocus;
-            if (isHasFocus){
+    @Override
+    public boolean onCheckIsTextEditor() {
+        return true;
+    }
 
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        outAttrs.inputType = inputType;
+        outAttrs.imeOptions = EditorInfo.IME_FLAG_NO_EXTRACT_UI;
 
-            } else{
+        return new BaseInputConnection(this, true) {
+            @Override
+            public boolean commitText(CharSequence text, int newCursorPosition) {
+                if (currentIndex == inputLength) {
+                    //isShowCursor = false;
+                    return false;
+                }
+                inputText(text.toString());
 
+                invalidate();
+                return true;
+            }
+
+            @Override
+            public boolean deleteSurroundingText(int beforeLength, int afterLength) {
+                for (int i = afterLength; i < beforeLength; i++) {
+                    deleteLastText();
+                }
+                invalidate();
+                return true;
+            }
+
+            @Override
+            public boolean sendKeyEvent(KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_UP) {
+                    switch (event.getKeyCode()) {
+                        case KeyEvent.KEYCODE_DEL:
+                            if (currentIndex > 0) {
+                                deleteSurroundingText(currentIndex, currentIndex - 1);
+                            }
+                            break;
+                        case KeyEvent.KEYCODE_0:
+                            commitText("0", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_1:
+                            commitText("1", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_2:
+                            commitText("2", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_3:
+                            commitText("3", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_4:
+                            commitText("4", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_5:
+                            commitText("5", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_6:
+                            commitText("6", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_7:
+                            commitText("7", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_8:
+                            commitText("8", currentIndex);
+                            break;
+                        case KeyEvent.KEYCODE_9:
+                            commitText("9", currentIndex);
+                            break;
+                    }
+                }
+                return true;
+            }
+        };
+    }
+
+    public void clearInputText() {
+        currentIndex = 0;
+        values = new String[inputLength];
+    }
+
+    public void inputText(String str) {
+        values[currentIndex] = str;
+        currentIndex++;
+
+        if (completeListener != null) {
+            completeListener.onComplete(getText());
+        }
+        if (currentIndex == inputLength) {
+            try {
+                //隐藏软键盘
+                ((InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(getWindowToken(), 0);
+            } catch (Exception ignore) {
             }
         }
     }
 
-    //输入监听
-    private class TextWatcherImpl implements TextWatcher {
-        @Override
-        public void afterTextChanged(Editable s) {
+    private void deleteLastText() {
+        if (currentIndex > 0) {
+            currentIndex--;
         }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            Log.e(TAG,"onTextChanged:"+getText().toString()+" start:"+start+" before:"+before+" cout:"+count);
-            mText=getText().toString();
-            invalidate();
-        }
+        values[currentIndex] = null;
+        completeListener.onComplete(getText());
     }
+
+    public String[] getValues() {
+        return values;
+    }
+
+    public String getText() {
+        StringBuilder sb = new StringBuilder();
+        for (String str : values) {
+            if (str != null)
+                sb.append(str);
+        }
+        return sb.toString();
+    }
+
+    public void setCompleteListener(InputCompleteListener listener) {
+        this.completeListener = listener;
+    }
+
+    public interface InputCompleteListener {
+        void onComplete(String values);
+    }
+
+
 
     /**
      * view的大小控制
@@ -224,7 +346,7 @@ public class CustomInputView extends EditText {
                 measureHeight(heightMeasureSpec));
     }
     private int measureHeight(int measureSpec) {
-        int result = 50;
+        int result = (int) itemWidth;
         int mode = MeasureSpec.getMode(measureSpec);
         int size = MeasureSpec.getSize(measureSpec);
 

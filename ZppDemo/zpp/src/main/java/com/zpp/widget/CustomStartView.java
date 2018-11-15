@@ -125,4 +125,9 @@ public class CustomStartView extends LinearLayout {
 
         return imageView;
     }
+
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
 }

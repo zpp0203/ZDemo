@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ZppDemo</string>
+
+    <string name="header_hint_refresh_normal">下拉刷新</string>
+    <string name="header_hint_refresh_ready">松开可以刷新</string>
+    <string name="header_hint_refresh_loading">正在刷新</string>
+    <string name="header_hint_refresh_time">上次刷新时间:</string>
+    <string name="footer_load_more_hint_normal">上拉加载更多</string>
+    <string name="footer_load_more_hint_ready">松开载入更多</string>
+    <string name="footer_load_more_hint_all">没有更多动态了</string>
 </resources>

@@ -9,6 +9,7 @@ import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.widget.CircleMessageView;
 import com.zpp.demo.widget.CustomInputView;
 import com.zpp.demo.widget.SuperCircleView;
+import com.zpp.tools.LogUtils;
 import com.zpp.widget.CustomStartView;
 
 import butterknife.Bind;
@@ -38,6 +39,13 @@ public class CustomViewActivity extends BaseActivity {
 
         circleMessageView.setTopText("测试1 测试1 测试1，大大是");
         circleMessageView.setBottomTextText("测试2 测试2 测试2fff 哼哼哈哈");
+
+        customInputView.setCompleteListener(new CustomInputView.InputCompleteListener() {
+            @Override
+            public void onComplete(String values) {
+                LogUtils.e("customInputView:"+values);
+            }
+        });
     }
 
     @OnClick({R.id.super_ring,R.id.custom_input_view})

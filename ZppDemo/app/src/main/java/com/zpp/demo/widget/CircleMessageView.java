@@ -258,5 +258,8 @@ public class CircleMessageView extends View {
         }
         return result;
     }
-
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
 }

@@ -205,4 +205,9 @@ public class SuperCircleView extends View {
         canvas.drawArc(mRectF, 360, mSelectRing, false, ringColorPaint);
         ringColorPaint.setShader(null);
     }
+
+    @Override
+    public boolean isFocused() {
+        return false;
+    }
 }
