@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -206,6 +207,7 @@ public class CustomInputView extends View {
         return new BaseInputConnection(this, true) {
             @Override
             public boolean commitText(CharSequence text, int newCursorPosition) {
+                Log.e(TAG,text+" - "+newCursorPosition);
                 if (currentIndex == inputLength) {
                     //isShowCursor = false;
                     return false;
@@ -277,8 +279,11 @@ public class CustomInputView extends View {
     }
 
     public void inputText(String str) {
-        values[currentIndex] = str;
-        currentIndex++;
+        char[] chars=str.toCharArray();
+        for(int i=0;i<str.length();i++) {
+            values[currentIndex] = String.valueOf(chars[i]);
+            currentIndex++;
+        }
 
         if (completeListener != null) {
             completeListener.onComplete(getText());
