@@ -62,6 +62,9 @@ public class CustomInputView extends View {
         itemWidth=a.getDimension(R.styleable.CustomInputView_itemWidth,40*scale);
 
         itemBackGround=a.getDrawable(R.styleable.CustomInputView_itemBackground);
+        if(itemBackGround==null){
+            itemBackGround=new ColorDrawable(Color.GRAY);
+        }
         itemNumber=a.getInt(R.styleable.CustomInputView_itemNumber,4);
         itemLength=a.getInt(R.styleable.CustomInputView_itemLength,2);
         dividerWidth=a.getDimension(R.styleable.CustomInputView_dividerWidth,5*scale);
