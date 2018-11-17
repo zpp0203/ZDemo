@@ -1,4 +1,4 @@
-package com.zpp.demo.view;
+package com.zpp.demo.view.system;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,30 +19,23 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-
-import com.zpp.demo.BuildConfig;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
+import com.zpp.demo.bean.MainBean;
 import com.zpp.demo.bluetooth.BluetoothActivity;
 import com.zpp.demo.recycleview.BaseRecyclerViewAdapter;
-import com.zpp.demo.bean.MainBean;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import com.zpp.demo.view.other.OtherMainActivity;
-import com.zpp.demo.view.system.SystemMainActivity;
-import com.zpp.demo.view.third.ThirdMainActivity;
-import com.zpp.tools.ActivityUtils;
 import com.zpp.tools.LogUtils;
 import com.zpp.tools.TimeUtils;
 import com.zpp.tools.ToastUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.zpp.demo.view.MainActivity.SendReceiver.ACTION_SEND;
 
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class SystemMainActivity extends BaseActivity implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private RecycleAdapter recycleAdapter;
@@ -93,7 +85,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onItemClick(int position) {
                 LogUtils.e("点击事件"+position);
-                startActivity(new Intent(MainActivity.this, list.get(position).getActivity()));
+                startActivity(new Intent(SystemMainActivity.this, list.get(position).getActivity()));
 
             }
         });
@@ -104,33 +96,33 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 ToastUtils.showLong(mContext,"长按事件");
             }
         });
-//需要在Adapter中设置
-//        recycleAdapter.setOnSubViewClickListener(new BaseRecyclerViewAdapter.OnSubViewClickListener() {
-//            @Override
-//            public void onSubViewClick(View v, int position) {
-//                LogUtils.e("子view点击事件"+position);
-//                ToastUtils.showLong(mContext,"子view点击事件"+position);
-//                switch (v.getId()){
-//                    case R.id.title:
-//                        ToastUtils.showLong(mContext,"title点击事件");
-//                        break;
-//                    case R.id.state:
-//                        ToastUtils.showLong(mContext,"state点击事件");
-//                        break;
-//                }
-//            }
-//        });
+
+        recycleAdapter.setOnSubViewClickListener(new BaseRecyclerViewAdapter.OnSubViewClickListener() {
+            @Override
+            public void onSubViewClick(View v, int position) {
+                LogUtils.e("子view点击事件"+position);
+                ToastUtils.showLong(mContext,"子view点击事件"+position);
+                switch (v.getId()){
+                    case R.id.title:
+                        ToastUtils.showLong(mContext,"title点击事件");
+                        break;
+                    case R.id.state:
+                        ToastUtils.showLong(mContext,"state点击事件");
+                        break;
+                }
+            }
+        });
 
 
         main_menu=findViewById(R.id.main_menu);
         main_menu.setOnClickListener(this);
+        main_menu.setVisibility(View.GONE);
     }
 
     private void initData() {
         list=new ArrayList<>();
-        list.add(new MainBean("System","有关系统功能的",SystemMainActivity.class));
-        list.add(new MainBean("Third","有关第三方的",ThirdMainActivity.class));
-        list.add(new MainBean("Other","自定义的、封装其他的",OtherMainActivity.class));
+        list.add(new MainBean("蓝牙 Demo","蓝牙",BluetoothActivity.class));
+        list.add(new MainBean("Wifi Demo","Wifi搜索",WifiActivity.class));
     }
 
 
@@ -179,19 +171,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.main_menu_1:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_1");
+                        ToastUtils.showLong(getBaseContext(),"main_menu_1");
                         return true;
                     case R.id.main_menu_2:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_2");
+                        ToastUtils.showLong(getBaseContext(),"main_menu_2");
                         return true;
                     case R.id.main_menu_3:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_3");
+                        ToastUtils.showLong(getBaseContext(),"main_menu_3");
                         return true;
                     case R.id.main_menu_4:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_4");
+                        ToastUtils.showLong(getBaseContext(),"main_menu_4");
                         return true;
                     case R.id.main_menu_4_1:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_41");
+                        ToastUtils.showLong(getBaseContext(),"main_menu_41");
                         return true;
                     default:
                         return onOptionsItemSelected(item);

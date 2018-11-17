@@ -16,12 +16,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.ref.WeakReference;
 import java.net.Socket;
-import java.net.UnknownHostException;
 import java.util.Arrays;
 
 import de.greenrobot.event.EventBus;
 
-import static com.zpp.demo.view.TCPActivity.getIPAddress;
+import static com.zpp.demo.view.other.TCPActivity.getIPAddress;
+
 
 public class BackService extends Service {
     private static final String TAG = "BackService";

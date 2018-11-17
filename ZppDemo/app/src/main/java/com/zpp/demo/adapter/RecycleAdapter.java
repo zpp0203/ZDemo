@@ -24,7 +24,7 @@ public class RecycleAdapter extends BaseRecyclerViewAdapter {
         holder.setText(R.id.title,bean.getTitle());
         holder.setText(R.id.state,bean.getState());
 
-        holder.setOnClick(R.id.title,position);
+//        holder.setOnClick(R.id.title,position);
 
     }
 

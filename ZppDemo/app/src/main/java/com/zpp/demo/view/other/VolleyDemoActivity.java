@@ -1,4 +1,4 @@
-package com.zpp.demo.view;
+package com.zpp.demo.view.other;
 
 import android.content.Intent;
 import android.os.Environment;
@@ -319,7 +319,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
      * 通过StringRequest发送get请求
      */
     private void getStringRequest() {
-        String url = "http://api.k780.com:88/?app=phone.get&phone=13800138000&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json";
+        String url = "https://www.jianshu.com/p/6ce99e03080f";
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override

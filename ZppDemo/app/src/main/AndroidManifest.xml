@@ -31,6 +31,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
             android:name=".view.MainActivity"
             android:theme="@style/ProfileTheme">
@@ -41,12 +45,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.welcomeActivity" />
-        <activity android:name=".view.ImageLoaderActivity" />
-        <activity android:name=".view.VolleyDemoActivity" />
-        <activity android:name=".view.WeixinDemoActivity" />
-        <activity android:name=".view.QQDemoActivity" />
-        <activity android:name=".view.RecycleViewDemoActivity" />
-        <activity android:name=".view.ShoppingCartActivity" />
+        <activity android:name=".view.system.SystemMainActivity" />
+        <activity android:name=".view.third.ThirdMainActivity" />
+        <activity android:name=".view.other.OtherMainActivity" />
+        <activity android:name=".view.other.ImageLoaderActivity" />
+        <activity android:name=".view.other.VolleyDemoActivity" />
+        <activity android:name=".view.third.WeixinDemoActivity" />
+        <activity android:name=".view.third.QQDemoActivity" />
+        <activity android:name=".view.other.RecycleViewDemoActivity" />
+        <activity android:name=".view.other.ShoppingCartActivity" />
         <activity android:name=".bluetooth.BluetoothActivity" />
         <!-- QQ分享 -->
         <activity
@@ -66,10 +73,10 @@
             android:name="com.tencent.connect.common.AssistActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <activity android:name=".view.CustomViewActivity"
-            android:screenOrientation="sensor"/>
-        <activity android:name=".view.WifiActivity" />
+        <activity
+            android:name=".view.other.CustomViewActivity"
+            android:screenOrientation="sensor" />
+        <activity android:name=".view.system.WifiActivity" />
 
         <receiver
             android:name=".view.MainActivity$SendReceiver"
@@ -84,31 +91,32 @@
             android:name="com.google.android.actions"
             android:resource="@xml/main_menu" />
 
-        <activity android:name=".view.AliActivity" />
+        <activity android:name=".view.third.AliActivity" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity
             android:name="com.alipay.sdk.app.H5AuthActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"
-            android:windowSoftInputMode="adjustResize|stateHidden"/>
-        <activity android:name=".view.TCPActivity"></activity>
+            android:windowSoftInputMode="adjustResize|stateHidden" />
+        <activity android:name=".view.other.TCPActivity" />
 
-        <service android:name=".tools.BackService"/>
+        <service android:name=".tools.BackService" />
 
-        <!--<receiver android:name=".tools.WifiBroadCastReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED"/>-->
-                <!--<action android:name="android.net.wifi.STATE_CHANGE"/>-->
-                <!--<action android:name="android.net.wifi.supplicant.STATE_CHANGE"/>-->
-                <!--<action android:name="android.net.wifi.NETWORK_IDS_CHANGED"/>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <!-- <receiver android:name=".tools.WifiBroadCastReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/> -->
+        <!-- <action android:name="android.net.wifi.STATE_CHANGE"/> -->
+        <!-- <action android:name="android.net.wifi.supplicant.STATE_CHANGE"/> -->
+        <!-- <action android:name="android.net.wifi.NETWORK_IDS_CHANGED"/> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <activity android:name=".view.other.ValueAnimatorActivity"></activity>
     </application>
 
 </manifest>

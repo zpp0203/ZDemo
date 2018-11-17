@@ -1,4 +1,4 @@
-package com.zpp.demo.view;
+package com.zpp.demo.view.other;
 
 import android.content.Intent;
 import android.os.Bundle;

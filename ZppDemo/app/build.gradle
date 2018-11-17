@@ -82,7 +82,7 @@ android {
         }
     }
 
-
+    useLibrary 'org.apache.http.legacy'
 }
 
 
@@ -103,7 +103,6 @@ dependencies {
     implementation files('libs/gson-2.2.4.jar')
     implementation files('libs/butterknife-7.0.1.jar')
     implementation files('libs/alipaySdk-20180601.jar')
-
 
     implementation 'de.greenrobot:eventbus:3.0.0-beta1'
 }

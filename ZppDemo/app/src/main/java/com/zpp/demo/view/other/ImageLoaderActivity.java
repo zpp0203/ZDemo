@@ -1,4 +1,4 @@
-package com.zpp.demo.view;
+package com.zpp.demo.view.other;
 
 import android.os.Bundle;
 import android.widget.ListView;
