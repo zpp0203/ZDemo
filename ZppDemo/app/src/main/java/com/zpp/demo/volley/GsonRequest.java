@@ -22,12 +22,12 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
-public class GsonRequest extends Request<BaseVO> {
+public class GsonRequest extends Request {
     private static final String TAG = "GsonRequest";
     //超时时间，默认10秒
     private int defaultHttpTimeOut = 10 * 1000;
     //回调监听
-    private Listener<BaseVO> listener;
+    private Listener listener;
     //返回类型
     private Type type;
     //请求参数
@@ -42,13 +42,13 @@ public class GsonRequest extends Request<BaseVO> {
      * @param listener
      * @param errorListener
      */
-    public GsonRequest(String url, Type type, Listener<BaseVO> listener,
+    public GsonRequest(String url, Type type, Listener listener,
                        ErrorListener errorListener) {
         super(Method.GET, url, errorListener);
         this.url=url;
         // 不启用缓存(默认是true)
         setShouldCache(false);
-        this.type = type==null?BaseVO.class:type;
+        this.type = type;
         this.listener = listener;
         // 设置重连策略
         this.setRetryPolicy(new DefaultRetryPolicy(defaultHttpTimeOut,
@@ -66,12 +66,12 @@ public class GsonRequest extends Request<BaseVO> {
      * @param errorListener
      */
     public GsonRequest(String url, Map<String, String> methodBoby, Type type,
-                       Listener<BaseVO> listener, ErrorListener errorListener) {
+                       Listener<Object> listener, ErrorListener errorListener) {
         super(Method.POST, url, errorListener);
         this.url=url;
         this.methodBody = methodBoby;
         this.listener = listener;
-        this.type = type==null?BaseVO.class:type;
+        this.type = type;
         // 不启用缓存
         setShouldCache(false);
         // 设置重连策略
@@ -108,7 +108,7 @@ public class GsonRequest extends Request<BaseVO> {
      * 将服务器返回的原生字节内容进行转换
      */
     @Override
-    protected Response<BaseVO> parseNetworkResponse(NetworkResponse response) {
+    protected Response parseNetworkResponse(NetworkResponse response) {
         try {
             // 获取返回的数据(在 Content-Type首部中获取编码集，如果没有找到，默认返回 ISO-8859-1)
             String jsonString = new String(response.data,
@@ -126,7 +126,7 @@ public class GsonRequest extends Request<BaseVO> {
      * @param jsonString
      * @return
      */
-    private BaseVO parseNetworkResponseDelegate(String jsonString) {
+    private Object parseNetworkResponseDelegate(String jsonString) {
         Log.d(TAG+" url",url);
         if(methodBody!=null){
             StringBuffer params=new StringBuffer();
@@ -146,7 +146,7 @@ public class GsonRequest extends Request<BaseVO> {
      * 将解析后的数据进行回调
      */
     @Override
-    protected void deliverResponse(BaseVO arg0) {
+    protected void deliverResponse(Object arg0) {
         listener.onResponse(arg0);
     }
 }

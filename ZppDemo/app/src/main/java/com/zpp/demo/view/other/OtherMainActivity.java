@@ -125,6 +125,7 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
         list.add(new MainBean("购物车 Demo","防淘宝购物车",ShoppingCartActivity.class));
         list.add(new MainBean("自定义View Demo","自定义View 在设置了横竖屏不同布局时，设置android:screenOrientation=\"sensor\"而不设置android:configChanges",CustomViewActivity.class));
         list.add(new MainBean("TCP Demo","TCP连接",TCPActivity.class));
+        list.add(new MainBean("动画轨迹 Demo","动画轨迹",ValueAnimatorActivity.class));
     }
 
 

@@ -1,14 +1,12 @@
 package com.zpp.demo.bean;
 
 
-import com.zpp.demo.volley.BaseVO;
-
 /**
  * 身份证信息
  *
  * @author 石岩
  */
-public class PersonInfoBean extends BaseVO {
+public class PersonInfoBean {
     private String success;
     private PersonInfoEntity result;
     //失败时出现

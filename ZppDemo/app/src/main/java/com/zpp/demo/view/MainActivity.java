@@ -179,19 +179,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.main_menu_1:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_1");
+                        ToastUtils.showLong(mContext,"main_menu_1");
                         return true;
                     case R.id.main_menu_2:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_2");
+                        ToastUtils.showLong(mContext,"main_menu_2");
                         return true;
                     case R.id.main_menu_3:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_3");
+                        ToastUtils.showLong(mContext,"main_menu_3");
                         return true;
                     case R.id.main_menu_4:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_4");
+                        ToastUtils.showLong(mContext,"main_menu_4");
                         return true;
                     case R.id.main_menu_4_1:
-                        ToastUtils.showLong(ActivityUtils.getActivityUtils().getCurrentActivity(),"main_menu_41");
+                        ToastUtils.showLong(mContext,"main_menu_41");
                         return true;
                     default:
                         return onOptionsItemSelected(item);

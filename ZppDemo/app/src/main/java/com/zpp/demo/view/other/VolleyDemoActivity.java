@@ -17,7 +17,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.zpp.demo.R;
 import com.zpp.demo.bean.PersonInfoBean;
-import com.zpp.demo.volley.BaseVO;
 import com.zpp.demo.volley.FormImage;
 import com.zpp.demo.volley.GsonRequest;
 import com.zpp.demo.volley.MyErrorListener;
@@ -156,7 +155,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
         GsonRequest request = new GsonRequest(url, map, PersonInfoBean.class, new MyReponseListener() {
 
             @Override
-            public void onResponse(BaseVO vo) {
+            public void onResponse(Object vo) {
                 super.onResponse(vo);
                 PersonInfoBean bean = (PersonInfoBean) vo;
                 Log.e("sucess", bean.toString());
@@ -178,7 +177,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
         GsonRequest request = new GsonRequest(url, PersonInfoBean.class, new MyReponseListener() {
 
             @Override
-            public void onResponse(BaseVO t) {
+            public void onResponse(Object t) {
                 super.onResponse(t);
                 PersonInfoBean bean = (PersonInfoBean) t;
                 Log.e("success", bean.toString());

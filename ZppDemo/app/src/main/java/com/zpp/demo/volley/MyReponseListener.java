@@ -7,9 +7,9 @@ import com.android.volley.Response;
  *
  * @author Yan
  */
-public abstract class MyReponseListener implements Response.Listener<BaseVO> {
+public abstract class MyReponseListener implements Response.Listener<Object> {
     @Override
-    public void onResponse(BaseVO arg0) {
+    public void onResponse(Object arg0) {
 
     }
 

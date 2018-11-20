@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-import com.zpp.demo.volley.BaseVO;
-
 import java.util.ArrayList;
 import java.util.List;
 
