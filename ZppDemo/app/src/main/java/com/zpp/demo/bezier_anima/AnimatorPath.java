@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by zhengliang on 2016/10/15 0015.
  * 客户端使用类,记录一系列的不同移动轨迹
  */
 

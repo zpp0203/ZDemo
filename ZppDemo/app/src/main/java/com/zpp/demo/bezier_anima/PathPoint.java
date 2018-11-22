@@ -1,7 +1,6 @@
 package com.zpp.demo.bezier_anima;
 
 /**
- * Created by zhengliang on 2016/10/15 0015.
  * 记录view移动动作的坐标点
  */
 

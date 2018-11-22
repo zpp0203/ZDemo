@@ -1,9 +1,5 @@
 package com.zpp.demo.view.other;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -11,10 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -24,16 +17,11 @@ import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.bean.MainBean;
 import com.zpp.demo.recycleview.BaseRecyclerViewAdapter;
-import com.zpp.tools.ActivityUtils;
-import com.zpp.tools.AppUtils;
 import com.zpp.tools.LogUtils;
-import com.zpp.tools.TimeUtils;
 import com.zpp.tools.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.zpp.demo.view.MainActivity.SendReceiver.ACTION_SEND;
 
 
 public class OtherMainActivity extends BaseActivity implements View.OnClickListener {
@@ -125,7 +113,7 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
         list.add(new MainBean("购物车 Demo","防淘宝购物车",ShoppingCartActivity.class));
         list.add(new MainBean("自定义View Demo","自定义View 在设置了横竖屏不同布局时，设置android:screenOrientation=\"sensor\"而不设置android:configChanges",CustomViewActivity.class));
         list.add(new MainBean("TCP Demo","TCP连接",TCPActivity.class));
-        list.add(new MainBean("动画轨迹 Demo","动画轨迹",ValueAnimatorActivity.class));
+        list.add(new MainBean("动画 Demo","动画",AnimatorActivity.class));
     }
 
 

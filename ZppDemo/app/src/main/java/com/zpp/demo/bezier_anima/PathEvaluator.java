@@ -3,11 +3,12 @@ package com.zpp.demo.bezier_anima;
 import android.animation.TypeEvaluator;
 
 /**
- * Created by zhengliang on 2016/10/15 0015.
  * 估值器类,实现坐标点的计算
  */
 
 public class PathEvaluator implements TypeEvaluator<PathPoint> {
+
+
 
     /**
      * @param t          :执行的百分比
@@ -36,6 +37,7 @@ public class PathEvaluator implements TypeEvaluator<PathPoint> {
             x = endValue.mX;
             y = endValue.mY;
         }
+
         return PathPoint.moveTo(x,y);
     }
 }

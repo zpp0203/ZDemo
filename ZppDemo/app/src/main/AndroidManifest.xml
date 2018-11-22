@@ -116,7 +116,7 @@
         <!-- <action android:name="android.net.wifi.NETWORK_IDS_CHANGED"/> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <activity android:name=".view.other.ValueAnimatorActivity"></activity>
+        <activity android:name=".view.other.AnimatorActivity"></activity>
     </application>
 
 </manifest>
