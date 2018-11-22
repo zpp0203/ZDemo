@@ -7,11 +7,9 @@ import com.android.volley.Response;
  *
  * @author Yan
  */
-public abstract class MyReponseListener implements Response.Listener<Object> {
+public abstract class ZSuccessListener implements Response.Listener<Object> {
     @Override
     public void onResponse(Object arg0) {
 
     }
-
-
 }

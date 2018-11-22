@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -17,10 +15,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.zpp.demo.R;
 import com.zpp.demo.bean.PersonInfoBean;
+import com.zpp.demo.volley.ZResponseListen;
 import com.zpp.demo.volley.FormImage;
 import com.zpp.demo.volley.GsonRequest;
-import com.zpp.demo.volley.MyErrorListener;
-import com.zpp.demo.volley.MyReponseListener;
+import com.zpp.demo.volley.VolleyUtils;
+import com.zpp.demo.volley.ZErrorListener;
+import com.zpp.demo.volley.ZSuccessListener;
 import com.zpp.demo.volley.MyVolley;
 import com.zpp.demo.volley.PostUploadRequest;
 import com.zpp.demo.volley.XMLRequest;
@@ -152,7 +152,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
         map.put("sign", "b59bc3ef6191eb9f747dd4e83c99f2a4");
         map.put("format", "json");
         map.put("idcard", "110101199001011114");
-        GsonRequest request = new GsonRequest(url, map, PersonInfoBean.class, new MyReponseListener() {
+        GsonRequest request = new GsonRequest(url, map, PersonInfoBean.class, new ZSuccessListener() {
 
             @Override
             public void onResponse(Object vo) {
@@ -161,7 +161,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
                 Log.e("sucess", bean.toString());
             }
 
-        }, new MyErrorListener() {
+        }, new ZErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -174,7 +174,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
 
     private void getMyVolley() {
         String url = "http://api.k780.com:88/?app=idcard.get&idcard=110101199001011114&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4&format=json";
-        GsonRequest request = new GsonRequest(url, PersonInfoBean.class, new MyReponseListener() {
+        GsonRequest request = new GsonRequest(url, PersonInfoBean.class, new ZSuccessListener() {
 
             @Override
             public void onResponse(Object t) {
@@ -183,7 +183,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
                 Log.e("success", bean.toString());
             }
 
-        }, new MyErrorListener() {
+        }, new ZErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -287,31 +287,51 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
      */
     private void postStringRequest() {
         String url = "http://api.k780.com:88/?app=phone.get";
+        Map<String, String> map = new HashMap<>();
+        map.put("phone", "13800138000");
+        map.put("appkey", "10003");
+        map.put("sign", "b59bc3ef6191eb9f747dd4e83c99f2a4");
+        map.put("format", "json");
+        map.put("idcard", "110101199001011114");
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        VolleyUtils.getInstance().httpRequest(url,map, new ZResponseListen() {
             @Override
-            public void onResponse(String s) {
-                Log.e("success", s);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            protected void successListener(Object object) {
 
             }
-        }){
-            // 需要重写获取参数的函数,可以向服务器提交参数
-            protected Map<String,String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<>();
-                map.put("phone", "13800138000");
-                map.put("appkey", "10003");
-                map.put("sign", "b59bc3ef6191eb9f747dd4e83c99f2a4");
-                map.put("format", "json");
-                map.put("idcard", "110101199001011114");
-                return map;
+
+            @Override
+            protected void errorListener(int code, String msg) {
+
             }
-        };
-        queue.add(request);
+        });
+
+
+
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String s) {
+//                Log.e("success", s);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//
+//            }
+//        }){
+//            // 需要重写获取参数的函数,可以向服务器提交参数
+//            protected Map<String,String> getParams() throws AuthFailureError {
+//                Map<String, String> map = new HashMap<>();
+//                map.put("phone", "13800138000");
+//                map.put("appkey", "10003");
+//                map.put("sign", "b59bc3ef6191eb9f747dd4e83c99f2a4");
+//                map.put("format", "json");
+//                map.put("idcard", "110101199001011114");
+//                return map;
+//            }
+//        };
+//        queue.add(request);
     }
 
     /**
@@ -319,19 +339,30 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
      */
     private void getStringRequest() {
         String url = "https://www.jianshu.com/p/6ce99e03080f";
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+        VolleyUtils.getInstance().httpRequest(url, new ZResponseListen() {
             @Override
-            public void onResponse(String s) {
-                Log.e("success", s);
+            protected void successListener(Object object) {
+
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError volleyError) {
+            protected void errorListener(int code, String msg) {
 
             }
         });
-        queue.add(request);
+//        RequestQueue queue = Volley.newRequestQueue(this);
+//        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String s) {
+//                Log.e("success", s);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError volleyError) {
+//
+//            }
+//        });
+//        queue.add(request);
     }
 
 

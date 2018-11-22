@@ -29,7 +29,7 @@ import com.android.volley.toolbox.Volley;
 public class MyVolley {
     private static MyVolley instance;
     //请求队列
-    private static RequestQueue mRequestQueue;
+    public static RequestQueue mRequestQueue;
     //创建ImageLoader
     private static ImageLoader mImageLoader;
     //默认分配最大空间的几分之几
