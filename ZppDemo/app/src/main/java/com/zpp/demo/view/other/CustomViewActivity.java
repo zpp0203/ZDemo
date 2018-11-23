@@ -6,15 +6,14 @@ import android.view.View;
 
 import com.zpp.demo.R;
 import com.zpp.demo.base.BaseActivity;
-import com.zpp.demo.widget.CircleMessageView;
-import com.zpp.demo.widget.CustomInputView;
-import com.zpp.demo.widget.SuperCircleView;
 import com.zpp.tools.LogUtils;
+import com.zpp.widget.CircleMessageView;
+import com.zpp.widget.CustomInputView;
 import com.zpp.widget.CustomStartView;
+import com.zpp.widget.SuperCircleView;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import de.greenrobot.event.Subscribe;
 
 
 public class CustomViewActivity extends BaseActivity {

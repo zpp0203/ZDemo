@@ -13,7 +13,9 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+//        在Project/gradle.properties中添加
+//        android.enableAapt2=false
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
@@ -40,16 +42,20 @@ android {
     }
     makeJar.dependsOn(build)
 }
-
+//module下implementation 修饰的只能在当前module中引用,需要改成API
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-//    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-//        exclude group: 'com.android.support', module: 'support-annotations'
-//    })
+    //    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+    //        exclude group: 'com.android.support', module: 'support-annotations'
+    //    })
     implementation 'com.android.support:appcompat-v7:28.0.0-rc02'
-//    testCompile 'junit:junit:4.12'
+    api 'com.android.support:recyclerview-v7:28.0.0-rc02'
+    //    testCompile 'junit:junit:4.12'
     //在jar包中加入自己的资源文件
     //    provided files('src/main/assets')
+    api files('lib/volley.jar')
+    api files('lib/butterknife-7.0.1.jar')
+    api files('lib/gson-2.2.4.jar')
 }
 
 

@@ -1,13 +1,10 @@
 package com.zpp.demo.view.system;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.wifi.ScanResult;
-import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -22,7 +19,7 @@ import com.zpp.demo.R;
 import com.zpp.demo.adapter.WifiListAdapter;
 import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.dialog.EditDialog;
-import com.zpp.demo.recycleview.BaseRecyclerViewAdapter;
+import com.zpp.recycleview.BaseRecyclerViewAdapter;
 import com.zpp.demo.tools.WifiBroadCastReceiver;
 import com.zpp.demo.tools.WifiTools;
 import com.zpp.tools.LogUtils;

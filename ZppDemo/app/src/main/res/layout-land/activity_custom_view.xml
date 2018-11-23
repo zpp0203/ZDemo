@@ -64,7 +64,7 @@
     </LinearLayout>
 
 
-    <com.zpp.demo.widget.SuperCircleView
+    <com.zpp.widget.SuperCircleView
         android:id="@+id/super_ring"
         android:layout_width="100dp"
         android:layout_height="100dp"

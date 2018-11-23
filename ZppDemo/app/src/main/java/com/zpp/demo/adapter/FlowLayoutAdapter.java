@@ -4,12 +4,12 @@ import android.graphics.drawable.GradientDrawable;
 import android.widget.TextView;
 
 import com.zpp.demo.R;
-import com.zpp.demo.recycleview.BaseRecyclerViewAdapter;
-import com.zpp.demo.recycleview.BaseRecyclerViewHolder;
 import com.zpp.demo.bean.MainBean;
 
 import java.util.List;
 
+import com.zpp.recycleview.BaseRecyclerViewAdapter;
+import com.zpp.recycleview.BaseRecyclerViewHolder;
 import com.zpp.tools.DensityUtils;
 
 import static com.zpp.demo.base.MyApplication.mContext;

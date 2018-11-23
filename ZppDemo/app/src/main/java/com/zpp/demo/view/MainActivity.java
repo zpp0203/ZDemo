@@ -21,12 +21,10 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 
-import com.zpp.demo.BuildConfig;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
-import com.zpp.demo.bluetooth.BluetoothActivity;
-import com.zpp.demo.recycleview.BaseRecyclerViewAdapter;
+import com.zpp.recycleview.BaseRecyclerViewAdapter;
 import com.zpp.demo.bean.MainBean;
 
 import java.util.ArrayList;
@@ -35,7 +33,6 @@ import java.util.List;
 import com.zpp.demo.view.other.OtherMainActivity;
 import com.zpp.demo.view.system.SystemMainActivity;
 import com.zpp.demo.view.third.ThirdMainActivity;
-import com.zpp.tools.ActivityUtils;
 import com.zpp.tools.LogUtils;
 import com.zpp.tools.TimeUtils;
 import com.zpp.tools.ToastUtils;

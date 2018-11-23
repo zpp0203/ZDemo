@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.zpp.demo.R;
 import com.zpp.demo.bean.Person;
-import com.zpp.demo.volley.MyVolley;
+import com.zpp.volley.MyVolley;
 
 public class VolleyImagerLoaderAdapter extends BaseAdapter {
     private Context context;

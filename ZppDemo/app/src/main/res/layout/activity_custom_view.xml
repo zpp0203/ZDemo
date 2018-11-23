@@ -15,7 +15,7 @@
         app:start_number="7"
         app:start_size="20dp" />
 
-    <com.zpp.demo.widget.SuperCircleView
+    <com.zpp.widget.SuperCircleView
         android:id="@+id/super_ring"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -26,7 +26,7 @@
         app:circle_color="@color/grey"/>
 
 
-    <com.zpp.demo.widget.CircleMessageView
+    <com.zpp.widget.CircleMessageView
         android:id="@+id/circle_message_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         app:bottomText="也是测试也是测试啊啊啊"
         app:bottomTextColor="@color/red"/>
 
-    <com.zpp.demo.widget.CustomInputView
+    <com.zpp.widget.CustomInputView
         android:id="@+id/custom_input_view"
         android:layout_width="wrap_content"
         android:layout_height="40dp"

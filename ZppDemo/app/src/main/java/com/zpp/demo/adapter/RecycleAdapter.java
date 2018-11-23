@@ -2,8 +2,8 @@ package com.zpp.demo.adapter;
 
 
 import com.zpp.demo.R;
-import com.zpp.demo.recycleview.BaseRecyclerViewAdapter;
-import com.zpp.demo.recycleview.BaseRecyclerViewHolder;
+import com.zpp.recycleview.BaseRecyclerViewAdapter;
+import com.zpp.recycleview.BaseRecyclerViewHolder;
 import com.zpp.demo.bean.MainBean;
 
 import java.util.List;
