@@ -26,15 +26,13 @@ android {
          * 有module 需要在其下面配置一样的
          * **/
 
+        //开发环境
 //        develop {
-//            // 复制 构建类型=“debug”的配置
-//            initWith debug
-//            buildConfigField("String", "BASE_URL", "\"http://stage.cn\"")
-//            buildConfigField("int", "DA", "1")
-//            manifestPlaceholders = [
-//                    app_name: "ZppDemodevelop",
-//                    app_icon: "@mipmap/ic_launcher"
-//            ]
+//            resValue "string", "app_name", "茶掌柜(开发)" //会在资源文件string.xml中自动创建app_name，所以要删除string.xml中对应的
+//            buildConfigField "int", "ENV_TYPE", "2"
+//            applicationId 'com.ycc.blue.develop'
+//            manifestPlaceholders = [ //清单文件中的${FILE_PROVIDER}
+//                    FILE_PROVIDER       : "com.ycc.blue.fileProvider" ]
 //            //关键代码，release， debug为library中已有buildType
 //            matchingFallbacks = ['release', 'debug']
 //        }
@@ -70,7 +68,7 @@ android {
 //        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL: name
 //          ]
 //    }
-
+      //移除lint检测的error
 //    lintOptions {
 //        abortOnError false
 //    }
@@ -79,7 +77,11 @@ android {
         variant.outputs.all {
             //生成apk名字的格式：sale-1.02.apk 渠道名${variant.productFlavors[0].name}
             //可自定义自己想要生成的格式
-            outputFileName = "ZppDemo-${defaultConfig.versionName}.apk"//_${releaseTime()}
+            if(buildType.name!="release"){
+                outputFileName = "ZppDemo-${defaultConfig.versionName}.apk"//_${releaseTime()}
+            }else {
+                outputFileName = "ZppDemo-${defaultConfig.versionName}_${buildType.name}.apk"//_${releaseTime()}
+            }
         }
     }
 
