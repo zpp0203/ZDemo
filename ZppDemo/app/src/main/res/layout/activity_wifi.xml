@@ -3,14 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.WifiActivity">
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/wifi_state"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="open"/>
+    <Button
+        android:id="@+id/wifi_reconnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="reConnect"/>
     <Button
         android:id="@+id/wifi_scan"
         android:layout_width="wrap_content"

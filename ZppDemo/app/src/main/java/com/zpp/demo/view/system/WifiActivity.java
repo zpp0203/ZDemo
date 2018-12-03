@@ -31,6 +31,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.OnClick;
+
 import static android.net.wifi.WifiManager.NETWORK_STATE_CHANGED_ACTION;
 import static android.net.wifi.WifiManager.SCAN_RESULTS_AVAILABLE_ACTION;
 import static android.net.wifi.WifiManager.SUPPLICANT_STATE_CHANGED_ACTION;
@@ -102,7 +104,8 @@ public class WifiActivity extends BaseActivity implements View.OnClickListener {
         }
         initData();
     }
-    @Override  public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode){
             case 1111:
@@ -164,6 +167,8 @@ public class WifiActivity extends BaseActivity implements View.OnClickListener {
             WifiTools.getInstant(this).eableWifi(networkId);
         }
     }
+
+    @OnClick({R.id.wifi_reconnect})
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -173,6 +178,11 @@ public class WifiActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.wifi_scan:
                 initData();
+                break;
+            case R.id.wifi_reconnect:
+                WifiInfo wifiInfo=WifiTools.getInstant(mContext).wifiConnectionInfo();
+                WifiTools.getInstant(mContext).deleteWifi(wifiInfo.getNetworkId());
+                //WifiTools.getInstant(mContext).disConnectWifi();
                 break;
         }
     }

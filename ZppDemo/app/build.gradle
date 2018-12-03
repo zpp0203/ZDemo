@@ -30,7 +30,7 @@ android {
 //        develop {
 //            resValue "string", "app_name", "茶掌柜(开发)" //会在资源文件string.xml中自动创建app_name，所以要删除string.xml中对应的
 //            buildConfigField "int", "ENV_TYPE", "2"
-//            applicationId 'com.ycc.blue.develop'
+//            applicationIdSuffix 'develop' //在原有的后面添加后缀
 //            manifestPlaceholders = [ //清单文件中的${FILE_PROVIDER}
 //                    FILE_PROVIDER       : "com.ycc.blue.fileProvider" ]
 //            //关键代码，release， debug为library中已有buildType

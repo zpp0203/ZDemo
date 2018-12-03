@@ -125,6 +125,14 @@ public class WifiTools {
         return null;
     }
 
+    public void deleteWifi(int netWorkId){
+
+       // mWifiManager.removeNetwork(netWorkId);
+        mWifiManager.disableNetwork(netWorkId);
+    }
+    public void disConnectWifi(){
+        mWifiManager.disconnect();
+    }
     public void reMoveWifi(int networkId){
         mWifiManager.removeNetwork(networkId);
     }
@@ -163,7 +171,7 @@ public class WifiTools {
         config.allowedProtocols.clear();
         //指定对应的SSID
         config.SSID = "\"" + ssid + "\"";
-
+        config.BSSID=scanResult.BSSID;
         //以WEP加密的场景
         if(capabilities.contains("WEP") || capabilities.contains("wep")) {
             config.hiddenSSID = true;
