@@ -1,12 +1,11 @@
 package com.zpp.demo.view.other;
 
 import android.content.Intent;
-import android.os.Environment;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -14,7 +13,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.zpp.demo.R;
+import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.bean.PersonInfoBean;
+import com.zandroid.volley.FormImage;
+import com.zandroid.volley.GsonRequest;
+import com.zandroid.volley.MyVolley;
+import com.zandroid.volley.PostUploadRequest;
+import com.zandroid.volley.VolleyUtils;
+import com.zandroid.volley.XMLRequest;
+import com.zandroid.volley.ZErrorListener;
+import com.zandroid.volley.ZResponseListen;
+import com.zandroid.volley.ZSuccessListener;
 
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
@@ -24,17 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.zpp.demo.base.BaseActivity;
-import com.zpp.volley.FormImage;
-import com.zpp.volley.GsonRequest;
-import com.zpp.volley.MyVolley;
-import com.zpp.volley.PostUploadRequest;
-import com.zpp.volley.VolleyUtils;
-import com.zpp.volley.XMLRequest;
-import com.zpp.volley.ZErrorListener;
-import com.zpp.volley.ZResponseListen;
-import com.zpp.volley.ZSuccessListener;
 
 public class VolleyDemoActivity extends BaseActivity implements View.OnClickListener {
     private Button btn_get;

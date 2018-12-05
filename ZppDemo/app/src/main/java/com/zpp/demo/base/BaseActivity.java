@@ -2,12 +2,11 @@ package com.zpp.demo.base;
 
 import android.app.Activity;
 import android.content.Context;
-
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.zpp.demo.bean.MainBean;
-import com.zpp.tools.ActivityUtils;
+import com.zandroid.tools.ActivityUtils;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;

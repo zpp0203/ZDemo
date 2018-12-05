@@ -14,8 +14,7 @@ import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zpp.demo.R;
-
-import com.zpp.tools.ImageUtils;
+import com.zandroid.tools.ImageUtils;
 
 import static com.zpp.demo.base.Constants.WECHAT_APP_ID;
 

@@ -1,7 +1,5 @@
 package com.zpp.demo.bluetooth.task;
 
-import java.lang.reflect.Method;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
@@ -9,6 +7,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.zpp.demo.bluetooth.util.BluetoothConnector;
+
+import java.lang.reflect.Method;
 
 
 public class BlueAcceptTask extends AsyncTask<Void, Void, BluetoothSocket> {

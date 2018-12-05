@@ -6,7 +6,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,22 +19,20 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
-
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
-import com.zpp.recycleview.BaseRecyclerViewAdapter;
 import com.zpp.demo.bean.MainBean;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.zpp.demo.view.other.OtherMainActivity;
 import com.zpp.demo.view.system.SystemMainActivity;
 import com.zpp.demo.view.third.ThirdMainActivity;
-import com.zpp.tools.LogUtils;
-import com.zpp.tools.TimeUtils;
-import com.zpp.tools.ToastUtils;
+import com.zandroid.recycleview.BaseRecyclerViewAdapter;
+import com.zandroid.tools.LogUtils;
+import com.zandroid.tools.TimeUtils;
+import com.zandroid.tools.ToastUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.zpp.demo.view.MainActivity.SendReceiver.ACTION_SEND;
 

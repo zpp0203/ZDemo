@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <com.zpp.widget.CustomStartView
+    <com.zandroid.widget.CustomStartView
         android:id="@+id/custom_start_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         app:start_number="7"
         app:start_size="20dp" />
 
-    <com.zpp.widget.SuperCircleView
+    <com.zandroid.widget.SuperCircleView
         android:id="@+id/super_ring"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -26,7 +26,7 @@
         app:circle_color="@color/grey"/>
 
 
-    <com.zpp.widget.CircleMessageView
+    <com.zandroid.widget.CircleMessageView
         android:id="@+id/circle_message_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
         app:bottomText="也是测试也是测试啊啊啊"
         app:bottomTextColor="@color/red"/>
 
-    <com.zpp.widget.CustomInputView
+    <com.zandroid.widget.CustomInputView
         android:id="@+id/custom_input_view"
         android:layout_width="wrap_content"
         android:layout_height="40dp"

@@ -14,12 +14,13 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.zpp.tools.ToastUtils;
+import com.zandroid.tools.ToastUtils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,9 +127,18 @@ public class WifiTools {
     }
 
     public void deleteWifi(int netWorkId){
+        try {
+            Method forget = mWifiManager.getClass().getDeclaredMethod("forget", int.class, Class.forName("android.net.wifi.WifiManager$ActionListener"));
+            if (forget != null) {
+                forget.setAccessible(true);
+                forget.invoke(mWifiManager, netWorkId, null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-       // mWifiManager.removeNetwork(netWorkId);
-        mWifiManager.disableNetwork(netWorkId);
+        // mWifiManager.removeNetwork(netWorkId);
+        //mWifiManager.disableNetwork(netWorkId);
     }
     public void disConnectWifi(){
         mWifiManager.disconnect();

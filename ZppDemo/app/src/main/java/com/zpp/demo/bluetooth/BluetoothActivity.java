@@ -1,9 +1,5 @@
 package com.zpp.demo.bluetooth;
 
-import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -28,8 +24,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ListView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +37,10 @@ import com.zpp.demo.bluetooth.task.BlueConnectTask;
 import com.zpp.demo.bluetooth.task.BlueReceiveTask;
 import com.zpp.demo.bluetooth.util.BluetoothUtil;
 import com.zpp.demo.bluetooth.widget.InputDialogFragment;
+
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
 
 
 public class BluetoothActivity extends AppCompatActivity implements

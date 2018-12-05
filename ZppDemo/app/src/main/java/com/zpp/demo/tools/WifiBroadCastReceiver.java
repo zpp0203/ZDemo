@@ -9,8 +9,7 @@ import android.net.wifi.WifiManager;
 import android.os.Parcelable;
 import android.util.Log;
 
-import com.zpp.tools.LogUtils;
-import com.zpp.tools.ToastUtils;
+import com.zandroid.tools.LogUtils;
 
 import static android.net.ConnectivityManager.CONNECTIVITY_ACTION;
 

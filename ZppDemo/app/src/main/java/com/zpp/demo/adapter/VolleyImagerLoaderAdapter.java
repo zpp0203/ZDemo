@@ -1,8 +1,5 @@
 package com.zpp.demo.adapter;
 
-import java.util.List;
-
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +10,9 @@ import android.widget.TextView;
 
 import com.zpp.demo.R;
 import com.zpp.demo.bean.Person;
-import com.zpp.volley.MyVolley;
+import com.zandroid.volley.MyVolley;
+
+import java.util.List;
 
 public class VolleyImagerLoaderAdapter extends BaseAdapter {
     private Context context;

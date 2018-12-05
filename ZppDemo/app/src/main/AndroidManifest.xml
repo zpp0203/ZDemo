@@ -106,8 +106,6 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".view.other.TCPActivity" />
 
-        <service android:name=".tools.BackService" />
-
         <!-- <receiver android:name=".tools.WifiBroadCastReceiver"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.net.wifi.WIFI_STATE_CHANGED"/> -->

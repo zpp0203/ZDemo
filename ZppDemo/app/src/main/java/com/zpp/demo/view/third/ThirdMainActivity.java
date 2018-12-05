@@ -23,10 +23,10 @@ import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.bean.MainBean;
-import com.zpp.recycleview.BaseRecyclerViewAdapter;
-import com.zpp.tools.LogUtils;
-import com.zpp.tools.TimeUtils;
-import com.zpp.tools.ToastUtils;
+import com.zandroid.recycleview.BaseRecyclerViewAdapter;
+import com.zandroid.tools.LogUtils;
+import com.zandroid.tools.TimeUtils;
+import com.zandroid.tools.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;

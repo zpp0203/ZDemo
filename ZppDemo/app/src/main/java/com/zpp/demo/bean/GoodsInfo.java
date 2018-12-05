@@ -1,7 +1,5 @@
 package com.zpp.demo.bean;
 
-import java.lang.reflect.Field;
-
 /**
  * Created by Administrator on 2017/3/26.
  * 商品信息

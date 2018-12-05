@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black">
-    <com.zpp.demo.widget.MysurfaceView
+    <com.zandroid.demo.widget.MysurfaceView
         android:id="@+id/test_sur_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

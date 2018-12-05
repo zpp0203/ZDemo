@@ -6,11 +6,11 @@ import android.view.View;
 
 import com.zpp.demo.R;
 import com.zpp.demo.base.BaseActivity;
-import com.zpp.tools.LogUtils;
-import com.zpp.widget.CircleMessageView;
-import com.zpp.widget.CustomInputView;
-import com.zpp.widget.CustomStartView;
-import com.zpp.widget.SuperCircleView;
+import com.zandroid.tools.LogUtils;
+import com.zandroid.widget.CircleMessageView;
+import com.zandroid.widget.CustomInputView;
+import com.zandroid.widget.CustomStartView;
+import com.zandroid.widget.SuperCircleView;
 
 import butterknife.Bind;
 import butterknife.OnClick;

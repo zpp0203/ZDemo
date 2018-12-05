@@ -3,7 +3,6 @@ package com.zpp.demo.view.other;
 import android.os.Bundle;
 import android.widget.ListView;
 
-
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.VolleyImagerLoaderAdapter;
 import com.zpp.demo.base.BaseActivity;

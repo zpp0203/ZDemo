@@ -17,7 +17,6 @@ import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.bean.MainBean;
 import com.zpp.demo.bean.TCPClientEVent;
 import com.zpp.demo.bean.TCPServerEVent;
-import com.zpp.demo.tools.BackService;
 import com.zpp.demo.tools.TcpClient;
 import com.zpp.demo.tools.TcpServer;
 
@@ -30,7 +29,6 @@ import java.util.Enumeration;
 import butterknife.Bind;
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
-import de.greenrobot.event.ThreadMode;
 
 public class TCPActivity extends BaseActivity {
 
@@ -75,10 +73,7 @@ public class TCPActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //连接服务器
-                //TcpClient.startClient( getIPAddress(getApplicationContext()) , 8080);
-
-                Intent intentThree = new Intent(TCPActivity.this, BackService.class);
-                startService(intentThree);
+                TcpClient.startClient( getIPAddress(getApplicationContext()) , 8080);
             }
         });
 
