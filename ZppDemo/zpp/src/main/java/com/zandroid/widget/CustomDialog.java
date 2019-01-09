@@ -32,7 +32,7 @@ public class CustomDialog extends AlertDialog {
     private int gravity;//位置
     private View view;
     private int startaAnim;
-    private float dimAmount;
+    private float dimAmount;//黑暗度 1f 黑
 
     private CustomDialog(Builder builder) {
         super(builder.context);

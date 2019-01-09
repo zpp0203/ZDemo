@@ -45,4 +45,9 @@
         app:isPassword="true"
         app:textColor="@color/red"
         app:itemBackground="@drawable/gay_round"/>
+
+    <com.zandroid.widget.CircleImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/icon"/>
 </LinearLayout>

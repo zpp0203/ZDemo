@@ -2,12 +2,14 @@ package com.zandroid.tools;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 
 import com.zandroid.R;
 
@@ -28,6 +30,9 @@ public class EToast {
     private boolean isShow = false;
     private String TOAST_TAG = "EToast_Log";
 
+    private int gravity = -1;
+    private int xOffset ,yOffset;
+
     private EToast(Activity activity) {
         reference = new WeakReference<>(activity);
         container = (ViewGroup) activity
@@ -43,8 +48,15 @@ public class EToast {
 
         mContainer = (LinearLayout) v.findViewById(R.id.mbContainer);
         mContainer.setVisibility(View.GONE);
+
         mTextView = (TextView) v.findViewById(R.id.mbMessage);
     }
+    public void setGravity(int gravity, int xOffset, int yOffset) {
+        this.gravity = gravity;
+        this.xOffset = xOffset;
+        this.yOffset = yOffset;
+    }
+
 
     /**
      * @param context must instanceof Activity
@@ -58,6 +70,8 @@ public class EToast {
                 eToast.HIDE_DELAY = 1500;
             }
             eToast.setText(message);
+
+
             return eToast;
         }else{
             throw new RuntimeException("EToast @param context must instanceof Activity");
@@ -91,6 +105,11 @@ public class EToast {
                     public void onAnimationRepeat(Animation animation) {
                     }
                 });
+        if(gravity!=-1) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                container.setForegroundGravity(gravity);
+            }
+        }
         mContainer.setVisibility(View.VISIBLE);
 
         mFadeInAnimation.setDuration(ANIMATION_DURATION);

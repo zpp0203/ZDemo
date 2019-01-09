@@ -30,14 +30,14 @@ android {
 
     task makeJar(type: Copy) {
         //删除原有的jar
-        delete 'build/libs/zpp.jar'
+        delete 'build/libs/zandroid.jar'
         //原始文件地址
         from('build/intermediates/bundles/default')
         //新建jar的文件目录
         into('build/libs/')
         include('classes.jar')
         //重命名
-        rename('classes.jar', 'zpp.jar')
+        rename('classes.jar', 'zandroid.jar')
 
     }
     makeJar.dependsOn(build)

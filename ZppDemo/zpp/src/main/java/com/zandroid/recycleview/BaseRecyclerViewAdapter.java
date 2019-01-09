@@ -23,7 +23,15 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
 
     public BaseRecyclerViewAdapter(int layoutId, List<T> list){
         this.layoutId=layoutId;
-        this. mList=list;
+        mList.clear();
+        this. mList.addAll(list);
+    }
+
+    public void addItems(List<T> items){
+        if(items!=null ){
+            mList.addAll(items);
+            notifyDataSetChanged();
+        }
     }
     //onCreateViewHolder用来给rv创建缓存
     @Override
@@ -55,7 +63,6 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
     protected void getView(BaseRecyclerViewHolder holder, T item, int position) {
         //什么都没有做
     }
-
 
 
     //获取记录数据

@@ -180,9 +180,9 @@ public class WifiActivity extends BaseActivity implements View.OnClickListener {
                 initData();
                 break;
             case R.id.wifi_reconnect:
-                WifiInfo wifiInfo=WifiTools.getInstant(mContext).wifiConnectionInfo();
-                WifiTools.getInstant(mContext).deleteWifi(wifiInfo.getNetworkId());
-                //WifiTools.getInstant(mContext).disConnectWifi();
+//                WifiInfo wifiInfo=WifiTools.getInstant(mContext).wifiConnectionInfo();
+//                WifiTools.getInstant(mContext).deleteWifi(wifiInfo.getNetworkId());
+                WifiTools.getInstant(mContext).disConnectWifi();
                 break;
         }
     }

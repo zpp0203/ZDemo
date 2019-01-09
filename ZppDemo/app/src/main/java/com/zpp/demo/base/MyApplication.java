@@ -19,6 +19,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance=this;
         mContext=this;
         //初始化MyVolley
         MyVolley.init(getApplicationContext());
