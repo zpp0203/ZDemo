@@ -7,11 +7,13 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.zandroid.widget.GuideView;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
@@ -38,7 +40,7 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
 
         initView();
 
-
+        showGuide();
     }
 
     @Override
@@ -103,7 +105,6 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
 
         main_menu=findViewById(R.id.main_menu);
         main_menu.setOnClickListener(this);
-        main_menu.setVisibility(View.GONE);
     }
 
     private void initData() {
@@ -114,6 +115,7 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
         list.add(new MainBean("自定义View Demo","自定义View 在设置了横竖屏不同布局时，设置android:screenOrientation=\"sensor\"而不设置android:configChanges",CustomViewActivity.class));
         list.add(new MainBean("TCP Demo","TCP连接",TCPActivity.class));
         list.add(new MainBean("动画 Demo","动画",AnimatorActivity.class));
+        list.add(new MainBean("时间选择器 Demo","时间选择器",DateActivity.class));
     }
 
 
@@ -125,5 +127,11 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
                 break;
         }
     }
-
+    public void showGuide(){
+        GuideView guideView=new GuideView(this);
+        guideView.setView(R.layout.guide_person)
+                .addHightLight(main_menu,5)
+                .setCancelTouchout(true)
+                .show();
+    }
 }

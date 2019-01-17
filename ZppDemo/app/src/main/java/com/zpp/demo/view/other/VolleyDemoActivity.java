@@ -19,7 +19,7 @@ import com.zandroid.volley.FormImage;
 import com.zandroid.volley.GsonRequest;
 import com.zandroid.volley.MyVolley;
 import com.zandroid.volley.PostUploadRequest;
-import com.zandroid.volley.VolleyUtils;
+import com.zandroid.volley.HttpUtils;
 import com.zandroid.volley.XMLRequest;
 import com.zandroid.volley.ZErrorListener;
 import com.zandroid.volley.ZResponseListen;
@@ -292,7 +292,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
         map.put("format", "json");
         map.put("idcard", "110101199001011114");
 
-        VolleyUtils.getInstance().httpRequest(url,map, new ZResponseListen() {
+        HttpUtils.getInstance().httpRequest(url,map, new ZResponseListen() {
             @Override
             protected void successListener(Object object) {
 
@@ -337,7 +337,7 @@ public class VolleyDemoActivity extends BaseActivity implements View.OnClickList
      */
     private void getStringRequest() {
         String url = "https://www.jianshu.com/p/6ce99e03080f";
-        VolleyUtils.getInstance().httpRequest(url, new ZResponseListen() {
+        HttpUtils.getInstance().httpRequest(url, new ZResponseListen() {
             @Override
             protected void successListener(Object object) {
 

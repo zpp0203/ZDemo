@@ -1,7 +1,7 @@
 package com.zandroid.widget;
 
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,8 +13,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.zandroid.tools.ActivityUtils;
-import com.zandroid.tools.DensityUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,7 +24,7 @@ import java.util.TimerTask;
 
 public class CustomDialog extends AlertDialog {
 
-    private Context context;
+    private Activity context;
     private int height, width;//宽高
     private boolean cancelTouchout;//是否可点击旁边消失
     private int gravity;//位置
@@ -34,31 +32,44 @@ public class CustomDialog extends AlertDialog {
     private int startaAnim;
     private float dimAmount;//黑暗度 1f 黑
 
-    private CustomDialog(Builder builder) {
-        super(builder.context);
-        context = builder.context;
-        height = builder.height;
-        width = builder.width;
-        cancelTouchout = builder.cancelTouchout;
-        gravity=builder.gravity;
-        view = builder.view;
-        startaAnim=builder.startaAnim;
-        dimAmount=builder.dimAmount;
+    public CustomDialog(Builder builder) {
+        this(builder,0);
     }
 
 
-    private CustomDialog(Builder builder, int resStyle) {
+    public CustomDialog(Builder builder, int resStyle) {
         super(builder.context, resStyle);
+       init(builder);
+    }
+
+    private void init(Builder builder){
         context = builder.context;
-        height = builder.height;
-        width = builder.width;
         cancelTouchout = builder.cancelTouchout;
         gravity=builder.gravity;
         view = builder.view;
         startaAnim=builder.startaAnim;
         dimAmount=builder.dimAmount;
+
+        height = builder.height;
+        width = builder.width;
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        height = height==0?view.getMeasuredHeight():height;
+        width = width==0?view.getMeasuredWidth():width;
+        Window window = getWindow();
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.gravity = gravity;
+        if(height>0)
+            lp.height = height;
+        if(width>0)
+            lp.width = width;
+
+        window.setAttributes(lp);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,12 +80,7 @@ public class CustomDialog extends AlertDialog {
         setCanceledOnTouchOutside(cancelTouchout);
 
         Window window = getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.gravity = gravity;
-        lp.height = height;
-        lp.width = width;
 
-        window.setAttributes(lp);
         window.setWindowAnimations(startaAnim);   //设置dialog的显示动画
         window.setDimAmount(dimAmount);
 
@@ -119,7 +125,6 @@ public class CustomDialog extends AlertDialog {
                 }
             } else {
 
-                ActivityUtils.getActivityUtils().popAllActivity();
                 dismiss();
                 System.exit(0);
             }
@@ -133,7 +138,7 @@ public class CustomDialog extends AlertDialog {
     public static final class Builder {
         private CustomDialog dialog;
 
-        private Context context;
+        private Activity context;
         private int height, width;
         private boolean cancelTouchout;
         private View view;
@@ -142,10 +147,16 @@ public class CustomDialog extends AlertDialog {
         private int startaAnim;
         private float dimAmount=0.4f;
 
-        public Builder(Context context) {
+        private static Builder intance;
+        private Builder(Activity context) {
             this.context = context;
         }
-
+        public static Builder getIntance(Activity context){
+            if(intance==null){
+                intance=new Builder(context);
+            }
+            return intance;
+        }
         public Builder view(int resView) {
             view = LayoutInflater.from(context).inflate(resView, null);
             return this;
@@ -162,12 +173,12 @@ public class CustomDialog extends AlertDialog {
         }
 
         public Builder heightdp(int val) {
-            height = DensityUtils.dip2px(context, val);
+            height = (int) (context.getResources().getDisplayMetrics().density*val+ 0.5f);
             return this;
         }
 
         public Builder widthdp(int val) {
-            width = DensityUtils.dip2px(context, val);
+            width = (int) (context.getResources().getDisplayMetrics().density*val+ 0.5f);
             return this;
         }
 

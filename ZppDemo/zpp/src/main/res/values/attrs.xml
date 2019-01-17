@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--定义圆形图片-->
+    <declare-styleable name="BitmapShaders">
+        <attr name="img" format="reference|color"/>
+    </declare-styleable>
+
     <!--圆环进度条-->
     <declare-styleable name="SuperCircleView">
         <!-- 圆环的宽度 -->

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<path>
+<!--    path：需要临时授权访问的路径（.代表所有路径）
+    name：给访问路径命名-->
+    <external-path
+        name="files_root"
+        path="Android/data/com.zpp.demo/"/>
+    <external-path
+        name="external_storage_root"
+        path="."/>
+
+    <external-path name="my_images" path=""/>
+</path>

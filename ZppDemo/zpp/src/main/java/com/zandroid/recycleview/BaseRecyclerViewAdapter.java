@@ -33,6 +33,14 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
             notifyDataSetChanged();
         }
     }
+    public void removeItem(int position){
+        mList.remove(position);
+        notifyDataSetChanged();
+    }
+    public void clearAll(){
+        mList.clear();
+        notifyDataSetChanged();
+    }
     //onCreateViewHolder用来给rv创建缓存
     @Override
     public BaseRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -64,12 +72,12 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
         //什么都没有做
     }
 
-
     //获取记录数据
     @Override
     public int getItemCount() {
         return mList.size();
     }
+
 
     @Override
     public void onClick(View view) {
@@ -78,6 +86,7 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
             onRecyclerViewItemClickListener.onItemClick(position);
         }
     }
+
     @Override
     public boolean onLongClick(View view) {
         if (view.getTag() != null && onRecyclerViewItemLongClickListener!=null){
