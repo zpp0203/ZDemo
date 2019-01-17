@@ -68,7 +68,7 @@ android {
 //        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL: name
 //          ]
 //    }
-      //移除lint检测的error
+    //移除lint检测的error
 //    lintOptions {
 //        abortOnError false
 //    }
@@ -77,10 +77,11 @@ android {
         variant.outputs.all {
             //生成apk名字的格式：sale-1.02.apk 渠道名${variant.productFlavors[0].name}
             //可自定义自己想要生成的格式
-            if(buildType.name!="release"){
+            if (buildType.name != "release") {
                 outputFileName = "ZppDemo-${defaultConfig.versionName}.apk"//_${releaseTime()}
-            }else {
-                outputFileName = "ZppDemo-${defaultConfig.versionName}_${buildType.name}.apk"//_${releaseTime()}
+            } else {
+                outputFileName = "ZppDemo-${defaultConfig.versionName}_${buildType.name}.apk"
+//_${releaseTime()}
             }
         }
     }

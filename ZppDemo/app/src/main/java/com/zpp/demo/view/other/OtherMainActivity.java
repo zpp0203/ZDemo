@@ -26,14 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class OtherMainActivity extends BaseActivity implements View.OnClickListener {
+public class OtherMainActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private RecycleAdapter recycleAdapter;
     private List<MainBean> list;
 
     private TextView main_menu;
-    private PopupMenu popup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,7 +103,6 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
 
 
         main_menu=findViewById(R.id.main_menu);
-        main_menu.setOnClickListener(this);
     }
 
     private void initData() {
@@ -119,14 +117,6 @@ public class OtherMainActivity extends BaseActivity implements View.OnClickListe
     }
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.main_menu:
-                popup.show();
-                break;
-        }
-    }
     public void showGuide(){
         GuideView guideView=new GuideView(this);
         guideView.setView(R.layout.guide_person)
