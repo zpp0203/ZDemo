@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zpp.demo">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -135,7 +138,9 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name=".view.other.DateActivity"></activity>
+        <activity android:name=".view.other.DateActivity" />
+        <activity android:name=".view.third.ZxingActivity"></activity>
+
     </application>
 
 </manifest>

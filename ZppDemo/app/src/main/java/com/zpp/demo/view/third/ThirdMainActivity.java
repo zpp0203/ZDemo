@@ -27,6 +27,7 @@ import com.zandroid.recycleview.BaseRecyclerViewAdapter;
 import com.zandroid.tools.LogUtils;
 import com.zandroid.tools.TimeUtils;
 import com.zandroid.tools.ToastUtils;
+import com.zpp.zxinglibrary.android.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,6 +123,7 @@ public class ThirdMainActivity extends BaseActivity implements View.OnClickListe
         list=new ArrayList<>();
         list.add(new MainBean("WeiXin Demo","微信分享",WeixinDemoActivity.class));
         list.add(new MainBean("阿里巴巴 Demo","支付宝支付Demo",AliActivity.class));
+        list.add(new MainBean("Zxing扫描二维码 Demo","Zxing扫描二维码 Demo",ZxingActivity.class));
     }
 
 

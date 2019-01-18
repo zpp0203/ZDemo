@@ -8,4 +8,5 @@
     <string name="footer_load_more_hint_normal">上拉加载更多</string>
     <string name="footer_load_more_hint_ready">松开载入更多</string>
     <string name="footer_load_more_hint_all">没有更多动态了</string>
+
 </resources>
