@@ -27,7 +27,9 @@ android {
     lintOptions {
         abortOnError false
     }
-
+    /*
+    * 在Terminal中gradlew makeJar,然后点击回车键
+    * */
     task makeJar(type: Copy) {
         //删除原有的jar
         delete 'build/libs/zandroid.jar'
@@ -38,10 +40,10 @@ android {
         include('classes.jar')
         //重命名
         rename('classes.jar', 'zandroid.jar')
-
     }
     makeJar.dependsOn(build)
 }
+
 //module下implementation 修饰的只能在当前module中引用,需要改成API
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

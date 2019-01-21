@@ -11,6 +11,18 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
+    task makeJar(type: Copy) {
+        //删除原有的jar
+        delete 'build/libs/zzxing.jar'
+        //原始文件地址
+        from('build/intermediates/bundles/default')
+        //新建jar的文件目录
+        into('build/libs/')
+        include('classes.jar')
+        //重命名
+        rename('classes.jar', 'zzxing.jar')
+    }
+    makeJar.dependsOn(build)
 }
 
 dependencies {
@@ -20,5 +32,6 @@ dependencies {
     compileOnly "com.android.support:support-v4:$android_support"
     compileOnly "com.android.support:support-vector-drawable:$android_support"
     // implementation 'com.google.zxing:core:3.3.2'
-    implementation files('libs/core-3.3.3.jar')
+    api files('libs/core-3.3.3.jar')
+
 }

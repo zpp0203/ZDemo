@@ -38,7 +38,7 @@ public final class CaptureActivityHandler extends Handler {
     private static final String TAG = CaptureActivityHandler.class
             .getSimpleName();
 
-    private final CaptureActivity activity;
+    private final BaseCaptureActivity activity;
     private final DecodeThread decodeThread;
     private State state;
     private final CameraManager cameraManager;
@@ -47,7 +47,7 @@ public final class CaptureActivityHandler extends Handler {
         PREVIEW, SUCCESS, DONE
     }
 
-    public CaptureActivityHandler(CaptureActivity activity,CameraManager cameraManager) {
+    public CaptureActivityHandler(BaseCaptureActivity activity, CameraManager cameraManager) {
         this.activity = activity;
         decodeThread = new DecodeThread(activity,  new ViewfinderResultPointCallback(
                 activity.getViewfinderView()));
@@ -77,9 +77,7 @@ public final class CaptureActivityHandler extends Handler {
 
                 break;
             case Constant.DECODE_FAILED:
-
                 // 尽可能快的解码，以便可以在解码失败时，开始另一次解码
-
                 state = State.PREVIEW;
                 cameraManager.requestPreviewFrame(decodeThread.getHandler(),
                         Constant.DECODE);
@@ -89,12 +87,12 @@ public final class CaptureActivityHandler extends Handler {
                 activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
                 activity.finish();
                 break;
-            case Constant.FLASH_OPEN:
-                activity.switchFlashImg(Constant.FLASH_OPEN);
-                break;
-            case Constant.FLASH_CLOSE:
-                activity.switchFlashImg(Constant.FLASH_CLOSE);
-                break;
+//            case Constant.FLASH_OPEN:
+//                activity.switchFlashImg(Constant.FLASH_OPEN);
+//                break;
+//            case Constant.FLASH_CLOSE:
+//                activity.switchFlashImg(Constant.FLASH_CLOSE);
+//                break;
         }
     }
 

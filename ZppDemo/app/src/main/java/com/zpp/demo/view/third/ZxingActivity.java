@@ -12,7 +12,6 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -24,13 +23,10 @@ import android.widget.Toast;
 
 import com.zpp.demo.R;
 import com.zpp.demo.base.BaseActivity;
-import com.zpp.demo.view.system.CropImgActivity;
-import com.zpp.zxinglibrary.android.CaptureActivity;
 import com.zpp.zxinglibrary.bean.ZxingConfig;
 import com.zpp.zxinglibrary.common.Constant;
 import com.zpp.zxinglibrary.encode.CodeCreator;
 
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;

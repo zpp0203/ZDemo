@@ -22,7 +22,7 @@ import android.os.Looper;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
-import com.zpp.zxinglibrary.android.CaptureActivity;
+import com.zpp.zxinglibrary.android.BaseCaptureActivity;
 
 import java.util.Hashtable;
 import java.util.Vector;
@@ -35,13 +35,13 @@ import java.util.concurrent.CountDownLatch;
  */
 public final class DecodeThread extends Thread {
 
-    private final CaptureActivity activity;
+    private final BaseCaptureActivity activity;
     private final Hashtable<DecodeHintType, Object> hints;
     private final Vector<BarcodeFormat> decodeFormats;
     private Handler handler;
     private final CountDownLatch handlerInitLatch;
 
-    public DecodeThread(CaptureActivity activity, ResultPointCallback resultPointCallback) {
+    public DecodeThread(BaseCaptureActivity activity, ResultPointCallback resultPointCallback) {
 
         this.activity = activity;
         handlerInitLatch = new CountDownLatch(1);

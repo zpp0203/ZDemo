@@ -140,6 +140,7 @@
 
         <activity android:name=".view.other.DateActivity" />
         <activity android:name=".view.third.ZxingActivity"></activity>
+        <activity android:name=".view.third.CaptureActivity"/>
 
     </application>
 

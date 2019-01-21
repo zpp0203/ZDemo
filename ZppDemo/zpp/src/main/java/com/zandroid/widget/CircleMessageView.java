@@ -118,7 +118,6 @@ public class CircleMessageView extends View {
 
         int viewWidth = getMeasuredWidth();
         int viewHidth = getMeasuredHeight();
-        Log.e(TAG,"viewWidth:"+viewWidth+" -- viewHidth:"+viewHidth);
         mCircleCenterX = (viewWidth-getPaddingLeft()-getPaddingRight()) / 2+getPaddingLeft();
         mCircleCenterY = (viewHidth-getPaddingTop()-getPaddingBottom()) / 2+getPaddingTop();
 

@@ -27,7 +27,6 @@ import com.zandroid.recycleview.BaseRecyclerViewAdapter;
 import com.zandroid.tools.LogUtils;
 import com.zandroid.tools.TimeUtils;
 import com.zandroid.tools.ToastUtils;
-import com.zpp.zxinglibrary.android.CaptureActivity;
 
 import java.util.ArrayList;
 import java.util.List;
