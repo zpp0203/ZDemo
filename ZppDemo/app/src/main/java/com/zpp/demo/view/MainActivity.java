@@ -5,6 +5,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -54,6 +57,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         initMainMenu();
 
+//        PackageManager packageManager = getPackageManager();
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("bluetooth://com.ycc.blue"));
+//        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+//        boolean isValid = !activities.isEmpty();
+//        if (isValid) {
+//            Log.e("--","打开其他应用");
+//            startActivity(intent);
+//        }
     }
 
     @Override

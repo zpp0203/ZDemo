@@ -124,6 +124,7 @@ public class SystemMainActivity extends BaseActivity implements View.OnClickList
         list.add(new MainBean("蓝牙 Demo","蓝牙",BluetoothActivity.class));
         list.add(new MainBean("Wifi Demo","Wifi搜索",WifiActivity.class));
         list.add(new MainBean("裁剪图片 Demo","裁剪图片",CropImgActivity.class));
+        list.add(new MainBean("WebView Demo","WebView",WebViewActivity.class));
     }
 
 

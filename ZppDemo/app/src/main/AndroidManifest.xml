@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -139,9 +138,10 @@
         </provider>
 
         <activity android:name=".view.other.DateActivity" />
-        <activity android:name=".view.third.ZxingActivity"></activity>
-        <activity android:name=".view.third.CaptureActivity"/>
-
+        <activity android:name=".view.third.ZxingActivity" />
+        <activity android:name=".view.third.CaptureActivity" />
+        <activity android:name=".view.system.WebViewActivity" />
+        <activity android:name=".view.other.RecycleExpandActivity"></activity>
     </application>
 
 </manifest>

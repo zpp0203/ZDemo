@@ -1,14 +1,19 @@
 package com.zandroid.tools;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.DigestInputStream;
@@ -19,6 +24,7 @@ import java.util.List;
 
 /**
  * Created by 墨 on 2018/6/11.
+ * readJsonFile : 读取json文件
  * getFileByPath : 根据文件路径获取文件
  * isFileExists : 判断文件是否存在
  * rename : 重命名文件
@@ -61,7 +67,42 @@ public final class FileUtils {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    public static String readJsonFile(Context context, String fileName) {
 
+        StringBuilder builder = new StringBuilder();
+        int id = context.getResources().getIdentifier(fileName, "raw", context.getPackageName());
+        InputStream inputStream = context.getResources().openRawResource(id);
+        InputStreamReader inputStreamReader;
+        try {
+            inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String content;
+            while ((content = bufferedReader.readLine()) != null) {
+                builder.append(content);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Log.e("=====string====",builder.toString());
+        return builder.toString();
+
+
+//        try {
+//            int length = 0;
+//            while (length == 0) {
+//                length = inputStream.available();
+//            }
+//            byte[] bytes = new byte[length];
+//            int key = inputStream.read(bytes);
+//            content = new String(bytes);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return content;
+    }
     /**
      * Return the file by path.
      * 根据文件路径获取文件

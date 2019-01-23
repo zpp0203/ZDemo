@@ -14,7 +14,7 @@ import java.util.List;
 
 //封装的时候，部分参数可以选择由外部的构造函数或者set方法
 public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecyclerViewHolder> implements View.OnClickListener,View.OnLongClickListener {
-    private List<T> mList = new ArrayList<>();
+    private List<T> mList;
     private int layoutId;
 
     private OnRecyclerViewItemClickListener onRecyclerViewItemClickListener;
@@ -23,10 +23,11 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
 
     public BaseRecyclerViewAdapter(int layoutId, List<T> list){
         this.layoutId=layoutId;
-        mList.clear();
-        this. mList.addAll(list);
+        this. mList=list;
     }
-
+    public List<T> getItems(){
+        return mList;
+    }
     public void addItems(List<T> items){
         if(items!=null ){
             mList.addAll(items);

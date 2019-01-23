@@ -109,6 +109,7 @@ public class OtherMainActivity extends BaseActivity {
         list=new ArrayList<>();
         list.add(new MainBean("Volley Demo","volley 使用方法",VolleyDemoActivity.class));
         list.add(new MainBean("RecycleView Demo","RecycleView的布局设置等",RecycleViewDemoActivity.class));
+        list.add(new MainBean("RecycleExpand Demo","根据RecycleView的两级列表",RecycleExpandActivity.class));
         list.add(new MainBean("购物车 Demo","防淘宝购物车",ShoppingCartActivity.class));
         list.add(new MainBean("自定义View Demo","自定义View 在设置了横竖屏不同布局时，设置android:screenOrientation=\"sensor\"而不设置android:configChanges",CustomViewActivity.class));
         list.add(new MainBean("TCP Demo","TCP连接",TCPActivity.class));

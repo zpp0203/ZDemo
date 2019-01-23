@@ -65,9 +65,9 @@ public class EToast {
         if(context instanceof Activity){
             EToast eToast = new EToast((Activity) context);
             if(HIDE_DELAY == LENGTH_LONG){
-                eToast.HIDE_DELAY = 2500;
+                eToast.HIDE_DELAY = 3500;
             }else{
-                eToast.HIDE_DELAY = 1500;
+                eToast.HIDE_DELAY = 2000;
             }
             eToast.setText(message);
 

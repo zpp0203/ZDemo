@@ -16,7 +16,9 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+* 支持增加头部脚部的RecyclerView
+* */
 public class XRecyclerView extends RecyclerView {
     public final static int STATE_LOADING = 0;
     public final static int STATE_COMPLETE = 1;
