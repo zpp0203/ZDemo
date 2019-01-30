@@ -19,7 +19,7 @@
             android:name=".android.BaseCaptureActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:theme="@style/ZxingTheme"
             android:windowSoftInputMode="adjustPan|stateHidden" />
     </application>
 </manifest>

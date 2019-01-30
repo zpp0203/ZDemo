@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 
 import com.zandroid.tools.ActivityUtils;
 
-import butterknife.ButterKnife;
 
 
 /**
@@ -22,8 +21,6 @@ public abstract class BaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         this.mContext = this;
         setContentView(setLayoutView());
-        ButterKnife.bind(this);
-
     }
     protected abstract int setLayoutView();
     @Override
@@ -41,7 +38,6 @@ public abstract class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ButterKnife.unbind(this);
     }
 
 }

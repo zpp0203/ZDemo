@@ -30,10 +30,26 @@ public class GuideView  {
             public void run() {
                 Rect rect=new Rect();
                 view.getGlobalVisibleRect(rect);//获取在整个屏幕内的绝对坐标
-                rect.left=rect.left-marggin;
-                rect.top=rect.top-marggin;
-                rect.right=rect.right+marggin;
-                rect.bottom=rect.bottom+marggin;
+                rect.left-=marggin;
+                rect.top-=marggin;
+                rect.right+=marggin;
+                rect.bottom +=marggin;
+                shape.addHightLight(rect);
+            }
+        });
+        return this;
+    }
+    public GuideView addHightLight(final View view, final int paddingLeft,final int paddingTop,final int paddingRight,final int paddingBottom){
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                Rect rect=new Rect();
+                view.getGlobalVisibleRect(rect);//获取在整个屏幕内的绝对坐标
+                rect.left+=paddingLeft;
+                rect.top+=paddingTop;
+                rect.right-=paddingRight;
+                rect.bottom-=paddingBottom;
+
                 shape.addHightLight(rect);
             }
         });

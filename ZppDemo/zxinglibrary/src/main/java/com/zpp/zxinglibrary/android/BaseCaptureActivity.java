@@ -118,15 +118,15 @@ public abstract class BaseCaptureActivity extends AppCompatActivity implements S
 
         this.viewfinderView.setZxingConfig(config);
 
+        if(lightLayout!=null) {
+            switchVisibility(flashLightLayout, config.isShowFlashLight());
 
-        switchVisibility(flashLightLayout, config.isShowFlashLight());
-
-
-        /*有闪光灯就显示手电筒按钮  否则不显示*/
-        if (isSupportCameraLedFlash(getPackageManager())) {
-            flashLightLayout.setVisibility(View.VISIBLE);
-        } else {
-            flashLightLayout.setVisibility(View.GONE);
+            /*有闪光灯就显示手电筒按钮  否则不显示*/
+            if (isSupportCameraLedFlash(getPackageManager())) {
+                flashLightLayout.setVisibility(View.VISIBLE);
+            } else {
+                flashLightLayout.setVisibility(View.GONE);
+            }
         }
     }
 

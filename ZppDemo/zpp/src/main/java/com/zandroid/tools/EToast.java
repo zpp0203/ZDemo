@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -35,8 +36,9 @@ public class EToast {
 
     private EToast(Activity activity) {
         reference = new WeakReference<>(activity);
-        container = (ViewGroup) activity
-                .findViewById(android.R.id.content);
+//        container = (ViewGroup) activity
+//                .findViewById(android.R.id.content);
+        container = (FrameLayout) activity.getWindow().getDecorView();//使用这个有的手机无法显示？vivo？
         View viewWithTag = container.findViewWithTag(TOAST_TAG);
         if(viewWithTag == null){
             v = activity.getLayoutInflater().inflate(

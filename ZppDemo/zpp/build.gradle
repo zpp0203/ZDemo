@@ -55,8 +55,8 @@ dependencies {
     //    testCompile 'junit:junit:4.12'
     //在jar包中加入自己的资源文件
     //    provided files('src/main/assets')
+
     api files('lib/volley.jar')
-    api files('lib/butterknife-7.0.1.jar')
     api files('lib/gson-2.2.4.jar')
 
 }

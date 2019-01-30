@@ -1,28 +1,41 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion compile_sdk_version
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+
 
     defaultConfig {
-        minSdkVersion min_sdk_version
-        targetSdkVersion target_sdk_version
-        versionCode version_code
-        versionName version_name
-        vectorDrawables.useSupportLibrary = true
+        minSdkVersion 16
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+//        minSdkVersion 16
+//        targetSdkVersion target_sdk_version
+//        versionCode version_code
+//        versionName version_name
+//        vectorDrawables.useSupportLibrary = true
+
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                includeCompileClasspath = true
+//            }
+//        }
     }
 
-    task makeJar(type: Copy) {
-        //删除原有的jar
-        delete 'build/libs/zzxing.jar'
-        //原始文件地址
-        from('build/intermediates/bundles/default')
-        //新建jar的文件目录
-        into('build/libs/')
-        include('classes.jar')
-        //重命名
-        rename('classes.jar', 'zzxing.jar')
-    }
-    makeJar.dependsOn(build)
+//    task makeJar(type: Copy) {
+//        //删除原有的jar
+//        delete 'build/libs/zzxing.jar'
+//        //原始文件地址
+//        from('build/intermediates/bundles/default')
+//        //新建jar的文件目录
+//        into('build/libs/')
+//        include('classes.jar')
+//        //重命名
+//        rename('classes.jar', 'zzxing.jar')
+//    }
+//    makeJar.dependsOn(build)
 }
 
 dependencies {
