@@ -103,8 +103,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation project(':zpp')
-    //微信开放sdk
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //微信开放sdk,明确指定
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6'
     implementation files('libs/open_sdk_r6008_lite.jar')
     implementation files('libs/alipaySdk-20180601.jar')
     implementation 'de.greenrobot:eventbus:3.0.0-beta1'

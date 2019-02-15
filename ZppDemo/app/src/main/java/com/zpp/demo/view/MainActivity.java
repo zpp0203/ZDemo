@@ -22,6 +22,8 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.zandroid.falldown.FallObject;
+import com.zandroid.falldown.FallingView;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
@@ -37,6 +39,8 @@ import com.zandroid.tools.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+
 import static com.zpp.demo.view.MainActivity.SendReceiver.ACTION_SEND;
 
 
@@ -48,6 +52,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView main_menu;
     private PopupMenu popup;
+
+    FallingView fallingView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +72,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //            Log.e("--","打开其他应用");
 //            startActivity(intent);
 //        }
+
+
+        fallingView=findViewById(R.id.falling_view);
+        //循环落花
+        FallObject.Builder builder = new FallObject.Builder(getResources().getDrawable(R.drawable.ly_home_stars));
+        FallObject fallObject = builder
+                .setSpeed(7,true)
+                .setSize(50,50,true)
+                .setWind(5,true,true)
+                .build();
+        fallingView.addFallObject(fallObject,100);
     }
 
     @Override
