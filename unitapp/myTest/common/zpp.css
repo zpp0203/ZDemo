@@ -1,0 +1,24 @@
+
+content{
+	height: 100%;  
+	width: 100%;  
+	/* padding-top: var(--status-bar-height); */
+	position: fixed;  
+    background-color: #999999; 
+}
+
+/* 渐变背景 */
+.gradient-back{
+	background: -moz-linear-gradient(top, #213E7C 0%, #2D7BD3 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#213E7C), color-stop(100%,#2D7BD3));
+	background: -webkit-linear-gradient(top, #213E7C 0%,#2D7BD3 100%);
+	background: -o-linear-gradient(top, #213E7C 0%,#2D7BD3 100%);
+	background: -ms-linear-gradient(top, #213E7C 0%,#2D7BD3 100%);
+	background: linear-gradient(to bottom, #213E7C 0%,#2D7BD3 100%);
+}
+/* 圆形 */
+.circular{
+	border-radius:50%;
+	-webkit-border-radius:50%;
+	-moz-border-radius:50%;
+}   
