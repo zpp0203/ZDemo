@@ -35,7 +35,7 @@
 				if (this.user.length>=11 && this.psw.length) {
 					console.debug(this.user+" 登入 "+this.psw)
 					uni.reLaunch({
-						url:"/pages/wodui/main"
+						url:"home"
 					})
 				} else{
 					uni.showToast({
@@ -53,7 +53,9 @@
 <style>
 	@import '../../common/zpp.css';
 	.top{
+		/* #ifdef APP-PLUS */
 		margin-top: var(--status-bar-height);
+		/* #endif */
 	}
 	.other{
 		padding: 20upx;
