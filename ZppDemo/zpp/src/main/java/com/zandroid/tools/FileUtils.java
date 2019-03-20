@@ -103,6 +103,22 @@ public final class FileUtils {
 //
 //        return content;
     }
+
+    public static String getCacheImagePath(Context con, String imagePath) {
+        File file = con.getExternalCacheDir();
+        if (file == null) {
+            file = new File(con.getFilesDir(), "cache");
+        }
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        File imageDir = new File(file.getPath(), "image");
+        if (!imageDir.exists()) {
+            imageDir.mkdir();
+        }
+        return imageDir.getPath() + "/" + imagePath;
+    }
+
     /**
      * Return the file by path.
      * 根据文件路径获取文件

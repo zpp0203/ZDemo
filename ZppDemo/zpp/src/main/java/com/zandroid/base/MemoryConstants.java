@@ -24,7 +24,6 @@ public class MemoryConstants {
     @IntDef({BYTE, KB, MB, GB})
 
     @Retention(RetentionPolicy.SOURCE)
-
     public @interface Unit {
 
     }

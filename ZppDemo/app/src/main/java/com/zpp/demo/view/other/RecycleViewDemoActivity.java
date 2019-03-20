@@ -24,7 +24,6 @@ import com.zandroid.tools.LogUtils;
 import com.zandroid.tools.ToastUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;

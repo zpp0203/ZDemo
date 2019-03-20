@@ -2,13 +2,11 @@ package com.zpp.demo.view.other;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.zandroid.recycleview.expand.SectionedSpanSizeLookup;
 import com.zandroid.tools.FileUtils;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.HotelEntityAdapter;

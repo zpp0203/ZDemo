@@ -7,10 +7,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.zandroid.widget.GuideView;

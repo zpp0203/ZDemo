@@ -5,9 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,6 +21,7 @@ import android.widget.TextView;
 
 import com.zandroid.falldown.FallObject;
 import com.zandroid.falldown.FallingView;
+import com.zandroid.widget.XRecyclerView;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
@@ -39,14 +37,12 @@ import com.zandroid.tools.ToastUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-
 import static com.zpp.demo.view.MainActivity.SendReceiver.ACTION_SEND;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    private RecyclerView recyclerView;
+    private XRecyclerView recyclerView;
     private RecycleAdapter recycleAdapter;
     private List<MainBean> list;
 
@@ -96,7 +92,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initView() {
-        recyclerView= (RecyclerView) findViewById(R.id.recycle);
+        recyclerView=  findViewById(R.id.recycle);
         initData();
         recycleAdapter=new RecycleAdapter(R.layout.item_main_btn,list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this );
@@ -106,6 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
         //设置Adapter
         recyclerView.setAdapter(recycleAdapter);
+        recyclerView.setNoMore(true);
         //设置分隔线
         recyclerView.addItemDecoration(new DividerItemDecoration(this ,OrientationHelper.VERTICAL));
         //设置增加或删除条目的动画

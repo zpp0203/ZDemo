@@ -27,7 +27,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
-import com.zandroid.tools.StringUtils;
 import com.zandroid.widget.CustomDialog;
 import com.zpp.demo.BuildConfig;
 import com.zpp.demo.R;

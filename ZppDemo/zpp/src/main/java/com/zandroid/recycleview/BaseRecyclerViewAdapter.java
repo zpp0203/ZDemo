@@ -23,17 +23,24 @@ public class BaseRecyclerViewAdapter<T> extends RecyclerView.Adapter<BaseRecycle
 
     public BaseRecyclerViewAdapter(int layoutId, List<T> list){
         this.layoutId=layoutId;
-        this. mList=list;
+        if(list==null)
+            list=new ArrayList<T>();
+        mList = list;
     }
+
+    public void addItems(List<T> items){
+        if(mList!=null && items!=null){
+            mList.addAll(items);
+        }else {
+            mList=items;
+        }
+        notifyDataSetChanged();
+    }
+
     public List<T> getItems(){
         return mList;
     }
-    public void addItems(List<T> items){
-        if(items!=null ){
-            mList.addAll(items);
-            notifyDataSetChanged();
-        }
-    }
+
     public void removeItem(int position){
         mList.remove(position);
         notifyDataSetChanged();

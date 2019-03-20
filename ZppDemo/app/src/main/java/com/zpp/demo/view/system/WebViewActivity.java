@@ -1,8 +1,6 @@
 package com.zpp.demo.view.system;
 
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,13 +11,9 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.zpp.demo.R;
 import com.zpp.demo.base.BaseActivity;
-import com.zpp.demo.view.MainActivity;
-
-import java.net.URISyntaxException;
 
 import butterknife.Bind;
 

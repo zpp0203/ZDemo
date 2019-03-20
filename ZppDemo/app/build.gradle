@@ -110,4 +110,5 @@ dependencies {
     implementation 'de.greenrobot:eventbus:3.0.0-beta1'
     implementation project(':zxinglibrary')
     implementation files('libs/butterknife-7.0.1.jar')
+    implementation project(':opengl')
 }
