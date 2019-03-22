@@ -44,8 +44,6 @@ public final class CameraManager {
 
     private static final String TAG = CameraManager.class.getSimpleName();
 
-    private static CameraManager cameraManager;
-
     private final Context context;
     private final CameraConfigurationManager configManager;
     private ZxingConfig config;
@@ -120,7 +118,7 @@ public final class CameraManager {
         String parametersFlattened = parameters == null ? null : parameters
                 .flatten(); // Save these, temporarily
         try {
-            configManager.setDesiredCameraParameters(theCamera);
+            configManager.setDesiredCameraParameters(theCamera,false);
         } catch (RuntimeException re) {
             // Driver failed
             Log.w(TAG,
@@ -133,7 +131,7 @@ public final class CameraManager {
                 parameters.unflatten(parametersFlattened);
                 try {
                     theCamera.setParameters(parameters);
-                    configManager.setDesiredCameraParameters(theCamera);
+                    configManager.setDesiredCameraParameters(theCamera,true);
                 } catch (RuntimeException re2) {
                     // Well, darn. Give up
                     Log.w(TAG,
@@ -162,7 +160,24 @@ public final class CameraManager {
             framingRectInPreview = null;
         }
     }
-
+    /**
+     * Convenience method for {@link }
+     *
+     * @param newSetting if {@code true}, light should be turned on if currently off. And vice versa.
+     */
+    public synchronized void setTorch(boolean newSetting) {
+        if (newSetting != configManager.getTorchState(camera)) {
+            if (camera != null) {
+                if (autoFocusManager != null) {
+                    autoFocusManager.stop();
+                }
+                configManager.setTorch(camera, newSetting);
+                if (autoFocusManager != null) {
+                    autoFocusManager.start();
+                }
+            }
+        }
+    }
 
     /*切换闪光灯*/
     public void switchFlashLight(CaptureActivityHandler handler) {
@@ -180,13 +195,13 @@ public final class CameraManager {
 
             msg.what = Constant.FLASH_CLOSE;
 
-
         } else {
             /*打开闪光灯*/
             parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
             msg.what = Constant.FLASH_OPEN;
         }
         camera.setParameters(parameters);
+
         handler.sendMessage(msg);
     }
 
@@ -199,7 +214,7 @@ public final class CameraManager {
         if (theCamera != null && !previewing) {
             theCamera.startPreview();
             previewing = true;
-            autoFocusManager = new AutoFocusManager(camera);
+            autoFocusManager = new AutoFocusManager(context,camera);
         }
     }
 
@@ -251,7 +266,6 @@ public final class CameraManager {
 
             int width = (int) (screenResolutionX * 0.6);
             int height = width;
-
 
             /*水平居中  偏上显示*/
             int leftOffset = (screenResolution.x - width) / 2;
@@ -369,7 +383,7 @@ public final class CameraManager {
 
     }
 
-    public static CameraManager get() {
-        return cameraManager;
+    public Camera getCamera() {
+        return camera;
     }
 }

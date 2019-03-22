@@ -68,7 +68,6 @@ public class CaptureActivity extends com.zpp.zxinglibrary.android.BaseCaptureAct
         initView(previewView,viewfinderView,flashLightLayout);
     }
 
-
     /**
      * @param flashState 切换闪光灯图片
      */

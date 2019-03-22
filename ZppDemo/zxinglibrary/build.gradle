@@ -45,6 +45,4 @@ dependencies {
     compileOnly "com.android.support:support-v4:$android_support"
     compileOnly "com.android.support:support-vector-drawable:$android_support"
     // implementation 'com.google.zxing:core:3.3.2'
-    api files('libs/core-3.3.3.jar')
-
 }

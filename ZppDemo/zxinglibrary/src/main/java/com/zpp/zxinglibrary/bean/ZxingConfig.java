@@ -8,14 +8,13 @@ import com.zpp.zxinglibrary.R;
 import java.io.Serializable;
 
 /**
- * @author: yzq
+ * @author:
  * @date: 2017/10/27 14:48
  * @declare :zxing配置类
  */
 
 
 public class ZxingConfig implements Serializable {
-
 
     /*是否播放声音*/
     private boolean isPlayBeep = true;
@@ -39,6 +38,7 @@ public class ZxingConfig implements Serializable {
     @ColorRes
     private int frameLineColor = -1;
 
+    private boolean autoEnlarged;
 
     /*扫描线颜色*/
     @ColorRes
@@ -122,5 +122,13 @@ public class ZxingConfig implements Serializable {
 
     public void setShowAlbum(boolean showAlbum) {
         isShowAlbum = showAlbum;
+    }
+
+    public boolean isAutoEnlarged() {
+        return autoEnlarged;
+    }
+
+    public void setAutoEnlarged(boolean autoEnlarged) {
+        this.autoEnlarged = autoEnlarged;
     }
 }

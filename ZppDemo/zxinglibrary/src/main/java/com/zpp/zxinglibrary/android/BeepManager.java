@@ -66,7 +66,6 @@ public final class BeepManager implements MediaPlayer.OnCompletionListener,
 
     public synchronized void updatePrefs() {
 
-
         if (playBeep && mediaPlayer == null) {
             // The volume on STREAM_SYSTEM is not adjustable, and users found it
             // too loud,

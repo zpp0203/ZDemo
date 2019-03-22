@@ -17,15 +17,23 @@
 package com.zpp.zxinglibrary.android;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.Browser;
+import android.util.Log;
 
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.zpp.zxinglibrary.camera.CameraManager;
 import com.zpp.zxinglibrary.common.Constant;
 import com.zpp.zxinglibrary.decode.DecodeThread;
 import com.zpp.zxinglibrary.view.ViewfinderResultPointCallback;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * This class handles all the messaging which comprises the state machine for
@@ -47,15 +55,31 @@ public final class CaptureActivityHandler extends Handler {
         PREVIEW, SUCCESS, DONE
     }
 
-    public CaptureActivityHandler(BaseCaptureActivity activity, CameraManager cameraManager) {
+//    public CaptureActivityHandler(BaseCaptureActivity activity, CameraManager cameraManager) {
+//        this.activity = activity;
+//        decodeThread = new DecodeThread(activity,  new ViewfinderResultPointCallback(
+//                activity.getViewfinderView()));
+//        decodeThread.start();
+//        state = State.SUCCESS;
+//
+//        // Start ourselves capturing previews and decoding.
+//        // 开始拍摄预览和解码
+//        this.cameraManager = cameraManager;
+//        cameraManager.startPreview();
+//        restartPreviewAndDecode();
+//    }
+    public CaptureActivityHandler(BaseCaptureActivity activity,
+                                  Collection<BarcodeFormat> decodeFormats,
+                                  Map<DecodeHintType,?> baseHints,
+                                  String characterSet,
+                                  CameraManager cameraManager) {
         this.activity = activity;
-        decodeThread = new DecodeThread(activity,  new ViewfinderResultPointCallback(
-                activity.getViewfinderView()));
+        decodeThread = new DecodeThread(activity, decodeFormats, baseHints, characterSet,
+                new ViewfinderResultPointCallback(activity.getViewfinderView()));
         decodeThread.start();
         state = State.SUCCESS;
 
         // Start ourselves capturing previews and decoding.
-        // 开始拍摄预览和解码
         this.cameraManager = cameraManager;
         cameraManager.startPreview();
         restartPreviewAndDecode();
@@ -71,16 +95,15 @@ public final class CaptureActivityHandler extends Handler {
                 break;
             case Constant.DECODE_SUCCEEDED:
                 // 解码成功
-
                 state = State.SUCCESS;
                 activity.handleDecode((Result) message.obj);
-
                 break;
             case Constant.DECODE_FAILED:
                 // 尽可能快的解码，以便可以在解码失败时，开始另一次解码
                 state = State.PREVIEW;
                 cameraManager.requestPreviewFrame(decodeThread.getHandler(),
                         Constant.DECODE);
+
                 break;
             case Constant.RETURN_SCAN_RESULT:
 
@@ -93,6 +116,7 @@ public final class CaptureActivityHandler extends Handler {
 //            case Constant.FLASH_CLOSE:
 //                activity.switchFlashImg(Constant.FLASH_CLOSE);
 //                break;
+
         }
     }
 

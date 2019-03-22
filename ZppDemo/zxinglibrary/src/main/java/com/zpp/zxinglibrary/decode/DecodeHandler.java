@@ -16,10 +16,13 @@
 
 package com.zpp.zxinglibrary.decode;
 
+import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
+import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
@@ -30,6 +33,7 @@ import com.google.zxing.common.HybridBinarizer;
 import com.zpp.zxinglibrary.android.BaseCaptureActivity;
 import com.zpp.zxinglibrary.common.Constant;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
 public final class DecodeHandler extends Handler {
@@ -42,6 +46,7 @@ public final class DecodeHandler extends Handler {
 
     DecodeHandler(BaseCaptureActivity activity, Map<DecodeHintType, Object> hints) {
         multiFormatReader = new MultiFormatReader();
+        multiFormatReader.setActivity(activity);
         multiFormatReader.setHints(hints);
         this.activity = activity;
     }
@@ -85,7 +90,6 @@ public final class DecodeHandler extends Handler {
         PlanarYUVLuminanceSource source = activity.getCameraManager()
                 .buildLuminanceSource(data, width, height);
 
-
         if (source != null) {
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
@@ -99,14 +103,18 @@ public final class DecodeHandler extends Handler {
             }
         }
 
-
-
         Handler handler = activity.getHandler();
         if (rawResult != null) {
 
             if (handler != null) {
                 Message message = Message.obtain(handler,
                         Constant.DECODE_SUCCEEDED, rawResult);
+                //放大相机---
+                Bundle bundle = new Bundle();
+                bundleThumbnail(source, bundle);
+                if (rawResult.getBarcodeFormat() == BarcodeFormat.QR_CODE)//是二维码
+                    message.setData(bundle);
+                //end--
                 message.sendToTarget();
             }
         } else {
@@ -117,4 +125,14 @@ public final class DecodeHandler extends Handler {
         }
     }
 
+    private static void bundleThumbnail(PlanarYUVLuminanceSource source, Bundle bundle) {
+        int[] pixels = source.renderThumbnail();
+        int width = source.getThumbnailWidth();
+        int height = source.getThumbnailHeight();
+        Bitmap bitmap = Bitmap.createBitmap(pixels, 0, width, width, height, Bitmap.Config.ARGB_8888);
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, out);
+        bundle.putByteArray(DecodeThread.BARCODE_BITMAP, out.toByteArray());
+        bundle.putFloat(DecodeThread.BARCODE_SCALED_FACTOR, (float) width / source.getWidth());
+    }
 }

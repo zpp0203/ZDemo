@@ -174,6 +174,7 @@ public class ZxingActivity extends BaseActivity implements View.OnClickListener 
 //                                config.setFrameLineColor(R.color.colorAccent);//设置扫描框边框颜色 默认无色
 //                                config.setScanLineColor(R.color.colorAccent);//设置扫描线的颜色 默认白色
         config.setFullScreenScan(false);//是否全屏扫描  默认为true  设为false则只会在扫描框中扫描
+        config.setAutoEnlarged(true);//自动放大
         intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
         startActivityForResult(intent, REQUEST_CODE_SCAN);
     }
