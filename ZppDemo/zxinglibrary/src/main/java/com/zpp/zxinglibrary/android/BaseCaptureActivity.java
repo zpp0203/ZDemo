@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
@@ -211,7 +213,7 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
         // 相机初始化的动作需要开启相机并测量屏幕大小，这些操作
         // 不建议放到onCreate中，因为如果在onCreate中加上首次启动展示帮助信息的代码的 话，
         // 会导致扫描窗口的尺寸计算有误的bug
-        cameraManager = new CameraManager(getApplication(),config);
+        cameraManager = new CameraManager(this,config);
 
         viewfinderView.setCameraManager(cameraManager);
 
@@ -249,6 +251,7 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
             if (handler != null)
                 handler.restartPreviewAndDecode();
         }
+
     }
 
     @Override
@@ -421,6 +424,7 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
                         decodeHints, characterSet, cameraManager);
             }
             decodeOrStoreSavedBitmap(null, null);
+
         } catch (IOException ioe) {
             Log.w(TAG, ioe);
             displayFrameworkBugMessageAndExit();
@@ -430,6 +434,7 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
             Log.w(TAG, "Unexpected error initializing camera", e);
             displayFrameworkBugMessageAndExit();
         }
+
     }
 
     /**
@@ -487,4 +492,5 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
     public boolean isAutoEnlarged() {
         return autoEnlarged;
     }
+
 }

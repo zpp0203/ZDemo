@@ -27,6 +27,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
+import com.zandroid.volley.MyVolley;
 import com.zandroid.widget.CustomDialog;
 import com.zpp.demo.BuildConfig;
 import com.zpp.demo.R;
@@ -222,11 +225,13 @@ public class CropImgActivity extends BaseActivity {
      *
      */
     private void getImageToView() {
-        Log.e("--", "上传图片");
+        Log.e("--", "上传图片"+cropImagePath);
         try {
             final Bitmap photo = BitmapFactory.decodeStream(getContentResolver().openInputStream(cropImageUri));
             if (photo != null) {
+                Log.e("--", "上传图片");
                 imageView.setImageBitmap(photo);
+
                 File img = new File(new URI(cropImageUri.toString()));
             }
 

@@ -30,6 +30,8 @@
         <attr name="circleRadio" format="dimension"/>
         <!-- 圆的颜色 -->
         <attr name="circleColor" format="color"/>
+        <attr name="topColor" format="color"/>
+        <attr name="bottomColor" format="color"/>
 
         <attr name="topTextSize" format="dimension" />
         <attr name="topTextColor" format="color" />

@@ -1,0 +1,61 @@
+package com.github.mikephil.charting.charts;
+
+import android.content.Context;
+import android.util.AttributeSet;
+
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
+import com.github.mikephil.charting.renderer.LineChartCircleRenderer;
+import com.github.mikephil.charting.renderer.LineChartRenderer;
+
+public class LineCircleChart extends BarLineChartBase<LineData> implements LineDataProvider {
+
+    public LineCircleChart(Context context) {
+        super(context);
+    }
+
+    public LineCircleChart(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public LineCircleChart(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    @Override
+    protected void init() {
+        super.init();
+//        if(LineChartCircleRenderer.getmCirclePointPositions().size()>0)
+//            mRenderer = new LineChartCircleRenderer(this, mAnimator, mViewPortHandler);
+//        else
+//            mRenderer=new LineChartRenderer(this,mAnimator, mViewPortHandler);
+    }
+
+    @Override
+    public LineData getLineData() {
+        return mData;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        // releases the bitmap in the renderer to avoid oom error
+
+        if (mRenderer != null ) {
+            if(mRenderer instanceof LineChartCircleRenderer)
+                ((LineChartCircleRenderer) mRenderer).releaseBitmap();
+            else
+                ((LineChartRenderer)mRenderer).releaseBitmap();
+        }
+        super.onDetachedFromWindow();
+    }
+
+    @Override
+    public void invalidate() {
+        if(LineChartCircleRenderer.getmCirclePointPositions().size()>0)
+            mRenderer = new LineChartCircleRenderer(this, mAnimator, mViewPortHandler);
+        else
+            mRenderer=new LineChartRenderer(this,mAnimator, mViewPortHandler);
+        super.invalidate();
+    }
+}
+

@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.text.Layout;
 import android.text.StaticLayout;
@@ -22,20 +23,20 @@ import com.zandroid.R;
  * 圆形，中间有文字，左右提示文字
  * */
 public class CircleMessageView extends View {
-    private final String TAG="CircleMessageView";
 
     private float circleRadio;
     private int circleColor;
     private float mCircleCenterX;
     private float mCircleCenterY;
-
-
+    //矩形区域
+    private RectF rectF;
     //字体大小
     private float topTextSize;
     //文字颜色
     private int topTextColor;
     //文字内容
     private String topText;
+    private int topColor,bottomColor;
     //中间的分割线
     private int lineColor;
     private float lineWidth;
@@ -65,6 +66,8 @@ public class CircleMessageView extends View {
         //圆的颜色
         circleColor=a.getColor(R.styleable.CircleMessageView_circleColor,Color.WHITE);
 
+        topColor = a.getColor(R.styleable.CircleMessageView_topColor, Color.WHITE);//上部分
+        bottomColor = a.getColor(R.styleable.CircleMessageView_bottomColor, Color.WHITE);//下部分颜色
         topTextSize = a.getDimension(R.styleable.CircleMessageView_topTextSize, 14);//文字大小
         topTextColor = a.getColor(R.styleable.CircleMessageView_topTextColor, Color.BLACK);//文字颜色
         topText=a.getString(R.styleable.CircleMessageView_topText);
@@ -84,6 +87,11 @@ public class CircleMessageView extends View {
         this.setWillNotDraw(false);
     }
 
+    public void setBgColor(int topColor,int bottomColor){
+        this.topColor=topColor;
+        this.bottomColor=bottomColor;
+        invalidate();
+    }
     public void setTopText(String topText){
         this.setTopText(topText,0);
     }
@@ -98,13 +106,13 @@ public class CircleMessageView extends View {
             this.topTextSize=topTextSize;
         invalidate();
     }
-    public void setBottomTextText(String bottomText){
-        this.setBottomTextText(bottomText,0);
+    public void setBottomText(String bottomText){
+        this.setBottomText(bottomText,0);
     }
-    public void setBottomTextText(String bottomText,int bottomTextColor){
-        this.setBottomTextText(bottomText,bottomTextColor,0);
+    public void setBottomText(String bottomText,int bottomTextColor){
+        this.setBottomText(bottomText,bottomTextColor,0);
     }
-    public void setBottomTextText(String bottomText,int bottomTextColor,int bottomTextSize){
+    public void setBottomText(String bottomText,int bottomTextColor,int bottomTextSize){
         this.bottomText=bottomText;
         if(bottomTextColor!=0)
             this.bottomTextColor=bottomTextColor;
@@ -121,18 +129,26 @@ public class CircleMessageView extends View {
         mCircleCenterX = (viewWidth-getPaddingLeft()-getPaddingRight()) / 2+getPaddingLeft();
         mCircleCenterY = (viewHidth-getPaddingTop()-getPaddingBottom()) / 2+getPaddingTop();
 
+        rectF = new RectF(getPaddingLeft(), getPaddingTop(), circleRadio * 2+getPaddingLeft(), circleRadio * 2+getPaddingTop());
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         mPaint.setColor(circleColor);
-        canvas.drawCircle(mCircleCenterX,mCircleCenterY,circleRadio,mPaint);
+        //canvas.drawCircle(mCircleCenterX,mCircleCenterY,circleRadio,mPaint);
 
-        if(!topText.isEmpty())
+
+        //画上下两个扇形
+        mPaint.setColor(topColor);
+        canvas.drawArc(rectF, 180, 360, true, mPaint);  //userCenter为false，轨迹不经过圆心
+        mPaint.setColor(bottomColor);
+        canvas.drawArc(rectF, 0, 180, true, mPaint);  //userCenter为false，轨迹不经过圆心
+
+        if(topText!=null&&!topText.isEmpty())
             drawTopText(canvas);
-        drawTopTextLine(canvas);
-        if(!bottomText.isEmpty())
+        //drawTopTextLine(canvas);
+        if(topText!=null&&!bottomText.isEmpty())
             drawBottomText(canvas);
     }
     /**
@@ -166,7 +182,7 @@ public class CircleMessageView extends View {
         textPaint.setTypeface(Typeface.DEFAULT);
         float textWidth = mPaint.measureText(topText);
         float width=TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,textWidth,this.getResources().getDisplayMetrics());
-        Log.e(TAG,"行数："+Math.round(width/(circleRadio*8/5)));
+
         float startX=mCircleCenterX-circleRadio*4/5;
         float startY= mCircleCenterY-bottomTextSize*2*(int)Math.ceil(width/(circleRadio*8/5))-bottomTextSize-lineWidth/2;//通过计算行数，确认Y轴起始
         textCenter(topText,textPaint,canvas,startX,startY, (int) (circleRadio*8/5),Layout.Alignment.ALIGN_CENTER,1.0f,0,false);

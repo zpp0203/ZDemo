@@ -111,4 +111,5 @@ dependencies {
     implementation project(':zxinglibrary')
     implementation files('libs/butterknife-7.0.1.jar')
     implementation project(':opengl')
+    implementation project(':MPChartLib')
 }

@@ -16,7 +16,7 @@
     <!--suppress AndroidUnknownAttribute -->
     <application>
         <activity
-            android:name="com.zpp.zxinglibrary.android.BaseCaptureActivity"
+            android:name=".android.BaseCaptureActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />

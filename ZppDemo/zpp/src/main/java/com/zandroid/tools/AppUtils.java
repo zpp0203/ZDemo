@@ -50,6 +50,7 @@ import java.util.List;
  * getAppInfo : 获取 App 信息
  * getAppsInfo : 获取所有已安装 App 信息
  * cleanAppData : 清除 App 所有数据
+ * getAppMetaDataString :获取manifest文件的meta-data的值
  */
 
 public final class AppUtils {
@@ -1789,5 +1790,16 @@ public final class AppUtils {
         }
 
     }
-
+    public static String getAppMetaDataString(Context context, String metaName) {
+        try {
+            //application标签下用getApplicationinfo，如果是activity下的用getActivityInfo
+            String value = context.getPackageManager()
+                    .getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA)
+                    .metaData.getString(metaName, null);
+            return value;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

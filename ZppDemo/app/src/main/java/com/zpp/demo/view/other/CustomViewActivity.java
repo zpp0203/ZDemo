@@ -37,8 +37,9 @@ public class CustomViewActivity extends BaseActivity {
         custom_start_view=findViewById(R.id.custom_start_view);
 
         circleMessageView.setTopText("测试1 测试1 测试1，大大是");
-        circleMessageView.setBottomTextText("测试2 测试2 测试2fff 哼哼哈哈");
+        circleMessageView.setBottomText("测试2 测试2 测试2fff 哼哼哈哈");
 
+//        circleMessageView.setBgColor(getResources().getColor(R.color.red),getResources().getColor(R.color.green));
         customInputView.setCompleteListener(new CustomInputView.InputCompleteListener() {
             @Override
             public void onComplete(String values) {

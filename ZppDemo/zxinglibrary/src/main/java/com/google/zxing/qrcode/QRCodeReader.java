@@ -18,6 +18,7 @@ package com.google.zxing.qrcode;
 
 import android.graphics.Rect;
 import android.hardware.Camera;
+import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -107,7 +108,7 @@ public class QRCodeReader implements Reader {
           if(parameters.isZoomSupported()){
             if(len <= frameWidth/4) {//二维码在扫描框中的宽度小于扫描框的1/4，放大镜头
               if (zoom == 0) {
-                zoom = maxZoom / 2;
+                zoom = maxZoom / 3;
               } else if (zoom <= maxZoom - 10) {
                 zoom = zoom + 10;
               } else {

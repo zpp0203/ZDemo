@@ -33,6 +33,8 @@
         android:padding="10dp"
         app:circleRadio="50dp"
         app:circleColor="@color/grey"
+        app:topColor="@color/red"
+        app:bottomColor="@color/green"
         app:topText="测试 ceshi 测试 ceshi red"
         app:bottomText="也是测试也是测试啊啊啊"
         app:bottomTextColor="@color/red"/>

@@ -2,7 +2,7 @@
 	<content class="gradient-back">
 		<view class="home-top" >
 			<view class="home-top-item" v-for="(item, index) in tops" :key="index" 
-				v-bind:style="{backgroundColor:item.back}" @click="topClick(index)">
+				@click="topClick(index)" >
 				<image class="home-top-item-img" :mode="aspectFit" :src="item.img"></image>
 				<view class="home-top-item-text">{{item.name}}</view>
 			</view>
@@ -19,6 +19,12 @@
 
 <script>
 	export default {
+		computed: {
+			
+		},
+		props:{//接收参数
+			
+		},
 		data() {
 			return {
 				tops : [
@@ -68,7 +74,6 @@
 					
 					title:this.tops[position].name
 				})
-
 			}
 		}
 	}
@@ -82,7 +87,7 @@
 		display:flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		margin-top: var(--status-bar-height);
+/* 		margin-top: var(--status-bar-height); */
 		padding: 20upx 0upx 20upx 20upx;
 		justify-content: center;
 	}
@@ -91,7 +96,6 @@
 		height: 166upx;
 		background: #3FCAB7;
 		margin: 20upx 20upx 0upx 0upx;
-		
 		display:flex;
 		justify-content: center;
 		/* align-items:flex-end; */
@@ -103,7 +107,7 @@
 		/* background-image:url(../../static/wodui/home-top1.png); */
 	}
 	.home-top-item-text{
-		position: absolute;
+ 		position: absolute; 
 		font-size: 18upx;
 		color: #FFFFFF;
 		margin-top: 130upx;

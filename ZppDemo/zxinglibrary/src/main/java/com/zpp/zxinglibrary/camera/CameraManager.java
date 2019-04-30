@@ -321,6 +321,10 @@ public final class CameraManager {
         requestedCameraId = cameraId;
     }
 
+    public int getRequestedCameraId() {
+        return requestedCameraId;
+    }
+
     /**
      * Allows third party apps to specify the scanning rectangle dimensions,
      * rather than determine them automatically based on screen resolution.
@@ -386,4 +390,5 @@ public final class CameraManager {
     public Camera getCamera() {
         return camera;
     }
+
 }

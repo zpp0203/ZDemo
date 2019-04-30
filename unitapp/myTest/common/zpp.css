@@ -2,7 +2,9 @@
 content{
 	height: 100%;  
 	width: 100%;  
-	/* padding-top: var(--status-bar-height); */
+	/* #ifdef APP-PLUS */
+	padding-top: var(--status-bar-height);
+	/* #endif */
 	position: fixed;  
     background-color: #999999; 
 }

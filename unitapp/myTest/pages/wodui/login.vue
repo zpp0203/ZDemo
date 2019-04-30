@@ -53,9 +53,7 @@
 <style>
 	@import '../../common/zpp.css';
 	.top{
-		/* #ifdef APP-PLUS */
-		margin-top: var(--status-bar-height);
-		/* #endif */
+
 	}
 	.other{
 		padding: 20upx;

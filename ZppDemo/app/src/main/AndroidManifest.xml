@@ -27,7 +27,7 @@
 
     <!-- end -->
     <application
-        android:name="com.zpp.demo.base.MyApplication"
+        android:name=".base.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -37,33 +37,34 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-        <!--<activity-->
-            <!--android:name="com.glview.OpenGLActivity"-->
-            <!--android:theme="@style/ProfileTheme">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <!-- <activity -->
+        <!-- android:name="com.glview.OpenGLActivity" -->
+        <!-- android:theme="@style/ProfileTheme"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
         <activity
             android:name=".view.MainActivity"
             android:theme="@style/ProfileTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.zpp.demo.view.welcomeActivity" />
-        <activity android:name="com.zpp.demo.view.system.SystemMainActivity" />
-        <activity android:name="com.zpp.demo.view.third.ThirdMainActivity" />
-        <activity android:name="com.zpp.demo.view.other.OtherMainActivity" />
-        <activity android:name="com.zpp.demo.view.other.ImageLoaderActivity" />
-        <activity android:name="com.zpp.demo.view.other.VolleyDemoActivity" />
-        <activity android:name="com.zpp.demo.view.third.WeixinDemoActivity" />
-        <activity android:name="com.zpp.demo.view.third.QQDemoActivity" />
-        <activity android:name="com.zpp.demo.view.other.RecycleViewDemoActivity" />
-        <activity android:name="com.zpp.demo.view.other.ShoppingCartActivity" />
-        <activity android:name="com.zpp.demo.bluetooth.BluetoothActivity" />
+        <activity android:name=".view.welcomeActivity" />
+        <activity android:name=".view.system.SystemMainActivity" />
+        <activity android:name=".view.third.ThirdMainActivity" />
+        <activity android:name=".view.other.OtherMainActivity" />
+        <activity android:name=".view.other.ImageLoaderActivity" />
+        <activity android:name=".view.other.VolleyDemoActivity" />
+        <activity android:name=".view.third.WeixinDemoActivity" />
+        <activity android:name=".view.third.QQDemoActivity" />
+        <activity android:name=".view.other.RecycleViewDemoActivity" />
+        <activity android:name=".view.other.ShoppingCartActivity" />
+        <activity android:name=".bluetooth.BluetoothActivity" />
         <!-- QQ分享 -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -83,12 +84,12 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="com.zpp.demo.view.other.CustomViewActivity"
+            android:name=".view.other.CustomViewActivity"
             android:screenOrientation="sensor" />
-        <activity android:name="com.zpp.demo.view.system.WifiActivity" />
+        <activity android:name=".view.system.WifiActivity" />
 
         <receiver
-            android:name="com.zpp.demo.view.MainActivity$SendReceiver"
+            android:name=".view.MainActivity$SendReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -100,7 +101,7 @@
             android:name="com.google.android.actions"
             android:resource="@xml/main_menu" />
 
-        <activity android:name="com.zpp.demo.view.third.AliActivity" />
+        <activity android:name=".view.third.AliActivity" />
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation|screenSize"
@@ -113,7 +114,7 @@
             android:exported="false"
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
-        <activity android:name="com.zpp.demo.view.other.TCPActivity" />
+        <activity android:name=".view.other.TCPActivity" />
 
         <!-- <receiver android:name=".tools.WifiBroadCastReceiver"> -->
         <!-- <intent-filter> -->
@@ -123,8 +124,8 @@
         <!-- <action android:name="android.net.wifi.NETWORK_IDS_CHANGED"/> -->
         <!-- </intent-filter> -->
         <!-- </receiver> -->
-        <activity android:name="com.zpp.demo.view.other.AnimatorActivity" />
-        <activity android:name="com.zpp.demo.view.system.CropImgActivity" />
+        <activity android:name=".view.other.AnimatorActivity" />
+        <activity android:name=".view.system.CropImgActivity" />
 
         <!--
        安装apk
@@ -143,11 +144,15 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <activity android:name="com.zpp.demo.view.other.DateActivity" />
-        <activity android:name="com.zpp.demo.view.third.ZxingActivity" />
-        <activity android:name="com.zpp.demo.view.third.CaptureActivity" />
-        <activity android:name="com.zpp.demo.view.system.WebViewActivity" />
-        <activity android:name="com.zpp.demo.view.other.RecycleExpandActivity"></activity>
+        <activity android:name=".view.other.DateActivity" />
+        <activity android:name=".view.third.ZxingActivity" />
+        <activity
+            android:name=".view.third.CaptureActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.system.WebViewActivity" />
+        <activity android:name=".view.other.RecycleExpandActivity" />
+        <activity android:name=".view.third.LineChartActivity"></activity>
     </application>
 
 </manifest>
