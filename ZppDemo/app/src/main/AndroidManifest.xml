@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.zpp.demo">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -149,7 +148,13 @@
         <activity
             android:name=".view.third.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="com.google.zxing.client.android.SCAN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".view.system.WebViewActivity" />
         <activity android:name=".view.other.RecycleExpandActivity" />
         <activity android:name=".view.third.LineChartActivity"></activity>

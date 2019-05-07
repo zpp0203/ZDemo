@@ -38,10 +38,14 @@ import java.util.Map;
  */
 public final class MultiFormatReader implements Reader {
 
+  private static final Reader[] EMPTY_READER_ARRAY = new Reader[0];
+
   private Map<DecodeHintType,?> hints;
   private Reader[] readers;
   private BaseCaptureActivity activity;
-
+  public void setActivity(BaseCaptureActivity activity) {
+    this.activity = activity;
+  }
   /**
    * This version of decode honors the intent of Reader.decode(BinaryBitmap) in that it
    * passes null as a hint to the decoders. However, that makes it inefficient to call repeatedly.
@@ -100,21 +104,21 @@ public final class MultiFormatReader implements Reader {
     boolean tryHarder = hints != null && hints.containsKey(DecodeHintType.TRY_HARDER);
     @SuppressWarnings("unchecked")
     Collection<BarcodeFormat> formats =
-            hints == null ? null : (Collection<BarcodeFormat>) hints.get(DecodeHintType.POSSIBLE_FORMATS);
+        hints == null ? null : (Collection<BarcodeFormat>) hints.get(DecodeHintType.POSSIBLE_FORMATS);
     Collection<Reader> readers = new ArrayList<>();
     if (formats != null) {
       boolean addOneDReader =
-              formats.contains(BarcodeFormat.UPC_A) ||
-                      formats.contains(BarcodeFormat.UPC_E) ||
-                      formats.contains(BarcodeFormat.EAN_13) ||
-                      formats.contains(BarcodeFormat.EAN_8) ||
-                      formats.contains(BarcodeFormat.CODABAR) ||
-                      formats.contains(BarcodeFormat.CODE_39) ||
-                      formats.contains(BarcodeFormat.CODE_93) ||
-                      formats.contains(BarcodeFormat.CODE_128) ||
-                      formats.contains(BarcodeFormat.ITF) ||
-                      formats.contains(BarcodeFormat.RSS_14) ||
-                      formats.contains(BarcodeFormat.RSS_EXPANDED);
+          formats.contains(BarcodeFormat.UPC_A) ||
+          formats.contains(BarcodeFormat.UPC_E) ||
+          formats.contains(BarcodeFormat.EAN_13) ||
+          formats.contains(BarcodeFormat.EAN_8) ||
+          formats.contains(BarcodeFormat.CODABAR) ||
+          formats.contains(BarcodeFormat.CODE_39) ||
+          formats.contains(BarcodeFormat.CODE_93) ||
+          formats.contains(BarcodeFormat.CODE_128) ||
+          formats.contains(BarcodeFormat.ITF) ||
+          formats.contains(BarcodeFormat.RSS_14) ||
+          formats.contains(BarcodeFormat.RSS_EXPANDED);
       // Put 1D readers upfront in "normal" mode
       if (addOneDReader && !tryHarder) {
         readers.add(new MultiFormatOneDReader(hints));
@@ -129,10 +133,10 @@ public final class MultiFormatReader implements Reader {
         readers.add(new AztecReader());
       }
       if (formats.contains(BarcodeFormat.PDF_417)) {
-        readers.add(new PDF417Reader());
+         readers.add(new PDF417Reader());
       }
       if (formats.contains(BarcodeFormat.MAXICODE)) {
-        readers.add(new MaxiCodeReader());
+         readers.add(new MaxiCodeReader());
       }
       // At end in "try harder" mode
       if (addOneDReader && tryHarder) {
@@ -154,7 +158,7 @@ public final class MultiFormatReader implements Reader {
         readers.add(new MultiFormatOneDReader(hints));
       }
     }
-    this.readers = readers.toArray(new Reader[readers.size()]);
+    this.readers = readers.toArray(EMPTY_READER_ARRAY);
   }
 
   @Override
@@ -179,7 +183,4 @@ public final class MultiFormatReader implements Reader {
     throw NotFoundException.getNotFoundInstance();
   }
 
-  public void setActivity(BaseCaptureActivity activity) {
-    this.activity = activity;
-  }
 }

@@ -31,6 +31,7 @@ import com.google.zxing.ReaderException;
 import com.google.zxing.Result;
 import com.google.zxing.common.HybridBinarizer;
 import com.zpp.zxinglibrary.android.BaseCaptureActivity;
+import com.zpp.zxinglibrary.camera.CameraManager;
 import com.zpp.zxinglibrary.common.Constant;
 
 import java.io.ByteArrayOutputStream;
@@ -87,9 +88,8 @@ public final class DecodeHandler extends Handler {
         height = tmp;
         data = rotatedData;
 
-        PlanarYUVLuminanceSource source = activity.getCameraManager()
-                .buildLuminanceSource(data, width, height);
 
+        PlanarYUVLuminanceSource source =activity.getCameraManager().buildLuminanceSource(data, width, height);
         if (source != null) {
             BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 

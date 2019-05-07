@@ -16,6 +16,7 @@
 
 package com.zpp.zxinglibrary.camera;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -23,6 +24,7 @@ import android.hardware.Camera;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 
 import com.google.zxing.PlanarYUVLuminanceSource;
@@ -44,7 +46,7 @@ public final class CameraManager {
 
     private static final String TAG = CameraManager.class.getSimpleName();
 
-    private final Context context;
+    private final Activity context;
     private final CameraConfigurationManager configManager;
     private ZxingConfig config;
     private Camera camera;
@@ -63,7 +65,7 @@ public final class CameraManager {
      */
     private final PreviewCallback previewCallback;
 
-    public CameraManager(Context context, ZxingConfig config) {
+    public CameraManager(Activity context, ZxingConfig config) {
         this.context = context;
         this.configManager = new CameraConfigurationManager(context);
         previewCallback = new PreviewCallback(configManager);
@@ -141,7 +143,6 @@ public final class CameraManager {
         }
 
     }
-
     public synchronized boolean isOpen() {
         return camera != null;
     }
@@ -269,7 +270,7 @@ public final class CameraManager {
 
             /*水平居中  偏上显示*/
             int leftOffset = (screenResolution.x - width) / 2;
-            int topOffset = (screenResolution.y - height) / 5;
+            int topOffset = (screenResolution.y - height)*3/ 10;
 
             framingRect = new Rect(leftOffset, topOffset, leftOffset + width,
                     topOffset + height);
@@ -287,6 +288,7 @@ public final class CameraManager {
      * size
      */
     public synchronized Rect getFramingRectInPreview() {
+
         if (framingRectInPreview == null) {
             Rect framingRect = getFramingRect();
             if (framingRect == null) {
@@ -299,12 +301,28 @@ public final class CameraManager {
                 // Called early, before init even finished
                 return null;
             }
-
+            //add by tancolo
+            if(screenResolution.x < screenResolution.y){
+                // portrait
+                rect.left = rect.left * cameraResolution.y / screenResolution.x;
+                rect.right = rect.right * cameraResolution.y / screenResolution.x;
+                rect.top = rect.top * cameraResolution.x / screenResolution.y;
+                rect.bottom = rect.bottom * cameraResolution.x / screenResolution.y;
+                Log.e(this.getClass().getName(),"getFramingRectInPreview portrait");
+            } else {
+                // landscape
+                rect.left = rect.left * cameraResolution.x / screenResolution.x;
+                rect.right = rect.right * cameraResolution.x / screenResolution.x;
+                rect.top = rect.top * cameraResolution.y / screenResolution.y;
+                rect.bottom = rect.bottom * cameraResolution.y / screenResolution.y;
+                Log.e(this.getClass().getName(),"getFramingRectInPreview landscape");
+            }
+            // end add
             /******************** 竖屏更改1(cameraResolution.x/y互换) ************************/
-            rect.left = rect.left * cameraResolution.y / screenResolution.x;
-            rect.right = rect.right * cameraResolution.y / screenResolution.x;
-            rect.top = rect.top * cameraResolution.x / screenResolution.y;
-            rect.bottom = rect.bottom * cameraResolution.x / screenResolution.y;
+//            rect.left = rect.left * cameraResolution.y / screenResolution.x;
+//            rect.right = rect.right * cameraResolution.y / screenResolution.x;
+//            rect.top = rect.top * cameraResolution.x / screenResolution.y;
+//            rect.bottom = rect.bottom * cameraResolution.x / screenResolution.y;
             framingRectInPreview = rect;
         }
         return framingRectInPreview;
@@ -342,7 +360,7 @@ public final class CameraManager {
                 height = screenResolution.y;
             }
             int leftOffset = (screenResolution.x - width) / 2;
-            int topOffset = (screenResolution.y - height) / 5;
+            int topOffset = (screenResolution.y - height) * 3/ 10;
             framingRect = new Rect(leftOffset, topOffset, leftOffset + width,
                     topOffset + height);
             Log.d(TAG, "Calculated manual framing rect: " + framingRect);
@@ -374,14 +392,15 @@ public final class CameraManager {
         if (config == null) {
             config = new ZxingConfig();
         }
-
+        //设置扫描区域范围
         if (config.isFullScreenScan()) {
             return new PlanarYUVLuminanceSource(data, width, height, 0,
                     0, width, height, false);
         } else {
             int actionbarHeight = context.getResources().getDimensionPixelSize(R.dimen.toolBarHeight);
+
             return new PlanarYUVLuminanceSource(data, width, height, rect.left,
-                    rect.top + actionbarHeight, rect.width(), rect.height(), false);
+                    rect.top, rect.width(), rect.height(), false);
         }
 
 

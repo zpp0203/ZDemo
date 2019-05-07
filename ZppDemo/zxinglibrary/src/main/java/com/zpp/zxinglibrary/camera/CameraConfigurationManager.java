@@ -16,6 +16,7 @@
 
 package com.zpp.zxinglibrary.camera;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -23,6 +24,7 @@ import android.hardware.Camera;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
+import android.view.Surface;
 import android.view.WindowManager;
 
 
@@ -57,7 +59,7 @@ final class CameraConfigurationManager {
     // private static final float MIN_EXPOSURE_COMPENSATION = 0.0f;
     private static final double MAX_ASPECT_DISTORTION = 0.15;
 
-    private final Context context;
+    private final Activity context;
     /**
      * 屏幕分辨率
      */
@@ -68,7 +70,7 @@ final class CameraConfigurationManager {
      */
     private Point cameraResolution;
 
-    CameraConfigurationManager(Context context) {
+    CameraConfigurationManager(Activity context) {
         this.context = context;
     }
 
@@ -163,7 +165,7 @@ final class CameraConfigurationManager {
                 parameters.setColorEffect(colorMode);
             }
         }
-
+        //parameters.setRotation(getCameraDisplayOrientation(context));
         parameters.setPreviewSize(cameraResolution.x, cameraResolution.y);
         camera.setParameters(parameters);
 
@@ -178,9 +180,32 @@ final class CameraConfigurationManager {
             cameraResolution.x = afterSize.width;
             cameraResolution.y = afterSize.height;
         }
-        camera.setDisplayOrientation(90);
+        //camera.setDisplayOrientation(90);
+        camera.setDisplayOrientation(getCameraDisplayOrientation(context));
     }
 
+    public int getCameraDisplayOrientation(Activity activity) {
+
+        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+        android.hardware.Camera.getCameraInfo(0, info);
+        int rotation = activity.getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:degrees = 0; break;
+            case Surface.ROTATION_90: degrees = 90; break;
+            case Surface.ROTATION_180: degrees = 180; break;
+            case Surface.ROTATION_270: degrees = 270; break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;  // compensate the mirror
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360;
+        }
+        return result;
+    }
     Point getCameraResolution() {
         return cameraResolution;
     }

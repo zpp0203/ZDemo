@@ -16,11 +16,13 @@
 
 package com.google.zxing;
 
+import com.google.zxing.qrcode.QRCodeReader;
+
 import java.util.Map;
 
 /**
  * Implementations of this interface can decode an image of a barcode in some format into
- * the String it encodes. For example, {@link com.google.zxing.qrcode.QRCodeReader} can
+ * the String it encodes. For example, {@link QRCodeReader} can
  * decode a QR code. The decoder may optionally receive hints from the caller which may help
  * it decode more quickly or accurately.
  *

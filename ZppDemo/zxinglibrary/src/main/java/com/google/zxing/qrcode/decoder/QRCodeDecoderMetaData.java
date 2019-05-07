@@ -17,12 +17,13 @@
 package com.google.zxing.qrcode.decoder;
 
 import com.google.zxing.ResultPoint;
+import com.google.zxing.common.DecoderResult;
 
 /**
  * Meta-data container for QR Code decoding. Instances of this class may be used to convey information back to the
  * decoding caller. Callers are expected to process this.
  *
- * @see com.google.zxing.common.DecoderResult#getOther()
+ * @see DecoderResult#getOther()
  */
 public final class QRCodeDecoderMetaData {
 

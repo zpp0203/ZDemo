@@ -250,7 +250,7 @@ public final class PDF417ScanningDecoder {
   }
 
   private static DecoderResult createDecoderResult(DetectionResult detectionResult) throws FormatException,
-          ChecksumException, NotFoundException {
+      ChecksumException, NotFoundException {
     BarcodeValue[][] barcodeMatrix = createBarcodeMatrix(detectionResult);
     adjustCodewordCount(detectionResult, barcodeMatrix);
     Collection<Integer> erasures = new ArrayList<>();
@@ -521,7 +521,7 @@ public final class PDF417ScanningDecoder {
   }
 
   private static DecoderResult decodeCodewords(int[] codewords, int ecLevel, int[] erasures) throws FormatException,
-          ChecksumException {
+      ChecksumException {
     if (codewords.length == 0) {
       throw FormatException.getFormatInstance();
     }

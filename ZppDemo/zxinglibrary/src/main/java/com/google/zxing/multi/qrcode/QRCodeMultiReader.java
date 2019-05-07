@@ -50,11 +50,9 @@ public final class QRCodeMultiReader extends QRCodeReader implements MultipleBar
 
   private static final Result[] EMPTY_RESULT_ARRAY = new Result[0];
   private static final ResultPoint[] NO_POINTS = new ResultPoint[0];
-
   public QRCodeMultiReader(BaseCaptureActivity activity) {
     super(activity);
   }
-
   @Override
   public Result[] decodeMultiple(BinaryBitmap image) throws NotFoundException {
     return decodeMultiple(image, null);

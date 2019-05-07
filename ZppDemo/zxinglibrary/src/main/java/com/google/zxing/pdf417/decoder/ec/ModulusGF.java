@@ -16,13 +16,14 @@
 
 package com.google.zxing.pdf417.decoder.ec;
 
+import com.google.zxing.common.reedsolomon.GenericGF;
 import com.google.zxing.pdf417.PDF417Common;
 
 /**
  * <p>A field based on powers of a generator integer, modulo some modulus.</p>
  *
  * @author Sean Owen
- * @see com.google.zxing.common.reedsolomon.GenericGF
+ * @see GenericGF
  */
 public final class ModulusGF {
 

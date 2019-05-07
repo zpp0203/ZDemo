@@ -59,7 +59,7 @@ public final class PDF417Reader implements Reader, MultipleBarcodeReader {
 
   @Override
   public Result decode(BinaryBitmap image, Map<DecodeHintType,?> hints) throws NotFoundException, FormatException,
-          ChecksumException {
+      ChecksumException {
     Result[] result = decode(image, hints, false);
     if (result.length == 0 || result[0] == null) {
       throw NotFoundException.getNotFoundInstance();
@@ -81,7 +81,7 @@ public final class PDF417Reader implements Reader, MultipleBarcodeReader {
     }
   }
 
-  private static Result[] decode(BinaryBitmap image, Map<DecodeHintType, ?> hints, boolean multiple)
+  private static Result[] decode(BinaryBitmap image, Map<DecodeHintType, ?> hints, boolean multiple) 
       throws NotFoundException, FormatException, ChecksumException {
     List<Result> results = new ArrayList<>();
     PDF417DetectorResult detectorResult = Detector.detect(image, hints, multiple);

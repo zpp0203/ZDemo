@@ -18,7 +18,6 @@ package com.google.zxing.qrcode;
 
 import android.graphics.Rect;
 import android.hardware.Camera;
-import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.BinaryBitmap;
@@ -52,15 +51,13 @@ public class QRCodeReader implements Reader {
   private static final ResultPoint[] NO_POINTS = new ResultPoint[0];
 
   private final Decoder decoder = new Decoder();
-
-  protected final Decoder getDecoder() {
-    return decoder;
-  }
-
   private BaseCaptureActivity activity;
 
   public QRCodeReader(BaseCaptureActivity activity) {
     this.activity = activity;
+  }
+  protected final Decoder getDecoder() {
+    return decoder;
   }
 
   /**
@@ -75,7 +72,7 @@ public class QRCodeReader implements Reader {
   public Result decode(BinaryBitmap image) throws NotFoundException, ChecksumException, FormatException {
     return decode(image, null);
   }
-
+  /*放大处理*/
   @Override
   public final Result decode(BinaryBitmap image, Map<DecodeHintType,?> hints)
           throws NotFoundException, ChecksumException, FormatException {
@@ -89,7 +86,7 @@ public class QRCodeReader implements Reader {
       //1、将图像进行二值化处理，1、0代表黑、白。( 二维码的使用getBlackMatrix方法 )
       //2、寻找定位符、校正符，然后将原图像中符号码部分取出。（detector代码实现的功能）
       DetectorResult detectorResult = new Detector(image.getBlackMatrix()).detect(hints);
-      if(activity!=null && activity.isAutoEnlarged()){
+      if(activity!=null){
         CameraManager cameraManager = activity.getCameraManager();
         ResultPoint[] p = detectorResult.getPoints();
         //计算扫描框中的二维码的宽度，两点间距离公式
@@ -148,6 +145,43 @@ public class QRCodeReader implements Reader {
     }
     return result;
   }
+//  @Override
+//  public final Result decode(BinaryBitmap image, Map<DecodeHintType,?> hints)
+//      throws NotFoundException, ChecksumException, FormatException {
+//    DecoderResult decoderResult;
+//    ResultPoint[] points;
+//    if (hints != null && hints.containsKey(DecodeHintType.PURE_BARCODE)) {
+//      BitMatrix bits = extractPureBits(image.getBlackMatrix());
+//      decoderResult = decoder.decode(bits, hints);
+//      points = NO_POINTS;
+//    } else {
+//      DetectorResult detectorResult = new Detector(image.getBlackMatrix()).detect(hints);
+//      decoderResult = decoder.decode(detectorResult.getBits(), hints);
+//      points = detectorResult.getPoints();
+//    }
+//
+//    // If the code was mirrored: swap the bottom-left and the top-right points.
+//    if (decoderResult.getOther() instanceof QRCodeDecoderMetaData) {
+//      ((QRCodeDecoderMetaData) decoderResult.getOther()).applyMirroredCorrection(points);
+//    }
+//
+//    Result result = new Result(decoderResult.getText(), decoderResult.getRawBytes(), points, BarcodeFormat.QR_CODE);
+//    List<byte[]> byteSegments = decoderResult.getByteSegments();
+//    if (byteSegments != null) {
+//      result.putMetadata(ResultMetadataType.BYTE_SEGMENTS, byteSegments);
+//    }
+//    String ecLevel = decoderResult.getECLevel();
+//    if (ecLevel != null) {
+//      result.putMetadata(ResultMetadataType.ERROR_CORRECTION_LEVEL, ecLevel);
+//    }
+//    if (decoderResult.hasStructuredAppend()) {
+//      result.putMetadata(ResultMetadataType.STRUCTURED_APPEND_SEQUENCE,
+//                         decoderResult.getStructuredAppendSequenceNumber());
+//      result.putMetadata(ResultMetadataType.STRUCTURED_APPEND_PARITY,
+//                         decoderResult.getStructuredAppendParity());
+//    }
+//    return result;
+//  }
 
   @Override
   public void reset() {
@@ -159,8 +193,6 @@ public class QRCodeReader implements Reader {
    * which contains only an unrotated, unskewed, image of a code, with some white border
    * around it. This is a specialized method that works exceptionally fast in this special
    * case.
-   *
-   * @see com.google.zxing.datamatrix.DataMatrixReader#extractPureBits(BitMatrix)
    */
   private static BitMatrix extractPureBits(BitMatrix image) throws NotFoundException {
 

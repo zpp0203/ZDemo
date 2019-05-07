@@ -488,7 +488,9 @@ public abstract class BaseCaptureActivity extends Activity implements SurfaceHol
     public void switchFlashImg(int flashState) {
 
     }
-
+    /**
+     * 自动缩放
+     * */
     public boolean isAutoEnlarged() {
         return autoEnlarged;
     }

@@ -17,6 +17,7 @@
 package com.google.zxing.pdf417.decoder.ec;
 
 import com.google.zxing.ChecksumException;
+import com.google.zxing.common.reedsolomon.ReedSolomonDecoder;
 
 /**
  * <p>PDF417 error correction implementation.</p>
@@ -25,7 +26,7 @@ import com.google.zxing.ChecksumException;
  * is quite useful in understanding the algorithm.</p>
  *
  * @author Sean Owen
- * @see com.google.zxing.common.reedsolomon.ReedSolomonDecoder
+ * @see ReedSolomonDecoder
  */
 public final class ErrorCorrection {
 

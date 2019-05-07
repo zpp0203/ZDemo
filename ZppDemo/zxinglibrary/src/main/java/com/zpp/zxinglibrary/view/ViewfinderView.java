@@ -75,7 +75,6 @@ public final class ViewfinderView extends View {
 
         scanLineColor = ContextCompat.getColor(getContext(), config.getScanLineColor());
         initPaint();
-
     }
 
 
@@ -132,17 +131,13 @@ public final class ViewfinderView extends View {
             valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                 @Override
                 public void onAnimationUpdate(ValueAnimator animation) {
-
                     scanLineTop = (int) animation.getAnimatedValue();
                     invalidate();
 
                 }
             });
-
             valueAnimator.start();
         }
-
-
     }
 
     public void setCameraManager(CameraManager cameraManager) {
@@ -306,10 +301,7 @@ public final class ViewfinderView extends View {
      * @param frame
      */
     private void drawScanLight(Canvas canvas, Rect frame) {
-
         canvas.drawLine(frame.left, scanLineTop, frame.right, scanLineTop, scanLinePaint);
-
-
     }
 
     public void drawViewfinder() {
