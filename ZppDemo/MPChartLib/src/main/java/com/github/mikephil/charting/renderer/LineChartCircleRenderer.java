@@ -70,6 +70,7 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
 
     @Override
     public void initBuffers() {
+
     }
 
     @Override
@@ -534,6 +535,7 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
 
                 ILineDataSet dataSet = dataSets.get(i);
 
+
                 if (!shouldDrawValues(dataSet))
                     continue;
 
@@ -557,8 +559,8 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
                 iconsOffset.x = Utils.convertDpToPixel(iconsOffset.x);
                 iconsOffset.y = Utils.convertDpToPixel(iconsOffset.y);
 
-                for (int j = 0; j < positions.length; j += 2) {
 
+                for (int j = 0; j < positions.length; j += 2) {
                     float x = positions[j];
                     float y = positions[j + 1];
 
@@ -578,7 +580,6 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
                     if (entry.getIcon() != null && dataSet.isDrawIconsEnabled()) {
 
                         Drawable icon = entry.getIcon();
-
                         Utils.drawImage(
                                 c,
                                 icon,
@@ -613,6 +614,11 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
      * 显示原点的x轴的对应的数组
      */
     private static Map<String,List> mCirclePointPositions=new HashMap<>();
+    /**
+     * 特殊圆点的颜色
+     * */
+    private static int mCircleColor=Color.RED;
+
     //private static List<Integer> mCirclePointPositions = new ArrayList<>();
 
 //    public static List<Integer> getmCirclePointPositions() {
@@ -621,6 +627,11 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
     public static Map<String,List> getmCirclePointPositions() {
         return mCirclePointPositions;
     }
+
+    public static void setCircleColor(int circleColor) {
+        mCircleColor = circleColor;
+    }
+
 
     /**
      * 设置显示哪个x轴对应的原点
@@ -640,7 +651,7 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
      *
      * @param c
      */
-    protected void drawCircles(Canvas c) {
+    protected void drawCircles(final Canvas c) {
 
         mRenderPaint.setStyle(Paint.Style.FILL);
 
@@ -652,7 +663,6 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
         List<ILineDataSet> dataSets = mChart.getLineData().getDataSets();
 
         for (int i = 0; i < dataSets.size(); i++) {
-
             ILineDataSet dataSet = dataSets.get(i);
             if (!dataSet.isVisible() || !dataSet.isDrawCirclesEnabled() ||
                     dataSet.getEntryCount() == 0)
@@ -689,39 +699,66 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
             }
 
             int boundsRangeCount = mXBounds.range + mXBounds.min;
-
+            //特定点的画笔
+            Paint paint=new Paint();
+            paint.setColor(mCircleColor);
+            //画标记点
+            float beforX=0,beforY=0,afterX=0,afterY=0;
+            Double my=5.1;
             for (int j = mXBounds.min; j <= boundsRangeCount; j++) {
-                // TODO: 2017/11/13 改动位置
-                for(Map.Entry<String, List> entry:mCirclePointPositions.entrySet()) {
-                    if (dataSet.getLabel().contains(entry.getKey()) && entry.getValue().contains(j)) {
-                    //if (mCirclePointPositions.contains(j)) {
-                        Entry e = dataSet.getEntryForIndex(j);
-                        if (e == null)
-                            break;
+                Entry e = dataSet.getEntryForIndex(j);
 
-                        mCirclesBuffer[0] = e.getX();
-                        mCirclesBuffer[1] = e.getY() * phaseY;
+                if (e == null)
+                    break;
 
-                        trans.pointValuesToPixel(mCirclesBuffer);
+                mCirclesBuffer[0] = e.getX();
+                mCirclesBuffer[1] = e.getY() * phaseY;
 
-                        if (!mViewPortHandler.isInBoundsRight(mCirclesBuffer[0]))
-                            break;
+                trans.pointValuesToPixel(mCirclesBuffer);
+                if (!mViewPortHandler.isInBoundsRight(mCirclesBuffer[0]))
+                    break;
 
-                        if (!mViewPortHandler.isInBoundsLeft(mCirclesBuffer[0]) ||
-                                !mViewPortHandler.isInBoundsY(mCirclesBuffer[1]))
-                            continue;
+                if (!mViewPortHandler.isInBoundsLeft(mCirclesBuffer[0]) ||
+                        !mViewPortHandler.isInBoundsY(mCirclesBuffer[1]))
+                    continue;
 
-                        Bitmap circleBitmap = imageCache.getBitmap(j);
-
-                        if (circleBitmap != null) {
-                            c.drawBitmap(circleBitmap, mCirclesBuffer[0] - circleRadius, mCirclesBuffer[1] - circleRadius, null);
-                        }
-                    }
+                if(j==Math.floor(my)){
+                    beforX=mCirclesBuffer[0];
+                    beforY=mCirclesBuffer[1];
+                }else if(j==Math.ceil(my)){
+                    afterX=mCirclesBuffer[0];
+                    afterY=mCirclesBuffer[1];
                 }
+
+                //绘制特定的点 全部的点
+                Bitmap circleBitmap1 = imageCache.getBitmap(j);
+                if(mCirclePointPositions.containsKey(dataSet.getLabel())&&mCirclePointPositions.get(dataSet.getLabel()).contains(j)){
+                    c.drawCircle(mCirclesBuffer[0],mCirclesBuffer[1],circleRadius,paint);
+                }else if (circleBitmap1 != null) {
+                    c.drawBitmap(circleBitmap1, mCirclesBuffer[0] - circleRadius, mCirclesBuffer[1] - circleRadius, null);
+                }
+
+            }
+            //绘制要闪烁的点 按照传来的位置
+            nx= (float) ((afterX-beforX)*(my-Math.floor(my)));
+            ny= (float) ((afterY-beforY)*(my-Math.floor(my)));
+            //c.drawCircle(beforX+nx,beforY+ny,circleRadius,paint);
+
+            if(drawEndListenr!=null){
+                drawEndListenr.drawEnd(beforX+nx,beforY+ny);
             }
         }
     }
 
+    static float nx,ny;
+
+    public interface OnDrawEndListenr{
+        void drawEnd(float x,float y);
+    }
+    private static OnDrawEndListenr drawEndListenr;
+    public static void setOnDrawEndListenr(OnDrawEndListenr onDrawEndListenr){
+        drawEndListenr=onDrawEndListenr;
+    }
     @Override
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 

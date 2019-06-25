@@ -25,10 +25,7 @@ public class LineCircleChart extends BarLineChartBase<LineData> implements LineD
     @Override
     protected void init() {
         super.init();
-//        if(LineChartCircleRenderer.getmCirclePointPositions().size()>0)
-//            mRenderer = new LineChartCircleRenderer(this, mAnimator, mViewPortHandler);
-//        else
-//            mRenderer=new LineChartRenderer(this,mAnimator, mViewPortHandler);
+        mRenderer = new LineChartCircleRenderer(this, mAnimator, mViewPortHandler);
     }
 
     @Override
@@ -49,13 +46,5 @@ public class LineCircleChart extends BarLineChartBase<LineData> implements LineD
         super.onDetachedFromWindow();
     }
 
-    @Override
-    public void invalidate() {
-        if(LineChartCircleRenderer.getmCirclePointPositions().size()>0)
-            mRenderer = new LineChartCircleRenderer(this, mAnimator, mViewPortHandler);
-        else
-            mRenderer=new LineChartRenderer(this,mAnimator, mViewPortHandler);
-        super.invalidate();
-    }
 }
 

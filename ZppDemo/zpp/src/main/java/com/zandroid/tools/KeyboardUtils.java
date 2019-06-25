@@ -73,4 +73,15 @@ public class KeyboardUtils {
             imm.toggleSoftInput(0, 0);
         }
     }
+    /**
+     * 获取软键盘高度
+     * */
+    public static int getSoftInputHeight(Activity activity) {
+        View decorView = activity.getWindow().getDecorView();
+        Rect rect = new Rect();
+        decorView.getWindowVisibleDisplayFrame(rect);
+        int displayHeight = rect.bottom;
+        int height = decorView.getHeight();
+        return height - displayHeight;
+    }
 }

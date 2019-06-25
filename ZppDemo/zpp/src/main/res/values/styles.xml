@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--自定义start view-->
     <declare-styleable name="custom_start_view">
         <attr name="start_number" format="integer"/>
@@ -35,4 +35,15 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 模糊 -->
     </style>
+    <style name="Toast_Dialog">
+        <!--<item name="android:windowFullscreen">false</item>-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimAmount">0</item>
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustPan</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 背景空白 -->
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
 </resources>

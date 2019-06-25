@@ -1,1 +1,1 @@
-include ':app', ':zpp', ':love', ':zxinglibrary', ':opengl', ':notes', ':zvolley', ':MPChartLib'
+include ':app', ':zpp', ':love', ':zxinglibrary', ':opengl', ':notes', ':zvolley', ':MPChartLib', ':ztoast', ':usespermission'

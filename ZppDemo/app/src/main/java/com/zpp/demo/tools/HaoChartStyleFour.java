@@ -2,18 +2,27 @@ package com.zpp.demo.tools;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.github.mikephil.charting.charts.LineCircleChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.renderer.LineChartCircleRenderer;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.zpp.demo.R;
 
@@ -49,7 +58,7 @@ import java.util.List;
 public class HaoChartStyleFour {
 
     static int gray =0xFF333333;
-    public static void setLinesChart(Context context, LineCircleChart lineChart, final List<String> xAxisValue, List<List<Float>> yXAxisValues, int[] lineColors) {
+    public static void setLinesChart(final Context context, final LineCircleChart lineChart, final List<String> xAxisValue, List<List<Float>> yXAxisValues, int[] lineColors, final ImageView redPosition) {
         lineChart.setDrawBorders(false); //在折线图上添加边框
         lineChart.setDrawGridBackground(true); //表格颜色
 
@@ -177,6 +186,29 @@ public class HaoChartStyleFour {
         lineChart.animateX(500);//数据显示动画，从左往右依次显示
 
 
+        LineChartCircleRenderer.setOnDrawEndListenr(new LineChartCircleRenderer.OnDrawEndListenr() {
+            @Override
+            public void drawEnd(float x, float y) {
+
+                RelativeLayout.LayoutParams params= (RelativeLayout.LayoutParams) redPosition.getLayoutParams();
+                params.topMargin= (int) (lineChart.getTop()+y-params.height/2);
+                params.leftMargin= (int) (lineChart.getLeft()+x-params.width/2);
+                redPosition.setLayoutParams(params);
+
+                AnimationSet animationSet =new AnimationSet(true);
+                ScaleAnimation scaleAnimation = new ScaleAnimation(1f,0.5f,1,0.5f,Animation.RELATIVE_TO_SELF,0.5f,Animation.RELATIVE_TO_SELF,0.5f);
+                scaleAnimation.setRepeatCount(Animation.INFINITE);
+                scaleAnimation.setRepeatMode(Animation.REVERSE);
+                scaleAnimation.setDuration(1000);
+                AlphaAnimation alphaAnimation = new AlphaAnimation(1,0.4f);
+                alphaAnimation.setRepeatCount(Animation.INFINITE);
+                alphaAnimation.setDuration(1000);
+                alphaAnimation.setRepeatMode(Animation.REVERSE);
+                animationSet.addAnimation(scaleAnimation);
+                animationSet.addAnimation(alphaAnimation);
+                redPosition.startAnimation(animationSet);
+            }
+        });
     }
 
     public static final int[] LINE_FILL_COLORS = {
@@ -224,7 +256,6 @@ public class HaoChartStyleFour {
                     lineDataSet.setDrawFilled(false);
 
                 }
-                lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
 
                 lineDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);//设置线数据依赖于左侧y轴
 
@@ -238,6 +269,8 @@ public class HaoChartStyleFour {
                 lineDataSet.setDrawCircleHole(false);
                 //圆点的填充颜色
                 lineDataSet.setCircleColor(Color.BLACK);
+                //lineDataSet.setCircleColors(LINE_COLORS);
+
                 //圆点的半径
                 lineDataSet.setCircleRadius(5f);
 
@@ -246,7 +279,7 @@ public class HaoChartStyleFour {
                 lineDataSet.setDrawValues(false);//不绘制线的数据
                 //设置折线图模式(直线,曲线...)
                 //曲线
-                lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                //lineDataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
                 dataSets.add(lineDataSet);
             }
         }

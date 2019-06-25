@@ -42,6 +42,7 @@ public class GuideShape extends View implements View.OnTouchListener{
             hightLightView=new ArrayList<>();
         }
         hightLightView.add(rect);
+
         invalidate();
     }
     @Override

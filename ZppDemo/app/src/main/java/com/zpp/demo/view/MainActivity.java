@@ -5,12 +5,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +19,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.usespermission.Permission;
+import com.usespermission.UsesPermission;
 import com.zandroid.falldown.FallObject;
 import com.zandroid.falldown.FallingView;
 import com.zandroid.widget.XRecyclerView;
@@ -79,6 +83,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 .setWind(5,true,true)
                 .build();
         fallingView.addFallObject(fallObject,100);
+
+        check6Permission();
+    }
+
+    private void check6Permission() {
+        //假设需要获取摄像头、录音权限，直接在调用的地方实现抽象类，调用逻辑能简单直观不少
+
+        new UsesPermission(MainActivity.this, Permission.CAMERA, Permission.RECORD_AUDIO){
+            @Override
+            protected void onTrue(@NonNull ArrayList<String> lowerPermissions) {
+                //获取了全部权限执后行此函数，
+                Log.e("MainActivity-Permission","onTrue");
+            }
+
+            @Override
+            protected void onFalse(@NonNull ArrayList<String> rejectFinalPermissions, @NonNull ArrayList<String> rejectPermissions, @NonNull ArrayList<String> invalidPermissions) {
+                //未全部授权时执行此函数
+                Log.e("MainActivity-Permission","onFalse");
+            }
+
+            //要么实现上面两个方法即可，onTrue或onFalse只会有一个会被调用一次
+            //要么仅仅实现下面这个方法，不管授权了几个权限都会调用一次
+
+            @Override
+            protected void onComplete(@NonNull ArrayList<String> resolvePermissions, @NonNull ArrayList<String> lowerPermissions, @NonNull ArrayList<String> rejectFinalPermissions, @NonNull ArrayList<String> rejectPermissions, @NonNull ArrayList<String> invalidPermissions) {
+                //完成回调，可能全部已授权、全部未授权、或者部分已授权
+                //通过resolvePermissions.contains(Permission.XXX)来判断权限是否已授权
+                Log.e("MainActivity-Permission","onComplete");
+            }
+        };
     }
 
     @Override
@@ -114,6 +148,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onItemClick(int position) {
                 LogUtils.e("点击事件"+position);
                 startActivity(new Intent(MainActivity.this, list.get(position).getActivity()));
+                ToastUtils.showToast(mContext,"主页面测试EtoastDialog");
+
 
             }
         });
@@ -122,6 +158,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             @Override
             public void onItemLongClick(int position) {
                 ToastUtils.showLong(mContext,"长按事件");
+
             }
         });
 //需要在Adapter中设置
@@ -200,6 +237,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 switch (item.getItemId()){
                     case R.id.main_menu_1:
                         ToastUtils.showLong(mContext,"main_menu_1");
+                        toWeChatScan();
                         return true;
                     case R.id.main_menu_2:
                         ToastUtils.showLong(mContext,"main_menu_2");
@@ -219,4 +257,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
     }
+
+    private void toWeChatScan() {
+        try {
+            //利用Intent打开微信
+//            Uri uri = Uri.parse("weixin://dl/scan");
+//            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+//            startActivity(intent);
+            // 正在打开微信扫一扫
+            Uri uri=Uri.parse("com.tencent.mm.ui.LauncherUI");
+            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("LauncherUI.From.Scaner.Shortcut",true);
+
+            startActivity(intent);
+        } catch (Exception e) {
+            //若无法正常跳转，在此进行错误处理
+            Toast.makeText(this, "无法跳转到微信，请检查是否安装了微信", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

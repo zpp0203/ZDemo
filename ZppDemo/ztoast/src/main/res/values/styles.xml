@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="DialogActivityTheme" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item><!--透明状态栏并占用状态栏位置 -->
+        <item name="android:windowIsTranslucent">true</item><!-- 半透明 -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+        <item name="android:windowIsFloating">true</item><!-- 浮现在Activity之上 -->
+        <item name="windowNoTitle">true</item><!-- 无标题 -->
+        <item name="android:windowAnimationStyle">@null</item><!-- 进入和退出动画 -->
+    </style>
+
+</resources>

@@ -1,8 +1,13 @@
 package com.zandroid.tools;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 
+import java.util.List;
 import java.util.Stack;
+
+import static android.content.Context.ACTIVITY_SERVICE;
 
 /**
  * Created by 我 on 2018/4/23.
@@ -100,6 +105,17 @@ public class ActivityUtils {
             size = activityStack.size();
         }
         return size;
+    }
+    /**
+     * 判断某个界面是否在前台
+     *
+     * @param context  Context
+     * @param className 界面的类名
+     * @return 是否在前台显示
+     */
+    public boolean isForeground(Context context, String className) {
+
+        return true;
     }
 
 }

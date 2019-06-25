@@ -4,6 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <com.zandroid.widget.XRecyclerView
+        android:id="@+id/recycle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"/>
+
+    <com.zandroid.falldown.FallingView
+        android:id="@+id/falling_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,14 +30,4 @@
             android:textStyle="bold"/>
 
     </RelativeLayout>
-    <com.zandroid.widget.XRecyclerView
-        android:id="@+id/recycle"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"/>
-
-    <com.zandroid.falldown.FallingView
-        android:id="@+id/falling_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 </RelativeLayout>

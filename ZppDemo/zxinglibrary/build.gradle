@@ -36,6 +36,24 @@ android {
 //        rename('classes.jar', 'zzxing.jar')
 //    }
 //    makeJar.dependsOn(build)
+
+    dexOptions {
+        preDexLibraries = false
+    }
+
+    buildTypes {
+        debug {
+            buildConfigField("boolean", "isDebug", "true") // 定义 isdubug 的值
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            buildConfigField("boolean", "isDebug", "false") // 定义 isdubug 的值
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
 }
 
 dependencies {

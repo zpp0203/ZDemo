@@ -197,8 +197,15 @@ public class DensityUtils {
         return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
 
     }
-
-
+    /**获取xml中的值*/
+    public static int getXmlDef(Context context, int id){
+        TypedValue mTmpValue = new TypedValue();
+        synchronized (mTmpValue) {
+            TypedValue value = mTmpValue;
+            context.getResources().getValue(id, value, true);
+            return (int)TypedValue.complexToFloat(value.data);
+        }
+    }
     public interface onGetSizeListener {
 
         void onGetSize(View view);
