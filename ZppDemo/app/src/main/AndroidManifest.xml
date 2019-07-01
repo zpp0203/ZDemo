@@ -84,7 +84,7 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name=".view.other.CustomViewActivity"
+            android:name=".view.customView.CustomViewActivity"
             android:screenOrientation="sensor" />
         <activity android:name=".view.system.WifiActivity" />
 
@@ -149,7 +149,7 @@
         <activity
             android:name=".view.third.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.google.zxing.client.android.SCAN" />
 
@@ -158,7 +158,9 @@
         </activity>
         <activity android:name=".view.system.WebViewActivity" />
         <activity android:name=".view.other.RecycleExpandActivity" />
-        <activity android:name=".view.third.LineChartActivity"></activity>
+        <activity android:name=".view.third.LineChartActivity" />
+        <activity android:name=".view.customView.CustomMainActivity" />
+        <activity android:name=".view.customView.MyShapeActivity"></activity>
     </application>
 
 </manifest>

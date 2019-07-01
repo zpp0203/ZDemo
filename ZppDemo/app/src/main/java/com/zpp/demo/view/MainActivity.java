@@ -30,6 +30,7 @@ import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.bean.MainBean;
+import com.zpp.demo.view.customView.CustomMainActivity;
 import com.zpp.demo.view.other.OtherMainActivity;
 import com.zpp.demo.view.system.SystemMainActivity;
 import com.zpp.demo.view.third.ThirdMainActivity;
@@ -188,6 +189,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         list.add(new MainBean("System","有关系统功能的",SystemMainActivity.class));
         list.add(new MainBean("Third","有关第三方的",ThirdMainActivity.class));
         list.add(new MainBean("Other","自定义的、封装其他的",OtherMainActivity.class));
+        list.add(new MainBean("自定义控件","自定义控件",CustomMainActivity.class));
     }
 
 

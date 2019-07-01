@@ -1,4 +1,4 @@
-package com.zpp.demo.view.other;
+package com.zpp.demo.view.customView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,20 +11,21 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
+import com.zandroid.recycleview.BaseRecyclerViewAdapter;
+import com.zandroid.tools.LogUtils;
+import com.zandroid.tools.ToastUtils;
 import com.zandroid.widget.GuideView;
 import com.zpp.demo.R;
 import com.zpp.demo.adapter.RecycleAdapter;
 import com.zpp.demo.base.BaseActivity;
 import com.zpp.demo.bean.MainBean;
-import com.zandroid.recycleview.BaseRecyclerViewAdapter;
-import com.zandroid.tools.LogUtils;
-import com.zandroid.tools.ToastUtils;
+import com.zpp.demo.view.other.DateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class OtherMainActivity extends BaseActivity {
+public class CustomMainActivity extends BaseActivity {
 
     private RecyclerView recyclerView;
     private RecycleAdapter recycleAdapter;
@@ -71,7 +72,7 @@ public class OtherMainActivity extends BaseActivity {
             @Override
             public void onItemClick(int position) {
                 LogUtils.e("点击事件"+position);
-                startActivity(new Intent(OtherMainActivity.this, list.get(position).getActivity()));
+                startActivity(new Intent(CustomMainActivity.this, list.get(position).getActivity()));
 
             }
         });
@@ -105,12 +106,10 @@ public class OtherMainActivity extends BaseActivity {
 
     private void initData() {
         list=new ArrayList<>();
-        list.add(new MainBean("Volley Demo","volley 使用方法",VolleyDemoActivity.class));
-        list.add(new MainBean("RecycleView Demo","RecycleView的布局设置等",RecycleViewDemoActivity.class));
-        list.add(new MainBean("RecycleExpand Demo","根据RecycleView的两级列表",RecycleExpandActivity.class));
-        list.add(new MainBean("购物车 Demo","防淘宝购物车",ShoppingCartActivity.class));
-        list.add(new MainBean("TCP Demo","TCP连接",TCPActivity.class));
-        list.add(new MainBean("动画 Demo","动画",AnimatorActivity.class));
+        list.add(new MainBean("自定义View Demo","自定义View 在设置了横竖屏不同布局时，设置android:screenOrientation=\"sensor\"而不设置android:configChanges",CustomViewActivity.class));
+        list.add(new MainBean("时间选择器 Demo","时间选择器",DateActivity.class));
+        list.add(new MainBean("自定义绘制","自定义绘制",MyShapeActivity.class));
+
     }
 
 

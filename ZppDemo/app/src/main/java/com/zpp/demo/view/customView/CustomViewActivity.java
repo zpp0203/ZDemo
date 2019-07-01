@@ -1,4 +1,4 @@
-package com.zpp.demo.view.other;
+package com.zpp.demo.view.customView;
 
 import android.os.Bundle;
 import android.util.Log;
