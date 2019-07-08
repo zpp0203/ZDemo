@@ -2,9 +2,10 @@ package com.zpp.demo.tools;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.charts.LineCircleChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -15,6 +16,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 import com.zpp.demo.R;
 
@@ -186,8 +188,18 @@ public class LineChartHodel {
                 
                 //圆点的半径
                 lineDataSet.setCircleRadius(5f);
+                //线阴影
+                lineDataSet.setDrawShadow(false);
+                lineDataSet.setShadowColor(Color.RED);
 
-
+                lineDataSet.setDrawFilled(true);
+                if (Utils.getSDKInt() >= 18) {
+                    // fill drawable only supported on api level 18 and above
+                    Drawable drawable = ContextCompat.getDrawable(context, R.drawable.shape_t_bg);
+                    lineDataSet.setFillDrawable(drawable);//设置范围背景填充
+                } else {
+                    lineDataSet.setFillColor(Color.BLACK);
+                }
                 lineDataSet.setLineWidth(1f);//设置线的宽度
                 lineDataSet.setDrawValues(false);//不绘制线的数据
                 //设置折线图模式(直线,曲线...)

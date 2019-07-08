@@ -4,9 +4,12 @@ package com.github.mikephil.charting.renderer;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
 import com.github.mikephil.charting.charts.LineChart;
@@ -224,6 +227,7 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
             // let the spline start
             cubicPath.moveTo(cur.getX(), cur.getY() * phaseY);
 
+
             for (int j = mXBounds.min + 1; j <= mXBounds.range + mXBounds.min; j++) {
 
                 prevPrev = prev;
@@ -252,6 +256,14 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
 
             drawCubicFill(mBitmapCanvas, dataSet, cubicFillPath, trans, mXBounds);
         }
+        //新增画圆滑曲线
+        if (dataSet.isDrawShawdowEnabled()) {
+            cubicFillPath.reset();
+            cubicFillPath.addPath(cubicPath);
+            drawShadow(mBitmapCanvas,dataSet,cubicFillPath);
+
+        }
+
 
         mRenderPaint.setColor(dataSet.getColor());
 
@@ -262,6 +274,32 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
         mBitmapCanvas.drawPath(cubicPath, mRenderPaint);
 
         mRenderPaint.setPathEffect(null);
+    }
+
+    protected void drawShadow(Canvas c, ILineDataSet dataSet, Path spline) {
+        int color = dataSet.getShawdowColor();
+
+        mRenderPaint.setShadowLayer(dataSet.getCircleRadius()*5, 0, dataSet.getCircleRadius()*5, color);
+
+        /*
+         * LinearGradient shader = new LinearGradient(0, 0, endX, endY, new
+         * int[]{startColor, midleColor, endColor},new float[]{0 , 0.5f,
+         * 1.0f}, TileMode.MIRROR);
+         * 参数一为渐变起初点坐标x位置，参数二为y轴位置，参数三和四分辨对应渐变终点
+         * 其中参数new int[]{startColor, midleColor,endColor}是参与渐变效果的颜色集合，
+         * 其中参数new float[]{0 , 0.5f, 1.0f}是定义每个颜色处于的渐变相对位置，这个参数可以为null，如果为null表示所有的颜色按顺序均匀的分布
+         */
+        //mRenderPaint.setShadowLayer(20, -20, 10, Color.BLACK);  // 设置阴影
+
+        // Shader.TileMode三种模式
+        // REPEAT:沿着渐变方向循环重复
+        // CLAMP:如果在预先定义的范围外画的话，就重复边界的颜色
+        // MIRROR:与REPEAT一样都是循环重复，但这个会对称重复
+//        Shader mShader = new LinearGradient(0, 0, 0, 0, new int[] { color, Color.TRANSPARENT}, null, Shader.TileMode.CLAMP);
+//        mRenderPaint.setShader(mShader);// 用Shader中定义定义的颜色来话
+
+        c.drawPath(spline, mRenderPaint);
+
     }
 
     protected void drawCubicFill(Canvas c, ILineDataSet dataSet, Path spline, Transformer trans, XBounds bounds) {
@@ -275,9 +313,12 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
 
         trans.pathValueToPixel(spline);
 
+
         final Drawable drawable = dataSet.getFillDrawable();
         if (drawable != null) {
 
+//            Shader mShader = new LinearGradient(0, 0, 0, 0, new int[] { dataSet.getColor(), Color.TRANSPARENT}, null, Shader.TileMode.CLAMP);
+//            mRenderPaint.setShader(mShader);// 用Shader中定义定义的颜色来话
             drawFilledPath(c, spline, drawable);
         } else {
 
@@ -455,6 +496,10 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
             currentStartIndex = startingIndex + (iterations * indexInterval);
             currentEndIndex = currentStartIndex + indexInterval;
             currentEndIndex = currentEndIndex > endingIndex ? endingIndex : currentEndIndex;
+            float maxY=0;
+            for(int i=currentStartIndex;i>currentEndIndex;i++){
+                maxY=Math.max(dataSet.getEntryForIndex(i).getY(),maxY);
+            }
 
             if (currentStartIndex <= currentEndIndex) {
                 generateFilledPath(dataSet, currentStartIndex, currentEndIndex, filled);
@@ -463,7 +508,6 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
 
                 final Drawable drawable = dataSet.getFillDrawable();
                 if (drawable != null) {
-
                     drawFilledPath(c, filled, drawable);
                 } else {
 

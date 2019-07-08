@@ -1,5 +1,6 @@
 package com.zpp.demo.view;
 
+import android.Manifest;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -20,8 +21,6 @@ import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.usespermission.Permission;
 import com.usespermission.UsesPermission;
 import com.zandroid.falldown.FallObject;
 import com.zandroid.falldown.FallingView;
@@ -89,9 +88,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void check6Permission() {
+        Log.e("MainActivity-Permission","申请权限");
         //假设需要获取摄像头、录音权限，直接在调用的地方实现抽象类，调用逻辑能简单直观不少
-
-        new UsesPermission(MainActivity.this, Permission.CAMERA, Permission.RECORD_AUDIO){
+        new UsesPermission(MainActivity.this, Manifest.permission.ACCESS_WIFI_STATE){
             @Override
             protected void onTrue(@NonNull ArrayList<String> lowerPermissions) {
                 //获取了全部权限执后行此函数，

@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-
 import com.usespermission.handle.Handle;
 import com.usespermission.view.Request;
 import com.usespermission.view.Settings;
@@ -72,8 +71,6 @@ public abstract class UsesPermission {
         run();
     }
 
-
-
     /**
      * 授权请求处理类，会自动调用授权请求，完成授权后自动回调相应on方法，如果被拒绝了权限，会根据{@link #onTips}结果来转到系统设置
      * @param defaultTips 为没有重写{@link #onTips}时的默认值
@@ -88,8 +85,6 @@ public abstract class UsesPermission {
     public UsesPermission(@NonNull Activity activity,  @NonNull String...permissions){
         init(activity, null, permissions, "");
     }
-
-
 
 
     /**

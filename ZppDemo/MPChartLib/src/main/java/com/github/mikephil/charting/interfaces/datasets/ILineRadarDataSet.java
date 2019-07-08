@@ -15,7 +15,11 @@ public interface ILineRadarDataSet<T extends Entry> extends ILineScatterCandleRa
      * @return
      */
     int getFillColor();
-
+    /**
+     * Returns the color that is used for shadow.
+     * @return
+     */
+    int getShawdowColor();
     /**
      * Returns the drawable used for filling the area below the line.
      *
@@ -44,7 +48,12 @@ public interface ILineRadarDataSet<T extends Entry> extends ILineScatterCandleRa
      * @return
      */
     boolean isDrawFilledEnabled();
-
+    /**
+     * Returns true if shadow drawing is enabled, false if not
+     *
+     * @return
+     */
+    boolean isDrawShawdowEnabled();
     /**
      * Set to true if the DataSet should be drawn filled (surface), and not just
      * as a line, disabling this will give great performance boost. Please note that this method

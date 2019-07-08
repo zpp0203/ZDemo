@@ -1,8 +1,11 @@
 package com.github.mikephil.charting.renderer;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 
 import com.github.mikephil.charting.animation.ChartAnimator;
@@ -25,13 +28,12 @@ public abstract class LineRadarRenderer extends LineScatterCandleRadarRenderer {
      * @param filledPath
      * @param drawable
      */
+
     protected void drawFilledPath(Canvas c, Path filledPath, Drawable drawable) {
 
         if (clipPathSupported()) {
-
             int save = c.save();
             c.clipPath(filledPath);
-
             drawable.setBounds((int) mViewPortHandler.contentLeft(),
                     (int) mViewPortHandler.contentTop(),
                     (int) mViewPortHandler.contentRight(),

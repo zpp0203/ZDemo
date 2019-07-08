@@ -169,7 +169,12 @@ public class LineChartRenderer extends LineRadarRenderer {
             // create a new path, this is bad for performance
             drawCubicFill(mBitmapCanvas, dataSet, cubicFillPath, trans, mXBounds);
         }
-
+        //新增画圆滑曲线
+        if (dataSet.isDrawShawdowEnabled()) {
+            cubicFillPath.reset();
+            cubicFillPath.addPath(cubicPath);
+            drawShadow(mBitmapCanvas,dataSet,cubicFillPath);
+        }
         mRenderPaint.setColor(dataSet.getColor());
 
         mRenderPaint.setStyle(Paint.Style.STROKE);
@@ -248,7 +253,12 @@ public class LineChartRenderer extends LineRadarRenderer {
 
             drawCubicFill(mBitmapCanvas, dataSet, cubicFillPath, trans, mXBounds);
         }
-
+        //新增画圆滑曲线
+        if (dataSet.isDrawShawdowEnabled()) {
+            cubicFillPath.reset();
+            cubicFillPath.addPath(cubicPath);
+            drawShadow(mBitmapCanvas,dataSet,cubicFillPath);
+        }
         mRenderPaint.setColor(dataSet.getColor());
 
         mRenderPaint.setStyle(Paint.Style.STROKE);
@@ -259,7 +269,12 @@ public class LineChartRenderer extends LineRadarRenderer {
 
         mRenderPaint.setPathEffect(null);
     }
-
+    protected void drawShadow(Canvas c, ILineDataSet dataSet, Path spline) {
+        int color = dataSet.getShawdowColor();
+        mRenderPaint.setShadowLayer(dataSet.getCircleRadius()*5, 0, dataSet.getCircleRadius()*5, color);
+        c.drawPath(spline, mRenderPaint);
+        //mRenderPaint.setShadowLayer(0, 0, 0, 0);
+    }
     protected void drawCubicFill(Canvas c, ILineDataSet dataSet, Path spline, Transformer trans, XBounds bounds) {
 
         float fillMin = dataSet.getFillFormatter()

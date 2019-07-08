@@ -32,6 +32,8 @@ import com.zpp.demo.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.mikephil.charting.data.LineDataSet.Mode.CUBIC_BEZIER;
+
 /**
  * ━━━━━━神兽出没━━━━━━
  * 　　　┏┓　　　┏┓
@@ -281,6 +283,10 @@ public class HaoChartStyleFour {
                 lineDataSet.setLineWidth(1f);//设置线的宽度
                 lineDataSet.setDrawValues(false);//不绘制线的数据
 
+                lineDataSet.setMode(CUBIC_BEZIER);
+                //阴影
+                lineDataSet.setDrawShadow(false);
+                lineDataSet.setShadowColor(Color.RED);
                 lineDataSet.setDrawFilled(true);
                 if (Utils.getSDKInt() >= 18) {
                     // fill drawable only supported on api level 18 and above
