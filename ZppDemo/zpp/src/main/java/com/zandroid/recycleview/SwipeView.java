@@ -83,9 +83,7 @@ public class SwipeView extends ViewGroup {
                     return true;
                 }
                 moveX = (int) ev.getRawX();
-
                 moved = moveX - downX;
-
                 if (haveShowRight) {
                     moved -= getChildAt(1).getMeasuredWidth();
                 }
@@ -108,8 +106,9 @@ public class SwipeView extends ViewGroup {
                 } else {
                     haveShowRight = false;
                     smoothScrollTo(0, 0);
+                    if(getScrollX()==0)
+                        performClick();
                 }
-
                 break;
 
         }

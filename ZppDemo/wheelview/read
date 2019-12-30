@@ -1,0 +1,21 @@
+1、WheelView
+名称	类型	描述
+wheelTextColor	color	选中item字体颜色
+wheelTextSize	dimension	字体大小
+wheelShowCount	integer	显示item条数，与wheelItemVerticalSpace决定了控件的高度
+wheelTotalOffsetX	dimension	X轴方向总弯曲度，决定弧形效果
+wheelItemVerticalSpace	dimension	两个item之间的间距，与wheelShowCount决定了控件的高度
+wheelRotationX	float	已X轴为轴心旋转角度，决定3D效果
+wheelVelocityUnits	integer	自动翻滚速度单位
+2、WheelMaskView
+名称	类型	描述
+wheelMaskLineColor	color	中间选中item的两条分割线颜色
+3、WheelItemView
+子View	类型	属性
+wheelView	WheelView	WheelView所有属性
+wheelMaskView	WheelMaskView	WheelMaskView所有属性
+
+作者：SwitchLife
+链接：https://www.jianshu.com/p/cd29b6c9222e
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。

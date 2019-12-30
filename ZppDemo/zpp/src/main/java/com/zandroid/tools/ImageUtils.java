@@ -69,6 +69,7 @@ import android.support.annotation.RequiresApi;
 
 import android.support.v4.content.ContextCompat;
 
+import android.util.Log;
 import android.view.View;
 
 
@@ -319,6 +320,21 @@ public final class ImageUtils {
 
         return BitmapFactory.decodeFile(file.getAbsolutePath());
 
+    }
+    /**
+     * 获取经过缩放的的bitmap
+     * @param reHeight
+     * @param reWidth
+     * @return
+     */
+    public Bitmap getBitMap(Context context,int rid,int reWidth,int reHeight){
+        BitmapFactory.Options bop=new BitmapFactory.Options();
+        bop.inJustDecodeBounds=true;
+        BitmapFactory.decodeResource(context.getResources(),rid,bop);
+        bop.inSampleSize = calculateInSampleSize(bop, reWidth, reHeight);
+        bop.inJustDecodeBounds=false;
+        Bitmap bitMap=BitmapFactory.decodeResource(context.getResources(), rid, bop);
+        return bitMap;
     }
 
 

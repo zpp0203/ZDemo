@@ -87,7 +87,7 @@ public class GuideShape extends View implements View.OnTouchListener{
     public void setTouchHighListener(OnTouchHighListener listener){
         this.touchHighListener=listener;
     }
-    public interface OnTouchHighListener {//点击事件接口
+    public interface OnTouchHighListener {//高亮区域点击事件接口
         void onTouchHigh();
     }
 
