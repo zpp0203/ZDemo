@@ -15,12 +15,13 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GuideShape extends View implements View.OnTouchListener{
     private Paint mPaint; //画笔
     private int width; //屏幕宽度（也是蒙版宽度）
     private int height;//屏幕高度
     private PorterDuffXfermode pdf;
-    private OnTouchSideListener touchSideListener;//自定义的点击交互监听器
+    public OnTouchSideListener touchSideListener;//自定义的点击交互监听器
     private OnTouchHighListener touchHighListener;//自定义的点击交互监听器
 
     private List<Rect> hightLightView;
@@ -93,7 +94,7 @@ public class GuideShape extends View implements View.OnTouchListener{
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
             double x = (double) event.getRawX();
             double y = (double) event.getRawY();
             boolean inHigh = false;
@@ -104,9 +105,11 @@ public class GuideShape extends View implements View.OnTouchListener{
                     }
                 }
             }
-            if (touchSideListener != null &&!inHigh) {//点击非高亮区域时
+
+            if (touchSideListener != null && !inHigh) {//点击非高亮区域时
                 this.touchSideListener.onTouchSide();
-            }else if(touchHighListener!=null && inHigh){
+            }
+            if(touchHighListener!=null && inHigh){
                 this.touchHighListener.onTouchHigh();
             }
         }
