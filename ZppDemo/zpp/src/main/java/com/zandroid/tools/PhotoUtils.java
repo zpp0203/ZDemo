@@ -198,8 +198,13 @@ public class PhotoUtils {
                 String selection=MediaStore.Images.Media._ID+"="+id;
                 imagePath=getImagePath(activity,MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
             }else if("com.android.providers.downloads.documents".equals(uri.getAuthority())){
-                Uri contentUri= ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"),Long.valueOf(docId));
-                imagePath=getImagePath(activity,contentUri,null);
+                final String id = DocumentsContract.getDocumentId(uri);
+                if (id != null && id.startsWith("raw:")) {
+                    imagePath = id.substring(4);
+                }else {
+                    Uri contentUri = ContentUris.withAppendedId(Uri.parse("content://downloads/public_downloads"), Long.valueOf(docId));
+                    imagePath = getImagePath(activity, contentUri, null);
+                }
             }
         }else if("content".equalsIgnoreCase(uri.getScheme())){
             //如果是content类型的URI，则使用普通方式处理
