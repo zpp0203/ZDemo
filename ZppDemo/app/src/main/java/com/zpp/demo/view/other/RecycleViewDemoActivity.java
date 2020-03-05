@@ -35,6 +35,7 @@ public class RecycleViewDemoActivity extends BaseActivity {
 
     @Bind(R.id.grid_recycle)
     RecyclerView gridRecyclerView;
+
     ItemTouchHelper itemTouchHelper;//用于处理拖拽、侧滑删除等功能的
 
     @Bind(R.id.slide_recycle)

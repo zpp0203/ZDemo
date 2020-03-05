@@ -75,7 +75,6 @@ public class XAxisRenderer extends AxisRenderer {
     }
 
     protected void computeSize() {
-
         String longest = mXAxis.getLongestLabel();
 
         mAxisLabelPaint.setTypeface(mXAxis.getTypeface());

@@ -746,9 +746,7 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
             //特定点的画笔
             Paint paint=new Paint();
             paint.setColor(mCircleColor);
-            //画标记点
-            float beforX=0,beforY=0,afterX=0,afterY=0;
-            Double my=5.1;
+
             for (int j = mXBounds.min; j <= boundsRangeCount; j++) {
                 Entry e = dataSet.getEntryForIndex(j);
 
@@ -766,13 +764,6 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
                         !mViewPortHandler.isInBoundsY(mCirclesBuffer[1]))
                     continue;
 
-                if(j==Math.floor(my)){
-                    beforX=mCirclesBuffer[0];
-                    beforY=mCirclesBuffer[1];
-                }else if(j==Math.ceil(my)){
-                    afterX=mCirclesBuffer[0];
-                    afterY=mCirclesBuffer[1];
-                }
 
                 //绘制特定的点 全部的点
                 Bitmap circleBitmap1 = imageCache.getBitmap(j);
@@ -781,28 +772,27 @@ public class LineChartCircleRenderer extends LineRadarRenderer {
                 }else if (circleBitmap1 != null) {
                     c.drawBitmap(circleBitmap1, mCirclesBuffer[0] - circleRadius, mCirclesBuffer[1] - circleRadius, null);
                 }
-
+                if(drawEndListenr!=null){
+                    drawEndListenr.drawEnd(dataSet.getLabel(),j,mCirclesBuffer[0],mCirclesBuffer[1]);
+                }
             }
-            //绘制要闪烁的点 按照传来的位置
-            nx= (float) ((afterX-beforX)*(my-Math.floor(my)));
-            ny= (float) ((afterY-beforY)*(my-Math.floor(my)));
-            //c.drawCircle(beforX+nx,beforY+ny,circleRadius,paint);
 
-            if(drawEndListenr!=null){
-                drawEndListenr.drawEnd(beforX+nx,beforY+ny);
-            }
         }
     }
 
     static float nx,ny;
 
     public interface OnDrawEndListenr{
-        void drawEnd(float x,float y);
+        void drawEnd(String lable, int position, float x, float y);
     }
+
     private static OnDrawEndListenr drawEndListenr;
     public static void setOnDrawEndListenr(OnDrawEndListenr onDrawEndListenr){
         drawEndListenr=onDrawEndListenr;
     }
+
+
+
     @Override
     public void drawHighlighted(Canvas c, Highlight[] indices) {
 

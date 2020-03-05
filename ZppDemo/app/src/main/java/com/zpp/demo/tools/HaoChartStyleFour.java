@@ -193,7 +193,7 @@ public class HaoChartStyleFour {
 
         LineChartCircleRenderer.setOnDrawEndListenr(new LineChartCircleRenderer.OnDrawEndListenr() {
             @Override
-            public void drawEnd(float x, float y) {
+            public void drawEnd(String lable,int position,float x,float y) {
 
                 RelativeLayout.LayoutParams params= (RelativeLayout.LayoutParams) redPosition.getLayoutParams();
                 params.topMargin= (int) (lineChart.getTop()+y-params.height/2);

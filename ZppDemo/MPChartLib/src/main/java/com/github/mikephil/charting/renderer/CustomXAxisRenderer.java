@@ -3,6 +3,7 @@ package com.github.mikephil.charting.renderer;
 import android.graphics.Canvas;
 
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.utils.FSize;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
