@@ -145,7 +145,6 @@
         </provider>
 
         <activity android:name=".view.other.DateActivity" />
-        <activity android:name=".view.third.ZxingActivity" />
         <activity
             android:name=".view.third.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"

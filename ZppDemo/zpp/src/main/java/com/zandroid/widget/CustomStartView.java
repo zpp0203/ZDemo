@@ -2,7 +2,6 @@ package com.zandroid.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.opengl.Matrix;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -58,9 +57,9 @@ public class CustomStartView extends LinearLayout {
         start_number=5;
         rating=3.5f;
         start_size=DensityUtils.dip2px(context,16);
-        full_image=R.drawable.ly_home_stars;
-        haif_image=R.drawable.ly_home_stars_half;
-        no_image=R.drawable.ly_no_stars;
+        full_image=R.drawable.stars_complete;
+        haif_image=R.drawable.stars_half;
+        no_image=R.drawable.stars_no;
         start_margin=10;
         orientation=0;
     }

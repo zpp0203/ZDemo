@@ -10,5 +10,5 @@
         android:layout_width="400dp"
         android:layout_height="400dp"
         android:layout_gravity="center"
-        android:src="@drawable/ly_home_stars"/>
+        android:src="@drawable/stars_complete"/>
 </LinearLayout>

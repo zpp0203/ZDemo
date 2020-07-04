@@ -76,7 +76,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
         fallingView=findViewById(R.id.falling_view);
         //循环落花
-        FallObject.Builder builder = new FallObject.Builder(getResources().getDrawable(R.drawable.ly_home_stars));
+        FallObject.Builder builder = new FallObject.Builder(getResources().getDrawable(R.drawable.stars_complete));
         FallObject fallObject = builder
                 .setSpeed(7,true)
                 .setSize(50,50,true)
