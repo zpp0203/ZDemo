@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    //androidx
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    compileSdkVersion rootProject.ext.versions.compileSdkVersion
+
+    defaultConfig {
+        applicationId rootProject.ext.versions.applicationId
+        minSdkVersion rootProject.ext.versions.minSdkVersion
+        targetSdkVersion rootProject.ext.versions.targetSdkVersion
+        versionCode rootProject.ext.versions.versionCode
+        versionName rootProject.ext.versions.versionName
+        testInstrumentationRunner rootProject.ext.versions.testInstrumentationRunner
+    }
+    buildTypes {
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"// 不显示Log
+            minifyEnabled true//混淆
+            zipAlignEnabled true  // Zipalign优化
+            shrinkResources true // 移除无用的resource文件,必须和minifyEnabled 一起使用
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            //可自定义自己想要生成的格式  渠道名${variant.productFlavors[0].name}
+            if (buildType.name == "debug") {
+                outputFileName = "project(test)-${defaultConfig.versionName}.apk"//_${releaseTime()}
+            } else {
+                outputFileName = "project-${defaultConfig.versionName}.apk"
+            }
+        }
+    }
+}
+//aar
+repositories {
+    flatDir {
+        dirs 'libs'
+//        dirs 'libs','../xxx/libs'//如果aar中也有引用aar包
+    }
+}
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.dependencies.kotlin
+    implementation rootProject.ext.dependencies.appcompat
+    implementation rootProject.ext.dependencies.constraintlayout
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:2.0.4'
+    testImplementation rootProject.ext.dependencies.junit
+    androidTestImplementation rootProject.ext.dependencies.runner
+    androidTestImplementation rootProject.ext.dependencies.espresso
+    implementation rootProject.ext.dependencies.recyclerview
+    implementation rootProject.ext.dependencies.fastjson
+    implementation rootProject.ext.dependencies.eventbus
+    //分隔dex，  应用中的Dex 文件方法数超过了最大值65536的上限
+    implementation rootProject.ext.dependencies.multidex
+
+    implementation project(':zbaselibrary')
+    //    implementation rootProject.ext.dependencies.retrofit
+    //    implementation rootProject.ext.dependencies.rxlifecycle
+    implementation project(':rxhttp')
+}

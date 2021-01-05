@@ -1,0 +1,66 @@
+/**
+ *
+ * 本地依赖配置统一管理
+ * 当前文件需要在全局的build.gradle文件中进行引用
+ *
+ */
+ext{
+    /**
+     *
+     * 定义是否为module,如果为module,则为true,如果为application,则为false
+     *  我们使用这个属性来控制应用程序是属于module还是application
+     */
+    isModule = false
+
+    /**
+     * 此处定义三方库的版本
+     */
+    versions = [
+            applicationId :"com.zpp.project",
+
+            compileSdkVersion : 28,
+            minSdkVersion : 21,
+            targetSdkVersion : 28,
+            versionCode : 1,
+            versionName : "1.0",
+            testInstrumentationRunner : "androidx.test.runner.AndroidJUnitRunner",
+
+
+            kotlin: "1.2.60",
+            appcompat: "1.3.0-alpha02",
+            junit:"4.12",
+            runner:"1.3.1-alpha02",
+            espresso:"3.4.0-alpha02",
+            constraintlayout:"2.1.0-alpha1",
+            recyclerview:"1.2.0-beta01",
+            fastjson:"1.2.57",
+            eventbus:"3.1.1",
+            multidex:"2.0.1",
+
+            retrofit:"2.9.0",
+            rxlifecycle:"4.0.2"
+
+    ]
+    /**
+     * 此处定义三方库的依赖名称
+     */
+    dependencies = [
+            "kotlin":"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${versions["kotlin"]}",
+            "appcompat":"androidx.appcompat:appcompat:${versions["appcompat"]}",
+            "junit":"junit:junit:${versions["junit"]}",
+            "runner":"androidx.test:runner:${versions["runner"]}",
+            "espresso":"androidx.test.espresso:espresso-core:${versions["espresso"]}",
+            "constraintlayout":"androidx.constraintlayout:constraintlayout:${versions["constraintlayout"]}",
+            "recyclerview":"androidx.recyclerview:recyclerview:${versions["recyclerview"]}",
+
+            "fastjson":"com.alibaba:fastjson:${versions["fastjson"]}",
+            "eventbus":"org.greenrobot:eventbus:${versions["eventbus"]}",
+            //分隔dex，  应用中的Dex 文件方法数超过了最大值65536的上限
+            "multidex":"androidx.multidex:multidex:${versions["multidex"]}",
+            //github地址：https://github.com/square/retrofit
+            //文档地址：https://square.github.io/retrofit/
+            "retrofit":"com.squareup.retrofit2:retrofit:${versions["retrofit"]}",
+            "rxlifecycle":"com.trello.rxlifecycle4:rxlifecycle-components:${versions["rxlifecycle"]}"
+    ]
+
+}
