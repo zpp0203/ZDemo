@@ -9,14 +9,13 @@ import android.text.TextUtils;
 import com.trello.rxlifecycle2.LifecycleProvider;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.android.FragmentEvent;
-import com.zpp.retrofit.api.Api;
+import com.zpp.retrofit.api.RetrofitApi;
 import com.zpp.retrofit.callback.HttpCallback;
 import com.zpp.retrofit.callback.UploadCallback;
 import com.zpp.retrofit.cancel.RequestManagerImpl;
 import com.zpp.retrofit.load.upload.UploadRequestBody;
 import com.zpp.retrofit.observer.HttpObservable;
 import com.zpp.retrofit.retrofit.Method;
-import com.zpp.retrofit.retrofit.RetrofitUtils;
 import com.zpp.retrofit.utils.RequestUtils;
 
 import java.io.File;
@@ -37,7 +36,7 @@ import okhttp3.RequestBody;
  *
  * @author ZhongDaFeng
  */
-public class RHttp {
+public class RetrofitHttpUtils {
 
     /*请求方式*/
     private Method method;
@@ -74,7 +73,7 @@ public class RHttp {
 
 
     /*构造函数*/
-    private RHttp(Builder builder) {
+    private RetrofitHttpUtils(Builder builder) {
         this.parameter = builder.parameter;
         this.header = builder.header;
         this.lifecycle = builder.lifecycle;
@@ -178,7 +177,6 @@ public class RHttp {
 
     /*执行请求*/
     private void doRequest() {
-
         /*设置请求唯一标识*/
         httpCallback.setTag(TextUtils.isEmpty(tag) ? String.valueOf(System.currentTimeMillis()) : tag);
 
@@ -233,7 +231,7 @@ public class RHttp {
         }
 
         /*请求处理*/
-        Observable apiObservable = RetrofitUtils.get().getRetrofit(getBaseUrl(), getTimeout(), getTimeUnit()).create(Api.class).upload(disposeApiUrl(), parameter, header, fileList);
+        Observable apiObservable = com.zpp.retrofit.retrofit.RetrofitUtils.get().getRetrofit(getBaseUrl(), getTimeout(), getTimeUnit()).create(RetrofitApi.class).upload(disposeApiUrl(), parameter, header, fileList);
 
         /* 被观察者 httpObservable */
         HttpObservable httpObservable = new HttpObservable.Builder(apiObservable)
@@ -323,25 +321,25 @@ public class RHttp {
         }
 
         /*Api接口*/
-        Api apiService = RetrofitUtils.get().getRetrofit(getBaseUrl(), getTimeout(), getTimeUnit()).create(Api.class);
+        RetrofitApi retrofitApiService = com.zpp.retrofit.retrofit.RetrofitUtils.get().getRetrofit(getBaseUrl(), getTimeout(), getTimeUnit()).create(RetrofitApi.class);
         /*未指定默认POST*/
         if (method == null) method = Method.POST;
 
         switch (method) {
             case GET:
-                apiObservable = apiService.get(disposeApiUrl(), parameter, header);
+                apiObservable = retrofitApiService.get(disposeApiUrl(), parameter, header);
                 break;
             case POST:
                 if (hasBodyString)
-                    apiObservable = apiService.post(disposeApiUrl(), requestBody, header);
+                    apiObservable = retrofitApiService.post(disposeApiUrl(), requestBody, header);
                 else
-                    apiObservable = apiService.post(disposeApiUrl(), parameter, header);
+                    apiObservable = retrofitApiService.post(disposeApiUrl(), parameter, header);
                 break;
             case DELETE:
-                apiObservable = apiService.delete(disposeApiUrl(), parameter, header);
+                apiObservable = retrofitApiService.delete(disposeApiUrl(), parameter, header);
                 break;
             case PUT:
-                apiObservable = apiService.put(disposeApiUrl(), parameter, header);
+                apiObservable = retrofitApiService.put(disposeApiUrl(), parameter, header);
                 break;
         }
         return apiObservable;
@@ -385,7 +383,7 @@ public class RHttp {
         }
 
         /*请求基础路径*/
-        public RHttp.Configure baseUrl(String baseUrl) {
+        public RetrofitHttpUtils.Configure baseUrl(String baseUrl) {
             this.baseUrl = baseUrl;
             return this;
         }
@@ -395,7 +393,7 @@ public class RHttp {
         }
 
         /*基础参数*/
-        public RHttp.Configure baseParameter(Map<String, Object> parameter) {
+        public RetrofitHttpUtils.Configure baseParameter(Map<String, Object> parameter) {
             this.parameter = parameter;
             return this;
         }
@@ -405,7 +403,7 @@ public class RHttp {
         }
 
         /*基础Header*/
-        public RHttp.Configure baseHeader(Map<String, Object> header) {
+        public RetrofitHttpUtils.Configure baseHeader(Map<String, Object> header) {
             this.header = header;
             return this;
         }
@@ -415,7 +413,7 @@ public class RHttp {
         }
 
         /*超时时长*/
-        public RHttp.Configure timeout(long timeout) {
+        public RetrofitHttpUtils.Configure timeout(long timeout) {
             this.timeout = timeout;
             return this;
         }
@@ -425,7 +423,7 @@ public class RHttp {
         }
 
         /*是否显示LOG*/
-        public RHttp.Configure showLog(boolean showLog) {
+        public RetrofitHttpUtils.Configure showLog(boolean showLog) {
             this.showLog = showLog;
             return this;
         }
@@ -435,7 +433,7 @@ public class RHttp {
         }
 
         /*时间单位*/
-        public RHttp.Configure timeUnit(TimeUnit timeUnit) {
+        public RetrofitHttpUtils.Configure timeUnit(TimeUnit timeUnit) {
             this.timeUnit = timeUnit;
             return this;
         }
@@ -455,7 +453,7 @@ public class RHttp {
         }
 
         /*初始化全局上下文*/
-        public RHttp.Configure init(Application app) {
+        public RetrofitHttpUtils.Configure init(Application app) {
             this.context = app.getApplicationContext();
             this.handler = new Handler(Looper.getMainLooper());
             return this;
@@ -501,43 +499,43 @@ public class RHttp {
         }
 
         /*GET*/
-        public RHttp.Builder get() {
+        public RetrofitHttpUtils.Builder get() {
             this.method = Method.GET;
             return this;
         }
 
         /*POST*/
-        public RHttp.Builder post() {
+        public RetrofitHttpUtils.Builder post() {
             this.method = Method.POST;
             return this;
         }
 
         /*DELETE*/
-        public RHttp.Builder delete() {
+        public RetrofitHttpUtils.Builder delete() {
             this.method = Method.DELETE;
             return this;
         }
 
         /*PUT*/
-        public RHttp.Builder put() {
+        public RetrofitHttpUtils.Builder put() {
             this.method = Method.PUT;
             return this;
         }
 
         /*基础URL*/
-        public RHttp.Builder baseUrl(String baseUrl) {
+        public RetrofitHttpUtils.Builder baseUrl(String baseUrl) {
             this.baseUrl = baseUrl;
             return this;
         }
 
         /*API URL*/
-        public RHttp.Builder apiUrl(String apiUrl) {
+        public RetrofitHttpUtils.Builder apiUrl(String apiUrl) {
             this.apiUrl = apiUrl;
             return this;
         }
 
         /* 增加 Parameter 不断叠加参数 包括基础参数 */
-        public RHttp.Builder addParameter(Map<String, Object> parameter) {
+        public RetrofitHttpUtils.Builder addParameter(Map<String, Object> parameter) {
             if (this.parameter == null) {
                 this.parameter = new TreeMap<>();
             }
@@ -546,20 +544,20 @@ public class RHttp {
         }
 
         /*设置 Parameter 会覆盖 Parameter 包括基础参数*/
-        public RHttp.Builder setParameter(Map<String, Object> parameter) {
+        public RetrofitHttpUtils.Builder setParameter(Map<String, Object> parameter) {
             this.parameter = parameter;
             return this;
         }
 
         /* 设置String 类型参数  覆盖之前设置  isJson:是否强制JSON格式    bodyString设置后Parameter则无效 */
-        public RHttp.Builder setBodyString(String bodyString, boolean isJson) {
+        public RetrofitHttpUtils.Builder setBodyString(String bodyString, boolean isJson) {
             this.isJson = isJson;
             this.bodyString = bodyString;
             return this;
         }
 
         /* 增加 Header 不断叠加 Header 包括基础 Header */
-        public RHttp.Builder addHeader(Map<String, Object> header) {
+        public RetrofitHttpUtils.Builder addHeader(Map<String, Object> header) {
             if (this.header == null) {
                 this.header = new TreeMap<>();
             }
@@ -568,43 +566,43 @@ public class RHttp {
         }
 
         /*设置 Header 会覆盖 Header 包括基础参数*/
-        public RHttp.Builder setHeader(Map<String, Object> header) {
+        public RetrofitHttpUtils.Builder setHeader(Map<String, Object> header) {
             this.header = header;
             return this;
         }
 
         /*LifecycleProvider*/
-        public RHttp.Builder lifecycle(LifecycleProvider lifecycle) {
+        public RetrofitHttpUtils.Builder lifecycle(LifecycleProvider lifecycle) {
             this.lifecycle = lifecycle;
             return this;
         }
 
         /*ActivityEvent*/
-        public RHttp.Builder activityEvent(ActivityEvent activityEvent) {
+        public RetrofitHttpUtils.Builder activityEvent(ActivityEvent activityEvent) {
             this.activityEvent = activityEvent;
             return this;
         }
 
         /*FragmentEvent*/
-        public RHttp.Builder fragmentEvent(FragmentEvent fragmentEvent) {
+        public RetrofitHttpUtils.Builder fragmentEvent(FragmentEvent fragmentEvent) {
             this.fragmentEvent = fragmentEvent;
             return this;
         }
 
         /*tag*/
-        public RHttp.Builder tag(String tag) {
+        public RetrofitHttpUtils.Builder tag(String tag) {
             this.tag = tag;
             return this;
         }
 
         /*文件集合*/
-        public RHttp.Builder file(Map<String, File> file) {
+        public RetrofitHttpUtils.Builder file(Map<String, File> file) {
             this.fileMap = file;
             return this;
         }
 
         /*一个Key对应多个文件*/
-        public RHttp.Builder file(String key, List<File> fileList) {
+        public RetrofitHttpUtils.Builder file(String key, List<File> fileList) {
             if (fileMap == null) {
                 fileMap = new IdentityHashMap();
             }
@@ -617,19 +615,19 @@ public class RHttp {
         }
 
         /*超时时长*/
-        public RHttp.Builder timeout(long timeout) {
+        public RetrofitHttpUtils.Builder timeout(long timeout) {
             this.timeout = timeout;
             return this;
         }
 
         /*时间单位*/
-        public RHttp.Builder timeUnit(TimeUnit timeUnit) {
+        public RetrofitHttpUtils.Builder timeUnit(TimeUnit timeUnit) {
             this.timeUnit = timeUnit;
             return this;
         }
 
-        public RHttp build() {
-            return new RHttp(this);
+        public RetrofitHttpUtils build() {
+            return new RetrofitHttpUtils(this);
         }
     }
 

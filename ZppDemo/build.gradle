@@ -2,7 +2,6 @@
 
 buildscript {
 
-
     ext {
         /*sdk and version*/
         compile_sdk_version = 28

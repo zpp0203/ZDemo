@@ -1,6 +1,11 @@
 package com.zandroid.tools;
 
+import android.app.Activity;
+import android.app.Application;
+import android.content.ComponentCallbacks;
 import android.content.Context;
+import android.content.res.Configuration;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.View;
@@ -12,6 +17,43 @@ import android.view.ViewGroup;
 
 public class DensityUtils {
 
+    //头条屏幕适配方案
+    private static float sNoncompatDensity,sNoncompatScaledDensity;
+    private static void setCustomDensity(@NonNull Activity activity, @NonNull final Application
+            application) {
+        final DisplayMetrics appDisplayMetrics =
+                application.getResources().getDisplayMetrics();
+        if (sNoncompatDensity == 0) {
+            sNoncompatDensity = appDisplayMetrics.density;
+            sNoncompatScaledDensity = appDisplayMetrics.scaledDensity;
+            // 监听字体切换
+            application.registerComponentCallbacks(new ComponentCallbacks() {
+                @Override
+                public void onConfigurationChanged(Configuration newConfig) {
+                    if (newConfig != null && newConfig.fontScale > 0) {
+                        sNoncompatScaledDensity =
+                                application.getResources().getDisplayMetrics().scaledDensity;
+                    }
+                }
+                @Override
+                public void onLowMemory() {
+                }
+            });
+        }
+        // 适配后的 dpi 将统一为 360dpi
+        final float targetDensity = appDisplayMetrics.widthPixels / 360;
+        final float targetScaledDensity = targetDensity * (sNoncompatScaledDensity /
+                sNoncompatDensity);
+        final int targetDensityDpi = (int)(160 * targetDensity);
+        appDisplayMetrics.density = targetDensity;
+        appDisplayMetrics.scaledDensity = targetScaledDensity;
+        appDisplayMetrics.densityDpi = targetDensityDpi;
+        final DisplayMetrics activityDisplayMetrics =
+                activity.getResources().getDisplayMetrics();
+        activityDisplayMetrics.density = targetDensity;
+        activityDisplayMetrics.scaledDensity = targetScaledDensity;
+        activityDisplayMetrics.densityDpi = targetDensityDpi;
+    }
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
      */

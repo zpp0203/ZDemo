@@ -4,10 +4,9 @@ import android.os.Handler;
 import android.os.Looper;
 
 
-import com.zpp.RHttp;
-import com.zpp.retrofit.api.Api;
+import com.zpp.RetrofitHttpUtils;
+import com.zpp.retrofit.api.RetrofitApi;
 import com.zpp.retrofit.load.model.Download;
-import com.zpp.retrofit.retrofit.RetrofitUtils;
 import com.zpp.retrofit.utils.ComputeUtils;
 import com.zpp.retrofit.utils.DBHelper;
 import com.zpp.retrofit.utils.LogUtils;
@@ -84,7 +83,7 @@ public class RDownLoad {
         if (download.getCurrentSize() == download.getTotalSize() && (download.getTotalSize() != 0)) {
             return;
         }
-        LogUtils.d("RHttp startDownload:" + download.getServerUrl());
+        LogUtils.d("RetrofitHttpUtils startDownload:" + download.getServerUrl());
         /*判断本地文件是否存在*/
         boolean isFileExists = ComputeUtils.isFileExists(download.getLocalUrl());
         if (!isFileExists && download.getCurrentSize() > 0) {
@@ -93,28 +92,28 @@ public class RDownLoad {
 
         DownloadObserver observer = new DownloadObserver(download, handler);
         callbackMap.put(download.getServerUrl(), observer);
-        Api api;
+        RetrofitApi retrofitApi;
         if (downloadSet.contains(download)) {
-            api = download.getApi();
+            retrofitApi = download.getRetrofitApi();
         } else {
 
             //下载拦截器
             DownloadInterceptor downloadInterceptor = new DownloadInterceptor(observer);
             //OkHttpClient
-            OkHttpClient okHttpClient = RetrofitUtils.get().getOkHttpClientDownload(downloadInterceptor);
+            OkHttpClient okHttpClient = com.zpp.retrofit.retrofit.RetrofitUtils.get().getOkHttpClientDownload(downloadInterceptor);
             //Retrofit
-            Retrofit retrofit = RetrofitUtils.get().getRetrofit(RequestUtils.getBasUrl(download.getServerUrl()), okHttpClient);
-            api = retrofit.create(Api.class);
-            download.setApi(api);
+            Retrofit retrofit = com.zpp.retrofit.retrofit.RetrofitUtils.get().getRetrofit(RequestUtils.getBasUrl(download.getServerUrl()), okHttpClient);
+            retrofitApi = retrofit.create(RetrofitApi.class);
+            download.setRetrofitApi(retrofitApi);
             downloadSet.add(download);
 
         }
 
         /*下载时添加 headerMap 暂时只获取 baseHeader 可扩展 startDownload() 参数形式，或者添加 Download 属性 记得添加到 headerMap*/
-        Map<String, Object> headerMap = RHttp.Configure.get().getBaseHeader();
+        Map<String, Object> headerMap = RetrofitHttpUtils.Configure.get().getBaseHeader();
 
         /* RANGE 断点续传下载 */
-        api.download("bytes=" + download.getCurrentSize() + "-", download.getServerUrl(), headerMap)
+        retrofitApi.download("bytes=" + download.getCurrentSize() + "-", download.getServerUrl(), headerMap)
                 .subscribeOn(Schedulers.io())
                 .map(new Function<ResponseBody, Object>() {//数据变换
                          @Override
@@ -140,7 +139,7 @@ public class RDownLoad {
     public void stopDownload(Download download) {
 
         if (download == null) return;
-        LogUtils.d("RHttp stopDownload:" + download.getServerUrl());
+        LogUtils.d("RetrofitHttpUtils stopDownload:" + download.getServerUrl());
         /**
          * 1.暂停网络数据
          * 2.设置数据状态
@@ -173,7 +172,7 @@ public class RDownLoad {
     public void removeDownload(Download download, boolean removeFile) {
 
         if (download == null) return;
-        LogUtils.d("RHttp removeDownload:" + download.getServerUrl());
+        LogUtils.d("RetrofitHttpUtils removeDownload:" + download.getServerUrl());
         //未完成下载时,暂停再移除
         if (download.getState() != Download.State.FINISH) {
             stopDownload(download);
@@ -200,7 +199,7 @@ public class RDownLoad {
         }
         callbackMap.clear();
         downloadSet.clear();
-        LogUtils.d("RHttp stopAllDownload");
+        LogUtils.d("RetrofitHttpUtils stopAllDownload");
     }
 
     /**

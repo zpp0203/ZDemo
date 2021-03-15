@@ -5,7 +5,7 @@ import com.litesuits.orm.db.annotation.Ignore;
 import com.litesuits.orm.db.annotation.PrimaryKey;
 import com.litesuits.orm.db.annotation.Table;
 import com.litesuits.orm.db.enums.AssignType;
-import com.zpp.retrofit.api.Api;
+import com.zpp.retrofit.api.RetrofitApi;
 import com.zpp.retrofit.load.download.DownloadCallback;
 
 import java.io.Serializable;
@@ -40,7 +40,7 @@ public class Download implements Serializable {
     private State state = State.NONE;//下载状态
 
     @Ignore
-    private Api api;//接口service
+    private RetrofitApi retrofitApi;//接口service
 
     @Ignore
     private DownloadCallback callback;//回调接口
@@ -118,12 +118,12 @@ public class Download implements Serializable {
         this.state = state;
     }
 
-    public Api getApi() {
-        return api;
+    public RetrofitApi getRetrofitApi() {
+        return retrofitApi;
     }
 
-    public void setApi(Api api) {
-        this.api = api;
+    public void setRetrofitApi(RetrofitApi retrofitApi) {
+        this.retrofitApi = retrofitApi;
     }
 
     public DownloadCallback getCallback() {

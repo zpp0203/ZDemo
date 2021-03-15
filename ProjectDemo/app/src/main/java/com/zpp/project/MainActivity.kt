@@ -1,13 +1,10 @@
 package com.zpp.project
 
-import com.google.gson.Gson
-import com.google.gson.JsonElement
-import com.google.gson.reflect.TypeToken
-import com.zpp.base.bean.Data
-import com.zpp.RHttp
+import android.os.Looper
+import com.zpp.RetrofitHttpUtils
 import com.zpp.base.BaseActivity
-import com.zpp.base.bean.UserBean
-import com.zpp.retrofit.callback.http.RHttpCallback
+import com.zpp.retrofit.callback.HttpCallback
+import com.zpp.retrofit.utils.LogUtils
 
 class MainActivity : BaseActivity() {
     override fun getLayoutResourceId(): Int {
@@ -15,26 +12,22 @@ class MainActivity : BaseActivity() {
     }
 
     override fun initial() {
-        var h =RHttp.Builder()
-                .apiUrl("user")
+        var params= mutableMapOf<String,Any>()
+        params.put("key", "f908271a6155ab8a0f08566c7ad888c5")
+        params.put("city","惠州")
+
+        var h = RetrofitHttpUtils.Builder()
+                .apiUrl("/simpleWeather/query")
+                .addParameter(params)
                 .lifecycle(this)
                 .build()
-        h.execute(object : RHttpCallback<Data<UserBean>>(){
-            override fun convert(data: JsonElement?): Data<UserBean> {
-
-                return Gson().fromJson(data, object: TypeToken<Data<UserBean>>(){}.type)
-            }
-
-            override fun onSuccess(value: Data<UserBean>?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        h.execute(object : HttpCallback<String>(){
+            override fun onSuccess(value: String?) {
+                LogUtils.e("onSuccess=="+(Looper.getMainLooper().getThread() == Thread.currentThread()))
             }
 
             override fun onError(code: Int, desc: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-            }
-
-            override fun onCancel() {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                LogUtils.e("onError=="+(Looper.getMainLooper().getThread() == Thread.currentThread()))
             }
 
         })

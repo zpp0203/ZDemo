@@ -55,7 +55,9 @@ public abstract class HttpCallback<T> extends BaseCallback<T> implements ParseHe
      * @param data
      * @return
      */
-    public abstract T onConvert(String data) throws Exception;
+    public T onConvert(String data) throws Exception{
+        return (T) data;
+    }
 
     /**
      * 成功回调
@@ -75,13 +77,15 @@ public abstract class HttpCallback<T> extends BaseCallback<T> implements ParseHe
     /**
      * 取消回调
      */
-    public abstract void onCancel();
+    public void onCancel(){}
 
     /**
      * 业务逻辑是否成功
      *
      * @return
      */
-    public abstract boolean isBusinessOk();
+    public boolean isBusinessOk(){
+        return true;
+    }
 
 }

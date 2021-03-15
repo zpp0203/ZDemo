@@ -1,7 +1,7 @@
 package com.zpp.retrofit.callback;
 
 
-import com.zpp.RHttp;
+import com.zpp.RetrofitHttpUtils;
 import com.zpp.retrofit.exception.ApiException;
 import com.zpp.retrofit.exception.ExceptionEngine;
 import com.zpp.retrofit.observer.HttpObserver;
@@ -66,7 +66,7 @@ public abstract class BaseCallback<T> extends HttpObserver<T> {
      */
     private void onCanceledLogic() {
         if (!ThreadUtils.isMainThread()) {
-            RHttp.Configure.get().getHandler().post(new Runnable() {
+            RetrofitHttpUtils.Configure.get().getHandler().post(new Runnable() {
                 @Override
                 public void run() {
                     inCancel();

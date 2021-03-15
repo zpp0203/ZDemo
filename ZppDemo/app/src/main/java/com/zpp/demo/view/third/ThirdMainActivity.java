@@ -122,7 +122,7 @@ public class ThirdMainActivity extends BaseActivity implements View.OnClickListe
         list=new ArrayList<>();
         list.add(new MainBean("WeiXin Demo","微信分享",WeixinDemoActivity.class));
         list.add(new MainBean("阿里巴巴 Demo","支付宝支付Demo",AliActivity.class));
-        list.add(new MainBean("Zxing扫描二维码 Demo","Zxing扫描二维码 Demo",ZxingActivity.class));
+        //list.add(new MainBean("Zxing扫描二维码 Demo","Zxing扫描二维码 Demo",ZxingActivity.class));
         list.add(new MainBean("LineChart Demo","LineChart Demo",LineChartActivity.class));
     }
 

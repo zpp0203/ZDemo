@@ -48,7 +48,9 @@ public abstract class RHttpCallback<T> extends HttpCallback<T> {
      * @param data
      * @return
      */
-    public abstract T convert(JsonElement data);
+    public T convert(JsonElement data){
+        return (T) data.toString();
+    }
 
     /**
      * 成功回调
@@ -68,7 +70,7 @@ public abstract class RHttpCallback<T> extends HttpCallback<T> {
     /**
      * 取消回调
      */
-    public abstract void onCancel();
+    public void onCancel(){}
 
     /**
      * 业务逻辑是否成功

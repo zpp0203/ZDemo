@@ -46,7 +46,7 @@ android {
 repositories {
     flatDir {
         dirs 'libs'
-//        dirs 'libs','../xxx/libs'//如果aar中也有引用aar包
+        dirs 'libs','../rxhttp/libs'//如果aar中也有引用aar包
     }
 }
 dependencies {

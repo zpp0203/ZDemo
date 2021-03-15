@@ -14,12 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.zpp.base.bean.UserBean;
 import com.zpp.project.R;
 import com.zpp.utils.ActivityStackManager;
 import com.zpp.utils.StatusBarUtil;
 import com.zpp.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.concurrent.TimeUnit;
 
@@ -61,7 +63,8 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         initial();
 
     }
-
+    @Subscribe
+    public void event(UserBean bean){}
     protected abstract int getLayoutResourceId();
 
     protected abstract void initial();

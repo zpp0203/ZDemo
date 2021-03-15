@@ -2,7 +2,7 @@ package com.zpp.retrofit.utils;
 
 import android.util.Log;
 
-import com.zpp.retrofit.RetrofitUtils;
+import com.zpp.RetrofitHttpUtils;
 
 /**
  * LOG工具类
@@ -11,7 +11,7 @@ import com.zpp.retrofit.RetrofitUtils;
  */
 public class LogUtils {
 
-    private static final String TAG = "RHttp";
+    private static final String TAG = "RetrofitHttpUtils";
     private static boolean allowD = true;
     private static boolean allowE = true;
     private static boolean allowI = true;
@@ -19,7 +19,7 @@ public class LogUtils {
     private static boolean allowW = true;
 
     static {
-        allowD = allowE = allowI = allowV = allowW = RetrofitUtils.Configure.get().isShowLog();
+        allowD = allowE = allowI = allowV = allowW = RetrofitHttpUtils.Configure.get().isShowLog();
     }
 
     private LogUtils() {

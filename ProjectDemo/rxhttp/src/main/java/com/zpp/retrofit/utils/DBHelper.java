@@ -4,8 +4,7 @@ import android.content.Context;
 
 import com.litesuits.orm.LiteOrm;
 import com.litesuits.orm.db.DataBaseConfig;
-import com.zpp.RHttp;
-import com.zpp.retrofit.retrofit.RetrofitUtils;
+import com.zpp.RetrofitHttpUtils;
 
 import java.util.ArrayList;
 
@@ -25,10 +24,10 @@ public class DBHelper {
     private Context context;
 
     private DBHelper() {
-        if (RHttp.Configure.get().getContext() == null) {
-            throw new NullPointerException("RHttp not init!");
+        if (RetrofitHttpUtils.Configure.get().getContext() == null) {
+            throw new NullPointerException("RetrofitHttpUtils not init!");
         }
-        context = RHttp.Configure.get().getContext();
+        context = RetrofitHttpUtils.Configure.get().getContext();
         initDB(context);
     }
 
@@ -51,7 +50,7 @@ public class DBHelper {
     private void initDB(Context context) {
         if (db == null) {
             DataBaseConfig config = new DataBaseConfig(context, DB_NAME);
-            config.debugged = RHttp.Configure.get().isShowLog(); // open the log
+            config.debugged = RetrofitHttpUtils.Configure.get().isShowLog(); // open the log
             config.dbVersion = DB_VERSION; // set database version
             config.onUpdateListener = null; // set database update listener
             db = LiteOrm.newSingleInstance(config);

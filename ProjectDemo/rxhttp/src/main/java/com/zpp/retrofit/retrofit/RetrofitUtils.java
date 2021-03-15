@@ -139,7 +139,7 @@ public class RetrofitUtils {
             }
         });
         //must
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         //网络请求拦截器
         Interceptor httpInterceptor = new Interceptor() {

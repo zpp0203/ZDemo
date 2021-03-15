@@ -16,7 +16,7 @@ public class ServerResultFunction implements Function<JsonElement, Object> {
     @Override
     public Object apply(@NonNull JsonElement response) throws Exception {
         //打印服务器回传结果
-        LogUtils.e("HttpResponse:" + response.toString());
+        //LogUtils.e("HttpResponse:" + response.toString());
         /*此处不再处理业务相关逻辑交由开发者重写httpCallback*/
         return new Gson().toJson(response);
     }

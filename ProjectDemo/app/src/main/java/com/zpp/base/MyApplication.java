@@ -2,12 +2,11 @@ package com.zpp.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.StrictMode;
 
 import com.zpp.ProjectConfig;
-import com.zpp.RHttp;
+import com.zpp.RetrofitHttpUtils;
 
 import androidx.multidex.MultiDex;
 
@@ -35,7 +34,7 @@ public class MyApplication extends Application {
             StrictMode.setVmPolicy(builder.build());
         }
 
-        RHttp.Configure.get()
+        RetrofitHttpUtils.Configure.get()
                 .baseUrl(ProjectConfig.BASE_API)    //基础URL
                 .init(this);                        //初始化
     }

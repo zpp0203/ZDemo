@@ -2,7 +2,7 @@ package com.zpp.retrofit.load.upload;
 
 
 
-import com.zpp.RHttp;
+import com.zpp.RetrofitHttpUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -105,7 +105,7 @@ public class UploadRequestBody extends RequestBody {
                 }
                 //回调接口
                 if (progressCallback != null) {
-                    RHttp.Configure.get().getHandler().post(new Runnable() {
+                    RetrofitHttpUtils.Configure.get().getHandler().post(new Runnable() {
                         @Override
                         public void run() {
                             float progress = (float) writtenBytesCount / (float) totalBytesCount;

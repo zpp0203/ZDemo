@@ -30,7 +30,7 @@ import retrofit2.http.Url;
  *
  * @author ZhongDaFeng
  */
-public interface Api {
+public interface RetrofitApi {
 
     /**
      * GET 请求
